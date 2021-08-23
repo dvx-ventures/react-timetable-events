@@ -66,8 +66,10 @@ export const EventPreviewJSX: React.FC<EventPreview> = ({
 }) => {
   return (
     <div {...defaultAttributes} style={{
+      color: 'black',
+      fontWeight: 'bolder',
       ...defaultAttributes.style,
-      background: event.type === "error" ? "#720000" : "#66B266",
+      background: event.type === "COMPLETE" ? "#720000" : event.type === "CANCELLED" ? "#66B266" : '#fdd835',
     }} title={event.name} key={event.id}>
       {differenceInMinutes(event.endTime, event.startTime) < 30 ? <span className={classNames.event_info}>{event.name} - ({format (event.startTime, 'hh:mm')})</span> : 
       <>
@@ -168,7 +170,8 @@ export const TimeTableJSX = ({
       <div className={classNames.day}>
         <div
           className={classNames.day_title}
-          style={{ height: `${rowHeight}vh` }}
+          style={{ height: `${rowHeight - 1}vh` }}
+          {...console.log(rowHeight)}
         >
           {timeLabel}
         </div>

@@ -3757,7 +3757,7 @@ var HourPreviewJSX = function (_a) {
 };
 var EventPreviewJSX = function (_a) {
     var event = _a.event, defaultAttributes = _a.defaultAttributes, classNames = _a.classNames;
-    return (createElement("div", __assign({}, defaultAttributes, { style: __assign(__assign({}, defaultAttributes.style), { background: event.type === "error" ? "#720000" : "#66B266" }), title: event.name, key: event.id }), differenceInMinutes(event.endTime, event.startTime) < 30 ? jsxs("span", __assign({ className: classNames.event_info }, { children: [event.name, " - (", format(event.startTime, 'hh:mm'), ")"] }), void 0) :
+    return (createElement("div", __assign({}, defaultAttributes, { style: __assign(__assign({ color: 'black', fontWeight: 'bolder' }, defaultAttributes.style), { background: event.type === "COMPLETE" ? "#720000" : event.type === "CANCELLED" ? "#66B266" : '#fdd835' }), title: event.name, key: event.id }), differenceInMinutes(event.endTime, event.startTime) < 30 ? jsxs("span", __assign({ className: classNames.event_info }, { children: [event.name, " - (", format(event.startTime, 'hh:mm'), ")"] }), void 0) :
         jsxs(Fragment, { children: [jsx("span", __assign({ className: classNames.event_info }, { children: event.name }), void 0), jsx("span", __assign({ className: classNames.event_info }, { children: event.city }), void 0), jsxs("span", __assign({ className: classNames.event_info }, { children: [format(event.startTime, "hh:mm"), " - ", format(event.endTime, "hh:mm")] }), void 0)] }, void 0)));
 };
 var EventsListJSX = function (_a) {
@@ -3805,7 +3805,7 @@ var TimeTableJSX = function (_a) {
     React.useEffect(function () {
         setRowHeight(getRowHeight(hoursInterval.from, hoursInterval.to));
     }, [hoursInterval]);
-    return (jsxs("div", __assign({ className: classNames.time_table_wrapper }, { children: [jsxs("div", __assign({ className: classNames.day }, { children: [jsx("div", __assign({ className: classNames.day_title, style: { height: rowHeight + "vh" } }, { children: timeLabel }), void 0), HoursListJSX({ hoursInterval: hoursInterval, renderHour: renderHour, rowHeight: rowHeight })] }), void 0), Object.keys(events).map(function (day, index) {
+    return (jsxs("div", __assign({ className: classNames.time_table_wrapper }, { children: [jsxs("div", __assign({ className: classNames.day }, { children: [jsx("div", __assign({ className: classNames.day_title, style: { height: rowHeight - 1 + "vh" } }, console.log(rowHeight), { children: timeLabel }), void 0), HoursListJSX({ hoursInterval: hoursInterval, renderHour: renderHour, rowHeight: rowHeight })] }), void 0), Object.keys(events).map(function (day, index) {
                 return DayColumnPreviewJSX({
                     events: events,
                     day: day,

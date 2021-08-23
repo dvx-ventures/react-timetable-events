@@ -46,8 +46,6 @@ const getEventPositionStyles = ({
   );
   
   let minutes = round(differenceInMinutes(event.endTime, event.startTime));
-  console.log(minutes)
-  console.log(minutesFromStartOfDay)
   return {
     height: (minutes * rowHeight) / 60 + "vh",
     marginTop: (minutesFromStartOfDay * rowHeight) / 60 + "vh",
@@ -68,10 +66,14 @@ export const EventPreviewJSX: React.FC<EventPreview> = ({
 }) => {
   return (
     <div {...defaultAttributes} title={event.name} key={event.id}>
-      <span className={classNames.event_info}>{event.name}</span>
+      {differenceInMinutes(event.endTime, event.startTime) < 30 ? <span className={classNames.event_info}>{event.name}({format (event.startTime, 'hh:mm')})</span> : 
+      <>
+      <span className={classNames.event_info}>{event.name}({format (event.startTime, 'hh:mm')})</span>
       <span className={classNames.event_info}>
-        {format(event.startTime, "HH:mm")} - {format(event.endTime, "HH:mm")}
+        {format(event.startTime, "hh:mm")} - {format(event.endTime, "hh:mm")}
       </span>
+      </>
+}
     </div>
   );
 };
@@ -132,7 +134,7 @@ export const HoursListJSX = ({
 }: HoursList) => {
   return range(hoursInterval.from, hoursInterval.to).map((hour) =>
     renderHour({
-      hour: `${hour}:00`,
+      hour: `${hour > 12 ? hour - 12 : hour}:00`,
       defaultAttributes: {
         className: classNames.hour,
         style: { height: `${rowHeight}vh` },

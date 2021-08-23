@@ -54,7 +54,7 @@ Primary.args = {
         name: "Custom Event 1",
         type: "error",
         startTime: new Date("2018-02-23T11:30:00"),
-        endTime: new Date("2018-02-23T13:30:00")
+        endTime: new Date("2018-02-23T11:50:00")
       },
     ],
     tuesday: [
@@ -76,8 +76,14 @@ Primary.args = {
     wednesday: [],
     thursday: [],
     friday: [],
+    12: [],
+    13: [],
+    14: [],
+    15: [],
+    16: [],
+    17: [],
   },
-  hoursInterval: { from: 7, to: 24 },
+  hoursInterval: { from: 6, to: 19 },
   timeLabel: "Time",
   getDayLabel: (day: string) => day.slice(0, 3),
 };
@@ -108,7 +114,7 @@ const EventPreviewJSX = ({
     >
       <span className={classNames.event_info}>[ {event.name} ]</span>
       <span className={classNames.event_info}>
-        {format(event.startTime, "HH:mm")} - {format(event.endTime, "HH:mm")}
+        {format(event.startTime, "hh:mm")} - {format(event.endTime, "hh:mm")}
       </span>
     </div>
   );

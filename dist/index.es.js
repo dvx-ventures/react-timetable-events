@@ -1,4 +1,4 @@
-import { jsx, jsxs } from 'react/jsx-runtime';
+import { jsxs, Fragment, jsx } from 'react/jsx-runtime';
 import * as React from 'react';
 import { createElement } from 'react';
 import PropTypes from 'prop-types';
@@ -3746,8 +3746,6 @@ var getEventPositionStyles = function (_a) {
     var startOfDay = setMinutes(setHours(event.startTime, hoursInterval.from), 0);
     var minutesFromStartOfDay = round_1(differenceInMinutes(event.startTime, startOfDay));
     var minutes = round_1(differenceInMinutes(event.endTime, event.startTime));
-    console.log(minutes);
-    console.log(minutesFromStartOfDay);
     return {
         height: (minutes * rowHeight) / 60 + "vh",
         marginTop: (minutesFromStartOfDay * rowHeight) / 60 + "vh",
@@ -3759,9 +3757,8 @@ var HourPreviewJSX = function (_a) {
 };
 var EventPreviewJSX = function (_a) {
     var event = _a.event, defaultAttributes = _a.defaultAttributes, classNames = _a.classNames;
-    return (createElement("div", __assign({}, defaultAttributes, { title: event.name, key: event.id }),
-        jsx("span", __assign({ className: classNames.event_info }, { children: event.name }), void 0),
-        jsxs("span", __assign({ className: classNames.event_info }, { children: [format(event.startTime, "HH:mm"), " - ", format(event.endTime, "HH:mm")] }), void 0)));
+    return (createElement("div", __assign({}, defaultAttributes, { title: event.name, key: event.id }), differenceInMinutes(event.endTime, event.startTime) < 30 ? jsxs("span", __assign({ className: classNames.event_info }, { children: [event.name, "(", format(event.startTime, 'hh:mm'), ")"] }), void 0) :
+        jsxs(Fragment, { children: [jsxs("span", __assign({ className: classNames.event_info }, { children: [event.name, "(", format(event.startTime, 'hh:mm'), ")"] }), void 0), jsxs("span", __assign({ className: classNames.event_info }, { children: [format(event.startTime, "hh:mm"), " - ", format(event.endTime, "hh:mm")] }), void 0)] }, void 0)));
 };
 var EventsListJSX = function (_a) {
     var events = _a.events, day = _a.day, hoursInterval = _a.hoursInterval, rowHeight = _a.rowHeight, renderEvent = _a.renderEvent;
@@ -3793,7 +3790,7 @@ var HoursListJSX = function (_a) {
     var hoursInterval = _a.hoursInterval, rowHeight = _a.rowHeight, renderHour = _a.renderHour;
     return range_1(hoursInterval.from, hoursInterval.to).map(function (hour) {
         return renderHour({
-            hour: hour + ":00",
+            hour: (hour > 12 ? hour - 12 : hour) + ":00",
             defaultAttributes: {
                 className: classNames.hour,
                 style: { height: rowHeight + "vh" },
@@ -3839,4 +3836,5 @@ TimeTableJSX.defaultProps = {
     getDayLabel: getDefaultDayLabel,
 };
 
+export default TimeTableJSX;
 export { EventPreviewJSX, EventsListJSX, HourPreviewJSX, HoursListJSX, TimeTableJSX, getDefaultDayLabel };

@@ -30,4 +30,4 @@ export declare const TimeTableJSX: {
         getDayLabel: (day: string) => string;
     };
 };
-export default TimeTable;
+export default TimeTableJSX;

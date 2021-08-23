@@ -67,14 +67,16 @@ export const EventPreviewJSX: React.FC<EventPreview> = ({
   return (
     <div {...defaultAttributes} style={{
       color: 'black',
+      borderRadius: '7px',
       fontWeight: 'bolder',
       ...defaultAttributes.style,
-      background: event.type === "COMPLETE" ? "#66B266" : event.type === "CANCELLED" ? "#720000" : 'ff0000',
+      background: event.type === "COMPLETE" ? "#66B266" : event.type === "CANCELLED" ? "#FF0000" : 'GOLD',
     }} title={event.name} key={event.id}>
-      {differenceInMinutes(event.endTime, event.startTime) < 30 ? <span className={classNames.event_info}>{event.name} - ({format (event.startTime, 'hh:mm')})</span> : 
+      {differenceInMinutes(event.endTime, event.startTime) < 30 ? <span className={classNames.event_info}>{event.name} ({format(event.startTime, 'hh:mm')})</span> :
       <>
       <span className={classNames.event_info}>{event.name}</span>
-      <span className={classNames.event_info}>{event.city}</span>      
+      {differenceInMinutes(event.endTime, event.startTime) >= 60 ? <span className={classNames.event_info}>{event.vehicle}</span> : ''}
+      <span className={classNames.event_info}>{event.city}</span>       
       <span className={classNames.event_info}>
         {format(event.startTime, "hh:mm")} - {format(event.endTime, "hh:mm")}
       </span>
@@ -170,7 +172,7 @@ export const TimeTableJSX = ({
       <div className={classNames.day}>
         <div
           className={classNames.day_title}
-          style={{ height: `${rowHeight - 1}vh` }}
+          style={{ height: `${rowHeight}vh` }}
           {...console.log(rowHeight)}
         >
           {timeLabel}

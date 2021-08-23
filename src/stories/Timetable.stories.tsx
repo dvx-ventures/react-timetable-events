@@ -51,29 +51,32 @@ Primary.args = {
     monday: [
       {
         id: 1,
-        name: "Custom Event 1",
-        type: "error",
+        name: "Paul Fulwyler",
+        type: "COMPLETE",
         startTime: new Date("2018-02-23T11:30:00"),
         endTime: new Date("2018-02-23T11:50:00"),
-        city: ''
+        city: 'San Francisco',
+        vehicle: 'something'
       },
     ],
     tuesday: [
       {
         id: 2,
-        name: "Custom Event 2",
-        type: "custom",
+        name: "Paul Fulwyler",
+        type: "SCHEDULED",
         startTime: new Date("2018-02-22T12:30:00"),
-        endTime: new Date("2018-02-22T14:30:00"),
-        city: ''
+        endTime: new Date("2018-02-22T13:30:00"),
+        city: 'San Francisco',
+        vehicle: '2007 Toyota Camry'
       },
       {
         id: 3,
-        name: "Custom Event 3",
-        type: "custom",
+        name: "Paul Fulwyler",
+        type: "CANCELLED",
         startTime: new Date("2018-02-22T16:30:00"),
         endTime: new Date("2018-02-22T18:45:00"),
-        city: ''
+        city: 'San Francisco',
+        vehicle: '2007 Toyota Camry'
       },
     ],
     wednesday: [],

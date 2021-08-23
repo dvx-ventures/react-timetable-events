@@ -28,6 +28,7 @@ export interface Event {
     startTime: Date;
     endTime: Date;
     city: string;
+    vehicle: string;
     type?: string;
     [key: string]: unknown;
 }

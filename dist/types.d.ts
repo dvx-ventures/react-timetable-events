@@ -23,6 +23,7 @@ export interface Event {
     name: string;
     startTime: Date;
     endTime: Date;
+    city: string;
     type?: string;
     [key: string]: unknown;
 }

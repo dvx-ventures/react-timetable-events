@@ -54,7 +54,8 @@ Primary.args = {
         name: "Custom Event 1",
         type: "error",
         startTime: new Date("2018-02-23T11:30:00"),
-        endTime: new Date("2018-02-23T11:50:00")
+        endTime: new Date("2018-02-23T11:50:00"),
+        city: ''
       },
     ],
     tuesday: [
@@ -63,14 +64,16 @@ Primary.args = {
         name: "Custom Event 2",
         type: "custom",
         startTime: new Date("2018-02-22T12:30:00"),
-        endTime: new Date("2018-02-22T14:30:00")
+        endTime: new Date("2018-02-22T14:30:00"),
+        city: ''
       },
       {
         id: 3,
         name: "Custom Event 3",
         type: "custom",
         startTime: new Date("2018-02-22T16:30:00"),
-        endTime: new Date("2018-02-22T18:45:00")
+        endTime: new Date("2018-02-22T18:45:00"),
+        city: ''
       },
     ],
     wednesday: [],

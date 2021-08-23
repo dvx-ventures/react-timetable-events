@@ -3758,7 +3758,7 @@ var HourPreviewJSX = function (_a) {
 var EventPreviewJSX = function (_a) {
     var event = _a.event, defaultAttributes = _a.defaultAttributes, classNames = _a.classNames;
     return (createElement("div", __assign({}, defaultAttributes, { title: event.name, key: event.id }), differenceInMinutes(event.endTime, event.startTime) < 30 ? jsxs("span", __assign({ className: classNames.event_info }, { children: [event.name, " - (", format(event.startTime, 'hh:mm'), ")"] }), void 0) :
-        jsxs(Fragment, { children: [jsx("span", __assign({ className: classNames.event_info }, { children: event.name }), void 0), jsxs("span", __assign({ className: classNames.event_info }, { children: [format(event.startTime, "hh:mm"), " - ", format(event.endTime, "hh:mm")] }), void 0)] }, void 0)));
+        jsxs(Fragment, { children: [jsx("span", __assign({ className: classNames.event_info }, { children: event.name }), void 0), jsx("span", __assign({ className: classNames.event_info }, { children: event.city }), void 0), jsxs("span", __assign({ className: classNames.event_info }, { children: [format(event.startTime, "hh:mm"), " - ", format(event.endTime, "hh:mm")] }), void 0)] }, void 0)));
 };
 var EventsListJSX = function (_a) {
     var events = _a.events, day = _a.day, hoursInterval = _a.hoursInterval, rowHeight = _a.rowHeight, renderEvent = _a.renderEvent;

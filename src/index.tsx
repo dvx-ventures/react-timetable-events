@@ -69,7 +69,7 @@ export const EventPreviewJSX: React.FC<EventPreview> = ({
       color: 'black',
       fontWeight: 'bolder',
       ...defaultAttributes.style,
-      background: event.type === "COMPLETE" ? "#720000" : event.type === "CANCELLED" ? "#66B266" : '#fdd835',
+      background: event.type === "COMPLETE" ? "#66B266" : event.type === "CANCELLED" ? "#720000" : 'ff0000',
     }} title={event.name} key={event.id}>
       {differenceInMinutes(event.endTime, event.startTime) < 30 ? <span className={classNames.event_info}>{event.name} - ({format (event.startTime, 'hh:mm')})</span> : 
       <>

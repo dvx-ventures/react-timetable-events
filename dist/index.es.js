@@ -3757,7 +3757,7 @@ var HourPreviewJSX = function (_a) {
 };
 var EventPreviewJSX = function (_a) {
     var event = _a.event, defaultAttributes = _a.defaultAttributes, classNames = _a.classNames;
-    return (createElement("div", __assign({}, defaultAttributes, { style: __assign(__assign({ color: 'black', fontWeight: 'bolder' }, defaultAttributes.style), { background: event.type === "COMPLETE" ? "#720000" : event.type === "CANCELLED" ? "#66B266" : '#fdd835' }), title: event.name, key: event.id }), differenceInMinutes(event.endTime, event.startTime) < 30 ? jsxs("span", __assign({ className: classNames.event_info }, { children: [event.name, " - (", format(event.startTime, 'hh:mm'), ")"] }), void 0) :
+    return (createElement("div", __assign({}, defaultAttributes, { style: __assign(__assign({ color: 'black', fontWeight: 'bolder' }, defaultAttributes.style), { background: event.type === "COMPLETE" ? "#66B266" : event.type === "CANCELLED" ? "#720000" : 'ff0000' }), title: event.name, key: event.id }), differenceInMinutes(event.endTime, event.startTime) < 30 ? jsxs("span", __assign({ className: classNames.event_info }, { children: [event.name, " - (", format(event.startTime, 'hh:mm'), ")"] }), void 0) :
         jsxs(Fragment, { children: [jsx("span", __assign({ className: classNames.event_info }, { children: event.name }), void 0), jsx("span", __assign({ className: classNames.event_info }, { children: event.city }), void 0), jsxs("span", __assign({ className: classNames.event_info }, { children: [format(event.startTime, "hh:mm"), " - ", format(event.endTime, "hh:mm")] }), void 0)] }, void 0)));
 };
 var EventsListJSX = function (_a) {

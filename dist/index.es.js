@@ -3641,7 +3641,6 @@ var haveOverlap = function (a, b) { return (getTime(b.startTime) <= getTime(a.en
     (getTime(b.endTime) <= getTime(a.startTime) &&
         getTime(b.startTime) > getTime(a.endTime)); };
 var countOverlaps = function (event) { return function (childAcc, comparitorEvent) {
-    console.log(event.startTime, comparitorEvent.startTime);
     if (haveOverlap(event, comparitorEvent))
         childAcc++;
     return childAcc;
@@ -3722,8 +3721,8 @@ var HourPreviewJSX = function (_a) {
 };
 var EventPreviewJSX = function (_a) {
     var event = _a.event, defaultAttributes = _a.defaultAttributes, classNames = _a.classNames;
-    return (createElement("div", __assign({}, defaultAttributes, { style: __assign(__assign({}, defaultAttributes.style), { background: event.type === "COMPLETE" ? "#66B266" : event.type === "CANCELLED" ? "#FF0000" : 'GOLD' }), title: event.name, key: event.id }), differenceInMinutes(event.endTime, event.startTime) < 30 ? jsxs("span", __assign({ className: classNames.event_info }, { children: [event.name, " (", format(event.startTime, 'hh:mm'), ")"] }), void 0) :
-        jsxs(Fragment, { children: [jsx("span", __assign({ className: classNames.event_info }, { children: event.name }), void 0), differenceInMinutes(event.endTime, event.startTime) >= 60 ? jsx("span", __assign({ className: classNames.event_info }, { children: event.vehicle }), void 0) : '', jsx("span", __assign({ className: classNames.event_info }, { children: event.city }), void 0), jsxs("span", __assign({ className: classNames.event_info }, { children: [format(event.startTime, "hh:mm"), " - ", format(event.endTime, "hh:mm")] }), void 0)] }, void 0)));
+    return (createElement("div", __assign({}, defaultAttributes, { style: __assign(__assign({}, defaultAttributes.style), { background: event.type === "COMPLETE" ? "#66B266" : event.type === "CANCELLED" ? "#FF0000" : 'GOLD' }), title: event.name, key: event.id }),
+        jsxs(Fragment, { children: [jsx("span", __assign({ className: classNames.event_info }, { children: event.name }), void 0), differenceInMinutes(event.endTime, event.startTime) > 30 ? jsx("span", __assign({ className: classNames.event_info }, { children: event.vehicle }), void 0) : '', jsx("span", __assign({ className: classNames.event_info }, { children: event.city }), void 0), jsxs("span", __assign({ className: classNames.event_info }, { children: [format(event.startTime, "hh:mm"), " - ", format(event.endTime, "hh:mm")] }), void 0)] }, void 0)));
 };
 var renderEventsListItem = function (_a) {
     var events = _a.events, renderEvent = _a.renderEvent, hoursInterval = _a.hoursInterval, rowHeight = _a.rowHeight, day = _a.day;

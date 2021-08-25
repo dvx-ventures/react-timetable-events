@@ -36,16 +36,14 @@ export const EventPreviewJSX: React.FC<EventPreview> = ({
       ...defaultAttributes.style,
       background: event.type === "COMPLETE" ? "#66B266" : event.type === "CANCELLED" ? "#FF0000" : 'GOLD',
     }} title={event.name} key={event.id}>
-      {differenceInMinutes(event.endTime, event.startTime) < 30 ? <span className={classNames.event_info}>{event.name} ({format(event.startTime, 'hh:mm')})</span> :
         <>
           <span className={classNames.event_info}>{event.name}</span>
-          {differenceInMinutes(event.endTime, event.startTime) >= 60 ? <span className={classNames.event_info}>{event.vehicle}</span> : ''}
+          {differenceInMinutes(event.endTime, event.startTime) > 30 ? <span className={classNames.event_info}>{event.vehicle}</span> : ''}
           <span className={classNames.event_info}>{event.city}</span>
           <span className={classNames.event_info}>
             {format(event.startTime, "hh:mm")} - {format(event.endTime, "hh:mm")}
           </span>
         </>
-      }
     </div>
   );
 };

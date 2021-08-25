@@ -18,7 +18,6 @@ export const haveOverlap = (a: Event, b: Event) => (getTime(b.startTime) <= getT
   
 
 export const countOverlaps = (event: Event) => (childAcc: number, comparitorEvent: Event) => {
-    console.log(event.startTime, comparitorEvent.startTime)
   if (haveOverlap(event, comparitorEvent)) childAcc++;
   return childAcc;
 };

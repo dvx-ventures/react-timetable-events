@@ -12,17 +12,17 @@ import {
 export const getTime = (date: Date) => date.getTime();
 
 export const haveOverlap = (a: Event, b: Event) =>
-  (getTime(b.startTime) <= getTime(a.endTime) &&
-    getTime(b.endTime) > getTime(a.startTime)) ||
-  (getTime(b.endTime) <= getTime(a.startTime) &&
-    getTime(b.startTime) > getTime(a.endTime));
+  (getTime(new Date(b.startTime)) <= getTime(new Date(a.endTime)) &&
+    getTime(new Date(b.endTime)) > getTime(new Date(a.startTime))) ||
+  (getTime(new Date(b.endTime)) <= getTime(new Date(a.startTime)) &&
+    getTime(new Date(b.startTime)) > getTime(new Date(a.endTime)));
 
 export const countOverlaps = (event: Event) => (childAcc: number, comparitorEvent: Event) => {
   if (haveOverlap(event, comparitorEvent)) childAcc++;
   return childAcc;
 };
 
-export const sortEvents = (events: Event[]) => events.sort((a, b) => getTime(a.startTime) - getTime(b.startTime))
+export const sortEvents = (events: Event[]) => events.sort((a, b) => getTime(new Date(new Date(a.startTime))) - getTime(new Date(new Date(b.startTime))))
 
 export const getOverlaps = (events: Event[]) => {
   let groupIndex = 0;
@@ -68,7 +68,6 @@ export const getRowHeight = (from: number, to: number) => {
     );
   
     let minutes = round(differenceInMinutes(event.endTime, event.startTime));
-    console.log(((minutesFromStartOfDay * rowHeight) / 60) / 100 + "%")
     return {
       height: (minutes * rowHeight) / 60 + "%",
       marginTop: ((minutesFromStartOfDay * rowHeight) / 60) / 100 * 1500 + "px",

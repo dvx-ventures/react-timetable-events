@@ -3665,17 +3665,17 @@ function setMinutes(dirtyDate, dirtyMinutes) {
 
 var getTime = function (date) { return date.getTime(); };
 var haveOverlap = function (a, b) {
-    return (getTime(b.startTime) <= getTime(a.endTime) &&
-        getTime(b.endTime) > getTime(a.startTime)) ||
-        (getTime(b.endTime) <= getTime(a.startTime) &&
-            getTime(b.startTime) > getTime(a.endTime));
+    return (getTime(new Date(b.startTime)) <= getTime(new Date(a.endTime)) &&
+        getTime(new Date(b.endTime)) > getTime(new Date(a.startTime))) ||
+        (getTime(new Date(b.endTime)) <= getTime(new Date(a.startTime)) &&
+            getTime(new Date(b.startTime)) > getTime(new Date(a.endTime)));
 };
 var countOverlaps = function (event) { return function (childAcc, comparitorEvent) {
     if (haveOverlap(event, comparitorEvent))
         childAcc++;
     return childAcc;
 }; };
-var sortEvents = function (events) { return events.sort(function (a, b) { return getTime(a.startTime) - getTime(b.startTime); }); };
+var sortEvents = function (events) { return events.sort(function (a, b) { return getTime(new Date(new Date(a.startTime))) - getTime(new Date(new Date(b.startTime))); }); };
 var getOverlaps = function (events) {
     var groupIndex = 0;
     return events.reduce(function (acc, event) {
@@ -3706,7 +3706,6 @@ var getEventPositionStyles = function (_a) {
     var startOfDay = setMinutes(setHours(event.startTime, hoursInterval.from), 0);
     var minutesFromStartOfDay = round(differenceInMinutes(event.startTime, startOfDay));
     var minutes = round(differenceInMinutes(event.endTime, event.startTime));
-    console.log(((minutesFromStartOfDay * rowHeight) / 60) / 100 + "%");
     return {
         height: (minutes * rowHeight) / 60 + "%",
         marginTop: ((minutesFromStartOfDay * rowHeight) / 60) / 100 * 1500 + "px",

@@ -85,6 +85,51 @@ Primary.args = {
         city: 'San Francisco',
         vehicle: 'something'
       },
+      {
+        id: "apt_HOeKoPxLTDeckDdcKVCttQ",
+        name: "Peter Chapman",
+        startTime: new Date("2021-08-25T15:30:00.000Z"),
+        endTime: new Date("2021-08-25T16:00:00.000Z"),
+        city: "Cupertino",
+        type: "SCHEDULED",
+        vehicle: "2007 Lamborghini Murcielago LP640"
+    },
+    {
+      id: "apt_HOeKoPxLTDeckDdcKVCttQ",
+      name: "Peter Chapman",
+      startTime: new Date("2021-08-25T15:30:00.000Z"),
+      endTime: new Date("2021-08-25T16:00:00.000Z"),
+      city: "Cupertino",
+      type: "SCHEDULED",
+      vehicle: "2007 Lamborghini Murcielago LP640"
+  },
+  {
+    id: "apt_HOeKoPxLTDeckDdcKVCttQ",
+    name: "Peter Chapman",
+    startTime: new Date("2021-08-25T15:30:00.000Z"),
+    endTime: new Date("2021-08-25T16:00:00.000Z"),
+    city: "Cupertino",
+    type: "SCHEDULED",
+    vehicle: "2007 Lamborghini Murcielago LP640"
+  },
+  {
+  id: "apt_HOeKoPxLTDeckDdcKVCttQ",
+  name: "Peter Chapman",
+  startTime: new Date("2021-08-25T15:30:00.000Z"),
+  endTime: new Date("2021-08-25T16:00:00.000Z"),
+  city: "Cupertino",
+  type: "SCHEDULED",
+  vehicle: "2007 Lamborghini Murcielago LP640"
+  },
+  {
+  id: "apt_HOeKoPxLTDeckDdcKVCttQ",
+  name: "Peter Chapman",
+  startTime: new Date("2021-08-25T15:30:00.000Z"),
+  endTime: new Date("2021-08-25T16:00:00.000Z"),
+  city: "Cupertino",
+  type: "SCHEDULED",
+  vehicle: "2007 Lamborghini Murcielago LP640"
+  },
     ],
     tuesday: [
       {
@@ -106,6 +151,7 @@ Primary.args = {
         vehicle: '2007 Toyota Camry'
       },
     ],
+    UNASSIGNED: [],
     wednesday: [],
     thursday: [],
     friday: [],

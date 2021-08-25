@@ -1,19 +1,16 @@
-import * as React from 'react'
-import { DEFAULT_HOURS_INTERVAL } from './constants'
-
+import * as React from 'react';
+import { DEFAULT_HOURS_INTERVAL } from './constants';
 export interface EventPreview {
     event: Event;
     defaultAttributes: React.HTMLAttributes<HTMLDivElement>;
     classNames: ClassNames;
 }
-
 export interface HourPreview {
     hour: string;
     defaultAttributes: React.HTMLAttributes<HTMLDivElement>;
     classNames?: ClassNames;
 }
-
-export type ClassNames = {
+export declare type ClassNames = {
     time_table_wrapper: string;
     day: string;
     day_title: string;
@@ -21,7 +18,6 @@ export type ClassNames = {
     event: string;
     event_info: string;
 };
-
 export interface Event {
     id: number | string;
     name: string;
@@ -32,11 +28,9 @@ export interface Event {
     type?: string;
     [key: string]: unknown;
 }
-
 export interface Events {
     [day: string]: Event[];
 }
-
 export interface TimeTable {
     events: Events;
     hoursInterval?: typeof DEFAULT_HOURS_INTERVAL;
@@ -45,7 +39,6 @@ export interface TimeTable {
     renderEvent?: React.FC<EventPreview>;
     renderHour?: React.FC<HourPreview>;
 }
-
 export interface EventsList {
     day: string;
     events: Events;
@@ -53,13 +46,11 @@ export interface EventsList {
     hoursInterval: typeof DEFAULT_HOURS_INTERVAL;
     rowHeight: number;
 }
-
 export interface HoursList {
     hoursInterval: typeof DEFAULT_HOURS_INTERVAL;
     rowHeight: number;
     renderHour: React.FC<HourPreview>;
 }
-
 export interface DayColumnPreview {
     events: Events;
     day: string;

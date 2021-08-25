@@ -1,4 +1,4 @@
-import { range } from "lodash";
+import { range } from "lodash-es";
 import PropTypes from "prop-types";
 import * as React from "react";
 import * as fromUtils from './utils'
@@ -125,7 +125,7 @@ export const HoursListJSX = ({
   rowHeight,
   renderHour,
 }: HoursList) => {
-  return range(hoursInterval.from, hoursInterval.to).map((hour) =>
+  return range(hoursInterval.from, hoursInterval.to).map((hour: number) =>
     renderHour({
       hour: `${hour > 12 ? hour - 12 : hour}:00`,
       defaultAttributes: {

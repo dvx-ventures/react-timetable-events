@@ -1,11 +1,13 @@
 import PropTypes from "prop-types";
 import * as React from "react";
 import type { EventPreview, HoursList, HourPreview, TimeTable, EventsList } from './types';
-export declare const getDefaultDayLabel: (day: string) => string;
 export declare const HourPreviewJSX: React.FC<HourPreview>;
 export declare const EventPreviewJSX: React.FC<EventPreview>;
-export declare const EventsListJSX: ({ events, day, hoursInterval, rowHeight, renderEvent, }: EventsList) => (React.ReactElement<any, any> | null)[];
-export declare const HoursListJSX: ({ hoursInterval, rowHeight, renderHour, }: HoursList) => (React.ReactElement<any, any> | null)[];
+/**
+ * A calendar timeslot on the item.
+ */
+export declare const EventsListJSX: ({ events, day, renderEvent, ...props }: EventsList) => (React.ReactElement<any, any> | null | undefined)[] | undefined;
+export declare const HoursListJSX: ({ hoursInterval, rowHeight, renderHour, }: HoursList) => any;
 export declare const TimeTableJSX: {
     ({ events, hoursInterval, timeLabel, getDayLabel, renderEvent, renderHour, }: TimeTable): JSX.Element;
     propTypes: {
@@ -27,7 +29,7 @@ export declare const TimeTableJSX: {
         timeLabel: string;
         renderHour: React.FC<HourPreview>;
         renderEvent: React.FC<EventPreview>;
-        getDayLabel: (day: string) => string;
+        getDayLabel: (day: string) => any;
     };
 };
 export default TimeTableJSX;

@@ -1,6 +1,6 @@
 import { Event} from './types'
 import { DEFAULT_HOURS_INTERVAL } from "./constants";
-import { range, round, upperCase, groupBy } from "lodash";
+import { round, upperCase } from "lodash-es";
 import {
     setHours,
     setMinutes,

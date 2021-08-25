@@ -29,92 +29,29 @@ var __assign = function() {
     return __assign.apply(this, arguments);
 };
 
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeCeil = Math.ceil,
-    nativeMax = Math.max;
-
-/**
- * The base implementation of `_.range` and `_.rangeRight` which doesn't
- * coerce arguments.
- *
- * @private
- * @param {number} start The start of the range.
- * @param {number} end The end of the range.
- * @param {number} step The value to increment or decrement by.
- * @param {boolean} [fromRight] Specify iterating from right to left.
- * @returns {Array} Returns the range of numbers.
- */
-function baseRange(start, end, step, fromRight) {
-  var index = -1,
-      length = nativeMax(nativeCeil((end - start) / (step || 1)), 0),
-      result = Array(length);
-
-  while (length--) {
-    result[fromRight ? length : ++index] = start;
-    start += step;
-  }
-  return result;
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
 }
-
-var _baseRange = baseRange;
-
-/**
- * Performs a
- * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
- * comparison between two values to determine if they are equivalent.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to compare.
- * @param {*} other The other value to compare.
- * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
- * @example
- *
- * var object = { 'a': 1 };
- * var other = { 'a': 1 };
- *
- * _.eq(object, object);
- * // => true
- *
- * _.eq(object, other);
- * // => false
- *
- * _.eq('a', 'a');
- * // => true
- *
- * _.eq('a', Object('a'));
- * // => false
- *
- * _.eq(NaN, NaN);
- * // => true
- */
-function eq(value, other) {
-  return value === other || (value !== value && other !== other);
-}
-
-var eq_1 = eq;
-
-var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
 /** Detect free variable `global` from Node.js. */
-var freeGlobal = typeof commonjsGlobal == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
-
-var _freeGlobal = freeGlobal;
+var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
 
 /** Detect free variable `self`. */
 var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
 
 /** Used as a reference to the global object. */
-var root = _freeGlobal || freeSelf || Function('return this')();
-
-var _root = root;
+var root = freeGlobal || freeSelf || Function('return this')();
 
 /** Built-in value references. */
-var Symbol = _root.Symbol;
-
-var _Symbol = Symbol;
+var Symbol = root.Symbol;
 
 /** Used for built-in method references. */
 var objectProto$1 = Object.prototype;
@@ -130,7 +67,7 @@ var hasOwnProperty = objectProto$1.hasOwnProperty;
 var nativeObjectToString$1 = objectProto$1.toString;
 
 /** Built-in value references. */
-var symToStringTag$1 = _Symbol ? _Symbol.toStringTag : undefined;
+var symToStringTag$1 = Symbol ? Symbol.toStringTag : undefined;
 
 /**
  * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
@@ -159,8 +96,6 @@ function getRawTag(value) {
   return result;
 }
 
-var _getRawTag = getRawTag;
-
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
 
@@ -182,14 +117,12 @@ function objectToString(value) {
   return nativeObjectToString.call(value);
 }
 
-var _objectToString = objectToString;
-
 /** `Object#toString` result references. */
 var nullTag = '[object Null]',
     undefinedTag = '[object Undefined]';
 
 /** Built-in value references. */
-var symToStringTag = _Symbol ? _Symbol.toStringTag : undefined;
+var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
 
 /**
  * The base implementation of `getTag` without fallbacks for buggy environments.
@@ -203,11 +136,172 @@ function baseGetTag(value) {
     return value === undefined ? undefinedTag : nullTag;
   }
   return (symToStringTag && symToStringTag in Object(value))
-    ? _getRawTag(value)
-    : _objectToString(value);
+    ? getRawTag(value)
+    : objectToString(value);
 }
 
-var _baseGetTag = baseGetTag;
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+function isObjectLike(value) {
+  return value != null && typeof value == 'object';
+}
+
+/** `Object#toString` result references. */
+var symbolTag = '[object Symbol]';
+
+/**
+ * Checks if `value` is classified as a `Symbol` primitive or object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+ * @example
+ *
+ * _.isSymbol(Symbol.iterator);
+ * // => true
+ *
+ * _.isSymbol('abc');
+ * // => false
+ */
+function isSymbol(value) {
+  return typeof value == 'symbol' ||
+    (isObjectLike(value) && baseGetTag(value) == symbolTag);
+}
+
+/**
+ * A specialized version of `_.map` for arrays without support for iteratee
+ * shorthands.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the new mapped array.
+ */
+function arrayMap(array, iteratee) {
+  var index = -1,
+      length = array == null ? 0 : array.length,
+      result = Array(length);
+
+  while (++index < length) {
+    result[index] = iteratee(array[index], index, array);
+  }
+  return result;
+}
+
+/**
+ * Checks if `value` is classified as an `Array` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+ * @example
+ *
+ * _.isArray([1, 2, 3]);
+ * // => true
+ *
+ * _.isArray(document.body.children);
+ * // => false
+ *
+ * _.isArray('abc');
+ * // => false
+ *
+ * _.isArray(_.noop);
+ * // => false
+ */
+var isArray = Array.isArray;
+
+/** Used as references for various `Number` constants. */
+var INFINITY$1 = 1 / 0;
+
+/** Used to convert symbols to primitives and strings. */
+var symbolProto = Symbol ? Symbol.prototype : undefined,
+    symbolToString = symbolProto ? symbolProto.toString : undefined;
+
+/**
+ * The base implementation of `_.toString` which doesn't convert nullish
+ * values to empty strings.
+ *
+ * @private
+ * @param {*} value The value to process.
+ * @returns {string} Returns the string.
+ */
+function baseToString(value) {
+  // Exit early for strings to avoid a performance hit in some environments.
+  if (typeof value == 'string') {
+    return value;
+  }
+  if (isArray(value)) {
+    // Recursively convert values (susceptible to call stack limits).
+    return arrayMap(value, baseToString) + '';
+  }
+  if (isSymbol(value)) {
+    return symbolToString ? symbolToString.call(value) : '';
+  }
+  var result = (value + '');
+  return (result == '0' && (1 / value) == -INFINITY$1) ? '-0' : result;
+}
+
+/** Used to match a single whitespace character. */
+var reWhitespace = /\s/;
+
+/**
+ * Used by `_.trim` and `_.trimEnd` to get the index of the last non-whitespace
+ * character of `string`.
+ *
+ * @private
+ * @param {string} string The string to inspect.
+ * @returns {number} Returns the index of the last non-whitespace character.
+ */
+function trimmedEndIndex(string) {
+  var index = string.length;
+
+  while (index-- && reWhitespace.test(string.charAt(index))) {}
+  return index;
+}
+
+/** Used to match leading whitespace. */
+var reTrimStart = /^\s+/;
+
+/**
+ * The base implementation of `_.trim`.
+ *
+ * @private
+ * @param {string} string The string to trim.
+ * @returns {string} Returns the trimmed string.
+ */
+function baseTrim(string) {
+  return string
+    ? string.slice(0, trimmedEndIndex(string) + 1).replace(reTrimStart, '')
+    : string;
+}
 
 /**
  * Checks if `value` is the
@@ -238,257 +332,6 @@ function isObject(value) {
   var type = typeof value;
   return value != null && (type == 'object' || type == 'function');
 }
-
-var isObject_1 = isObject;
-
-/** `Object#toString` result references. */
-var asyncTag = '[object AsyncFunction]',
-    funcTag = '[object Function]',
-    genTag = '[object GeneratorFunction]',
-    proxyTag = '[object Proxy]';
-
-/**
- * Checks if `value` is classified as a `Function` object.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a function, else `false`.
- * @example
- *
- * _.isFunction(_);
- * // => true
- *
- * _.isFunction(/abc/);
- * // => false
- */
-function isFunction(value) {
-  if (!isObject_1(value)) {
-    return false;
-  }
-  // The use of `Object#toString` avoids issues with the `typeof` operator
-  // in Safari 9 which returns 'object' for typed arrays and other constructors.
-  var tag = _baseGetTag(value);
-  return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
-}
-
-var isFunction_1 = isFunction;
-
-/** Used as references for various `Number` constants. */
-var MAX_SAFE_INTEGER$1 = 9007199254740991;
-
-/**
- * Checks if `value` is a valid array-like length.
- *
- * **Note:** This method is loosely based on
- * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
- * @example
- *
- * _.isLength(3);
- * // => true
- *
- * _.isLength(Number.MIN_VALUE);
- * // => false
- *
- * _.isLength(Infinity);
- * // => false
- *
- * _.isLength('3');
- * // => false
- */
-function isLength(value) {
-  return typeof value == 'number' &&
-    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER$1;
-}
-
-var isLength_1 = isLength;
-
-/**
- * Checks if `value` is array-like. A value is considered array-like if it's
- * not a function and has a `value.length` that's an integer greater than or
- * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
- * @example
- *
- * _.isArrayLike([1, 2, 3]);
- * // => true
- *
- * _.isArrayLike(document.body.children);
- * // => true
- *
- * _.isArrayLike('abc');
- * // => true
- *
- * _.isArrayLike(_.noop);
- * // => false
- */
-function isArrayLike(value) {
-  return value != null && isLength_1(value.length) && !isFunction_1(value);
-}
-
-var isArrayLike_1 = isArrayLike;
-
-/** Used as references for various `Number` constants. */
-var MAX_SAFE_INTEGER = 9007199254740991;
-
-/** Used to detect unsigned integer values. */
-var reIsUint = /^(?:0|[1-9]\d*)$/;
-
-/**
- * Checks if `value` is a valid array-like index.
- *
- * @private
- * @param {*} value The value to check.
- * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
- * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
- */
-function isIndex(value, length) {
-  var type = typeof value;
-  length = length == null ? MAX_SAFE_INTEGER : length;
-
-  return !!length &&
-    (type == 'number' ||
-      (type != 'symbol' && reIsUint.test(value))) &&
-        (value > -1 && value % 1 == 0 && value < length);
-}
-
-var _isIndex = isIndex;
-
-/**
- * Checks if the given arguments are from an iteratee call.
- *
- * @private
- * @param {*} value The potential iteratee value argument.
- * @param {*} index The potential iteratee index or key argument.
- * @param {*} object The potential iteratee object argument.
- * @returns {boolean} Returns `true` if the arguments are from an iteratee call,
- *  else `false`.
- */
-function isIterateeCall(value, index, object) {
-  if (!isObject_1(object)) {
-    return false;
-  }
-  var type = typeof index;
-  if (type == 'number'
-        ? (isArrayLike_1(object) && _isIndex(index, object.length))
-        : (type == 'string' && index in object)
-      ) {
-    return eq_1(object[index], value);
-  }
-  return false;
-}
-
-var _isIterateeCall = isIterateeCall;
-
-/** Used to match a single whitespace character. */
-var reWhitespace = /\s/;
-
-/**
- * Used by `_.trim` and `_.trimEnd` to get the index of the last non-whitespace
- * character of `string`.
- *
- * @private
- * @param {string} string The string to inspect.
- * @returns {number} Returns the index of the last non-whitespace character.
- */
-function trimmedEndIndex(string) {
-  var index = string.length;
-
-  while (index-- && reWhitespace.test(string.charAt(index))) {}
-  return index;
-}
-
-var _trimmedEndIndex = trimmedEndIndex;
-
-/** Used to match leading whitespace. */
-var reTrimStart = /^\s+/;
-
-/**
- * The base implementation of `_.trim`.
- *
- * @private
- * @param {string} string The string to trim.
- * @returns {string} Returns the trimmed string.
- */
-function baseTrim(string) {
-  return string
-    ? string.slice(0, _trimmedEndIndex(string) + 1).replace(reTrimStart, '')
-    : string;
-}
-
-var _baseTrim = baseTrim;
-
-/**
- * Checks if `value` is object-like. A value is object-like if it's not `null`
- * and has a `typeof` result of "object".
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
- * @example
- *
- * _.isObjectLike({});
- * // => true
- *
- * _.isObjectLike([1, 2, 3]);
- * // => true
- *
- * _.isObjectLike(_.noop);
- * // => false
- *
- * _.isObjectLike(null);
- * // => false
- */
-function isObjectLike(value) {
-  return value != null && typeof value == 'object';
-}
-
-var isObjectLike_1 = isObjectLike;
-
-/** `Object#toString` result references. */
-var symbolTag = '[object Symbol]';
-
-/**
- * Checks if `value` is classified as a `Symbol` primitive or object.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
- * @example
- *
- * _.isSymbol(Symbol.iterator);
- * // => true
- *
- * _.isSymbol('abc');
- * // => false
- */
-function isSymbol(value) {
-  return typeof value == 'symbol' ||
-    (isObjectLike_1(value) && _baseGetTag(value) == symbolTag);
-}
-
-var isSymbol_1 = isSymbol;
 
 /** Used as references for various `Number` constants. */
 var NAN = 0 / 0;
@@ -532,27 +375,25 @@ function toNumber(value) {
   if (typeof value == 'number') {
     return value;
   }
-  if (isSymbol_1(value)) {
+  if (isSymbol(value)) {
     return NAN;
   }
-  if (isObject_1(value)) {
+  if (isObject(value)) {
     var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
-    value = isObject_1(other) ? (other + '') : other;
+    value = isObject(other) ? (other + '') : other;
   }
   if (typeof value != 'string') {
     return value === 0 ? value : +value;
   }
-  value = _baseTrim(value);
+  value = baseTrim(value);
   var isBinary = reIsBinary.test(value);
   return (isBinary || reIsOctal.test(value))
     ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
     : (reIsBadHex.test(value) ? NAN : +value);
 }
 
-var toNumber_1 = toNumber;
-
 /** Used as references for various `Number` constants. */
-var INFINITY$1 = 1 / 0,
+var INFINITY = 1 / 0,
     MAX_INTEGER = 1.7976931348623157e+308;
 
 /**
@@ -582,87 +423,13 @@ function toFinite(value) {
   if (!value) {
     return value === 0 ? value : 0;
   }
-  value = toNumber_1(value);
-  if (value === INFINITY$1 || value === -INFINITY$1) {
+  value = toNumber(value);
+  if (value === INFINITY || value === -INFINITY) {
     var sign = (value < 0 ? -1 : 1);
     return sign * MAX_INTEGER;
   }
   return value === value ? value : 0;
 }
-
-var toFinite_1 = toFinite;
-
-/**
- * Creates a `_.range` or `_.rangeRight` function.
- *
- * @private
- * @param {boolean} [fromRight] Specify iterating from right to left.
- * @returns {Function} Returns the new range function.
- */
-function createRange(fromRight) {
-  return function(start, end, step) {
-    if (step && typeof step != 'number' && _isIterateeCall(start, end, step)) {
-      end = step = undefined;
-    }
-    // Ensure the sign of `-0` is preserved.
-    start = toFinite_1(start);
-    if (end === undefined) {
-      end = start;
-      start = 0;
-    } else {
-      end = toFinite_1(end);
-    }
-    step = step === undefined ? (start < end ? 1 : -1) : toFinite_1(step);
-    return _baseRange(start, end, step, fromRight);
-  };
-}
-
-var _createRange = createRange;
-
-/**
- * Creates an array of numbers (positive and/or negative) progressing from
- * `start` up to, but not including, `end`. A step of `-1` is used if a negative
- * `start` is specified without an `end` or `step`. If `end` is not specified,
- * it's set to `start` with `start` then set to `0`.
- *
- * **Note:** JavaScript follows the IEEE-754 standard for resolving
- * floating-point values which can produce unexpected results.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Util
- * @param {number} [start=0] The start of the range.
- * @param {number} end The end of the range.
- * @param {number} [step=1] The value to increment or decrement by.
- * @returns {Array} Returns the range of numbers.
- * @see _.inRange, _.rangeRight
- * @example
- *
- * _.range(4);
- * // => [0, 1, 2, 3]
- *
- * _.range(-4);
- * // => [0, -1, -2, -3]
- *
- * _.range(1, 5);
- * // => [1, 2, 3, 4]
- *
- * _.range(0, 20, 5);
- * // => [0, 5, 10, 15]
- *
- * _.range(0, -4, -1);
- * // => [0, -1, -2, -3]
- *
- * _.range(1, 4, 0);
- * // => [1, 1, 1]
- *
- * _.range(0);
- * // => []
- */
-var range = _createRange();
-
-var range_1 = range;
 
 /**
  * Converts `value` to an integer.
@@ -691,95 +458,191 @@ var range_1 = range;
  * // => 3
  */
 function toInteger$1(value) {
-  var result = toFinite_1(value),
+  var result = toFinite(value),
       remainder = result % 1;
 
   return result === result ? (remainder ? result - remainder : result) : 0;
 }
 
-var toInteger_1 = toInteger$1;
+/** `Object#toString` result references. */
+var asyncTag = '[object AsyncFunction]',
+    funcTag = '[object Function]',
+    genTag = '[object GeneratorFunction]',
+    proxyTag = '[object Proxy]';
 
 /**
- * A specialized version of `_.map` for arrays without support for iteratee
- * shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns the new mapped array.
- */
-function arrayMap(array, iteratee) {
-  var index = -1,
-      length = array == null ? 0 : array.length,
-      result = Array(length);
-
-  while (++index < length) {
-    result[index] = iteratee(array[index], index, array);
-  }
-  return result;
-}
-
-var _arrayMap = arrayMap;
-
-/**
- * Checks if `value` is classified as an `Array` object.
+ * Checks if `value` is classified as a `Function` object.
  *
  * @static
  * @memberOf _
  * @since 0.1.0
  * @category Lang
  * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+ * @returns {boolean} Returns `true` if `value` is a function, else `false`.
  * @example
  *
- * _.isArray([1, 2, 3]);
+ * _.isFunction(_);
  * // => true
  *
- * _.isArray(document.body.children);
- * // => false
- *
- * _.isArray('abc');
- * // => false
- *
- * _.isArray(_.noop);
+ * _.isFunction(/abc/);
  * // => false
  */
-var isArray = Array.isArray;
-
-var isArray_1 = isArray;
-
-/** Used as references for various `Number` constants. */
-var INFINITY = 1 / 0;
-
-/** Used to convert symbols to primitives and strings. */
-var symbolProto = _Symbol ? _Symbol.prototype : undefined,
-    symbolToString = symbolProto ? symbolProto.toString : undefined;
-
-/**
- * The base implementation of `_.toString` which doesn't convert nullish
- * values to empty strings.
- *
- * @private
- * @param {*} value The value to process.
- * @returns {string} Returns the string.
- */
-function baseToString(value) {
-  // Exit early for strings to avoid a performance hit in some environments.
-  if (typeof value == 'string') {
-    return value;
+function isFunction(value) {
+  if (!isObject(value)) {
+    return false;
   }
-  if (isArray_1(value)) {
-    // Recursively convert values (susceptible to call stack limits).
-    return _arrayMap(value, baseToString) + '';
-  }
-  if (isSymbol_1(value)) {
-    return symbolToString ? symbolToString.call(value) : '';
-  }
-  var result = (value + '');
-  return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
+  // The use of `Object#toString` avoids issues with the `typeof` operator
+  // in Safari 9 which returns 'object' for typed arrays and other constructors.
+  var tag = baseGetTag(value);
+  return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
 }
 
-var _baseToString = baseToString;
+/** Used as references for various `Number` constants. */
+var MAX_SAFE_INTEGER$1 = 9007199254740991;
+
+/** Used to detect unsigned integer values. */
+var reIsUint = /^(?:0|[1-9]\d*)$/;
+
+/**
+ * Checks if `value` is a valid array-like index.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+ * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+ */
+function isIndex(value, length) {
+  var type = typeof value;
+  length = length == null ? MAX_SAFE_INTEGER$1 : length;
+
+  return !!length &&
+    (type == 'number' ||
+      (type != 'symbol' && reIsUint.test(value))) &&
+        (value > -1 && value % 1 == 0 && value < length);
+}
+
+/**
+ * Performs a
+ * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * comparison between two values to determine if they are equivalent.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ * var other = { 'a': 1 };
+ *
+ * _.eq(object, object);
+ * // => true
+ *
+ * _.eq(object, other);
+ * // => false
+ *
+ * _.eq('a', 'a');
+ * // => true
+ *
+ * _.eq('a', Object('a'));
+ * // => false
+ *
+ * _.eq(NaN, NaN);
+ * // => true
+ */
+function eq(value, other) {
+  return value === other || (value !== value && other !== other);
+}
+
+/** Used as references for various `Number` constants. */
+var MAX_SAFE_INTEGER = 9007199254740991;
+
+/**
+ * Checks if `value` is a valid array-like length.
+ *
+ * **Note:** This method is loosely based on
+ * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+ * @example
+ *
+ * _.isLength(3);
+ * // => true
+ *
+ * _.isLength(Number.MIN_VALUE);
+ * // => false
+ *
+ * _.isLength(Infinity);
+ * // => false
+ *
+ * _.isLength('3');
+ * // => false
+ */
+function isLength(value) {
+  return typeof value == 'number' &&
+    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+}
+
+/**
+ * Checks if `value` is array-like. A value is considered array-like if it's
+ * not a function and has a `value.length` that's an integer greater than or
+ * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+ * @example
+ *
+ * _.isArrayLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isArrayLike(document.body.children);
+ * // => true
+ *
+ * _.isArrayLike('abc');
+ * // => true
+ *
+ * _.isArrayLike(_.noop);
+ * // => false
+ */
+function isArrayLike(value) {
+  return value != null && isLength(value.length) && !isFunction(value);
+}
+
+/**
+ * Checks if the given arguments are from an iteratee call.
+ *
+ * @private
+ * @param {*} value The potential iteratee value argument.
+ * @param {*} index The potential iteratee index or key argument.
+ * @param {*} object The potential iteratee object argument.
+ * @returns {boolean} Returns `true` if the arguments are from an iteratee call,
+ *  else `false`.
+ */
+function isIterateeCall(value, index, object) {
+  if (!isObject(object)) {
+    return false;
+  }
+  var type = typeof index;
+  if (type == 'number'
+        ? (isArrayLike(object) && isIndex(index, object.length))
+        : (type == 'string' && index in object)
+      ) {
+    return eq(object[index], value);
+  }
+  return false;
+}
 
 /**
  * Converts `value` to a string. An empty string is returned for `null`
@@ -803,66 +666,8 @@ var _baseToString = baseToString;
  * // => '1,2,3'
  */
 function toString(value) {
-  return value == null ? '' : _baseToString(value);
+  return value == null ? '' : baseToString(value);
 }
-
-var toString_1 = toString;
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeIsFinite = _root.isFinite,
-    nativeMin = Math.min;
-
-/**
- * Creates a function like `_.round`.
- *
- * @private
- * @param {string} methodName The name of the `Math` method to use when rounding.
- * @returns {Function} Returns the new round function.
- */
-function createRound(methodName) {
-  var func = Math[methodName];
-  return function(number, precision) {
-    number = toNumber_1(number);
-    precision = precision == null ? 0 : nativeMin(toInteger_1(precision), 292);
-    if (precision && nativeIsFinite(number)) {
-      // Shift with exponential notation to avoid floating-point issues.
-      // See [MDN](https://mdn.io/round#Examples) for more details.
-      var pair = (toString_1(number) + 'e').split('e'),
-          value = func(pair[0] + 'e' + (+pair[1] + precision));
-
-      pair = (toString_1(value) + 'e').split('e');
-      return +(pair[0] + 'e' + (+pair[1] - precision));
-    }
-    return func(number);
-  };
-}
-
-var _createRound = createRound;
-
-/**
- * Computes `number` rounded to `precision`.
- *
- * @static
- * @memberOf _
- * @since 3.10.0
- * @category Math
- * @param {number} number The number to round.
- * @param {number} [precision=0] The precision to round to.
- * @returns {number} Returns the rounded number.
- * @example
- *
- * _.round(4.006);
- * // => 4
- *
- * _.round(4.006, 2);
- * // => 4.01
- *
- * _.round(4060, -2);
- * // => 4100
- */
-var round = _createRound('round');
-
-var round_1 = round;
 
 /**
  * A specialized version of `_.reduce` for arrays without support for
@@ -889,8 +694,6 @@ function arrayReduce(array, iteratee, accumulator, initAccum) {
   return accumulator;
 }
 
-var _arrayReduce = arrayReduce;
-
 /**
  * The base implementation of `_.propertyOf` without support for deep paths.
  *
@@ -903,8 +706,6 @@ function basePropertyOf(object) {
     return object == null ? undefined : object[key];
   };
 }
-
-var _basePropertyOf = basePropertyOf;
 
 /** Used to map Latin Unicode letters to basic Latin letters. */
 var deburredLetters = {
@@ -972,9 +773,7 @@ var deburredLetters = {
  * @param {string} letter The matched letter to deburr.
  * @returns {string} Returns the deburred letter.
  */
-var deburrLetter = _basePropertyOf(deburredLetters);
-
-var _deburrLetter = deburrLetter;
+var deburrLetter = basePropertyOf(deburredLetters);
 
 /** Used to match Latin Unicode letters (excluding mathematical operators). */
 var reLatin = /[\xc0-\xd6\xd8-\xf6\xf8-\xff\u0100-\u017f]/g;
@@ -1013,11 +812,9 @@ var reComboMark = RegExp(rsCombo$1, 'g');
  * // => 'deja vu'
  */
 function deburr(string) {
-  string = toString_1(string);
-  return string && string.replace(reLatin, _deburrLetter).replace(reComboMark, '');
+  string = toString(string);
+  return string && string.replace(reLatin, deburrLetter).replace(reComboMark, '');
 }
-
-var deburr_1 = deburr;
 
 /** Used to match words composed of alphanumeric characters. */
 var reAsciiWord = /[^\x00-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]+/g;
@@ -1033,8 +830,6 @@ function asciiWords(string) {
   return string.match(reAsciiWord) || [];
 }
 
-var _asciiWords = asciiWords;
-
 /** Used to detect strings that need a more robust regexp to match words. */
 var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
 
@@ -1048,8 +843,6 @@ var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a
 function hasUnicodeWord(string) {
   return reHasUnicodeWord.test(string);
 }
-
-var _hasUnicodeWord = hasUnicodeWord;
 
 /** Used to compose unicode character classes. */
 var rsAstralRange = '\\ud800-\\udfff',
@@ -1119,8 +912,6 @@ function unicodeWords(string) {
   return string.match(reUnicodeWord) || [];
 }
 
-var _unicodeWords = unicodeWords;
-
 /**
  * Splits `string` into an array of its words.
  *
@@ -1141,16 +932,14 @@ var _unicodeWords = unicodeWords;
  * // => ['fred', 'barney', '&', 'pebbles']
  */
 function words(string, pattern, guard) {
-  string = toString_1(string);
+  string = toString(string);
   pattern = guard ? undefined : pattern;
 
   if (pattern === undefined) {
-    return _hasUnicodeWord(string) ? _unicodeWords(string) : _asciiWords(string);
+    return hasUnicodeWord(string) ? unicodeWords(string) : asciiWords(string);
   }
   return string.match(pattern) || [];
 }
-
-var words_1 = words;
 
 /** Used to compose unicode capture groups. */
 var rsApos = "['\u2019]";
@@ -1167,11 +956,156 @@ var reApos = RegExp(rsApos, 'g');
  */
 function createCompounder(callback) {
   return function(string) {
-    return _arrayReduce(words_1(deburr_1(string).replace(reApos, '')), callback, '');
+    return arrayReduce(words(deburr(string).replace(reApos, '')), callback, '');
   };
 }
 
-var _createCompounder = createCompounder;
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeIsFinite = root.isFinite,
+    nativeMin = Math.min;
+
+/**
+ * Creates a function like `_.round`.
+ *
+ * @private
+ * @param {string} methodName The name of the `Math` method to use when rounding.
+ * @returns {Function} Returns the new round function.
+ */
+function createRound(methodName) {
+  var func = Math[methodName];
+  return function(number, precision) {
+    number = toNumber(number);
+    precision = precision == null ? 0 : nativeMin(toInteger$1(precision), 292);
+    if (precision && nativeIsFinite(number)) {
+      // Shift with exponential notation to avoid floating-point issues.
+      // See [MDN](https://mdn.io/round#Examples) for more details.
+      var pair = (toString(number) + 'e').split('e'),
+          value = func(pair[0] + 'e' + (+pair[1] + precision));
+
+      pair = (toString(value) + 'e').split('e');
+      return +(pair[0] + 'e' + (+pair[1] - precision));
+    }
+    return func(number);
+  };
+}
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeCeil = Math.ceil,
+    nativeMax = Math.max;
+
+/**
+ * The base implementation of `_.range` and `_.rangeRight` which doesn't
+ * coerce arguments.
+ *
+ * @private
+ * @param {number} start The start of the range.
+ * @param {number} end The end of the range.
+ * @param {number} step The value to increment or decrement by.
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {Array} Returns the range of numbers.
+ */
+function baseRange(start, end, step, fromRight) {
+  var index = -1,
+      length = nativeMax(nativeCeil((end - start) / (step || 1)), 0),
+      result = Array(length);
+
+  while (length--) {
+    result[fromRight ? length : ++index] = start;
+    start += step;
+  }
+  return result;
+}
+
+/**
+ * Creates a `_.range` or `_.rangeRight` function.
+ *
+ * @private
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {Function} Returns the new range function.
+ */
+function createRange(fromRight) {
+  return function(start, end, step) {
+    if (step && typeof step != 'number' && isIterateeCall(start, end, step)) {
+      end = step = undefined;
+    }
+    // Ensure the sign of `-0` is preserved.
+    start = toFinite(start);
+    if (end === undefined) {
+      end = start;
+      start = 0;
+    } else {
+      end = toFinite(end);
+    }
+    step = step === undefined ? (start < end ? 1 : -1) : toFinite(step);
+    return baseRange(start, end, step, fromRight);
+  };
+}
+
+/**
+ * Creates an array of numbers (positive and/or negative) progressing from
+ * `start` up to, but not including, `end`. A step of `-1` is used if a negative
+ * `start` is specified without an `end` or `step`. If `end` is not specified,
+ * it's set to `start` with `start` then set to `0`.
+ *
+ * **Note:** JavaScript follows the IEEE-754 standard for resolving
+ * floating-point values which can produce unexpected results.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Util
+ * @param {number} [start=0] The start of the range.
+ * @param {number} end The end of the range.
+ * @param {number} [step=1] The value to increment or decrement by.
+ * @returns {Array} Returns the range of numbers.
+ * @see _.inRange, _.rangeRight
+ * @example
+ *
+ * _.range(4);
+ * // => [0, 1, 2, 3]
+ *
+ * _.range(-4);
+ * // => [0, -1, -2, -3]
+ *
+ * _.range(1, 5);
+ * // => [1, 2, 3, 4]
+ *
+ * _.range(0, 20, 5);
+ * // => [0, 5, 10, 15]
+ *
+ * _.range(0, -4, -1);
+ * // => [0, -1, -2, -3]
+ *
+ * _.range(1, 4, 0);
+ * // => [1, 1, 1]
+ *
+ * _.range(0);
+ * // => []
+ */
+var range = createRange();
+
+/**
+ * Computes `number` rounded to `precision`.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.10.0
+ * @category Math
+ * @param {number} number The number to round.
+ * @param {number} [precision=0] The precision to round to.
+ * @returns {number} Returns the rounded number.
+ * @example
+ *
+ * _.round(4.006);
+ * // => 4
+ *
+ * _.round(4.006, 2);
+ * // => 4.01
+ *
+ * _.round(4060, -2);
+ * // => 4100
+ */
+var round = createRound('round');
 
 /**
  * Converts `string`, as space separated words, to upper case.
@@ -1193,11 +1127,9 @@ var _createCompounder = createCompounder;
  * _.upperCase('__foo_bar__');
  * // => 'FOO BAR'
  */
-var upperCase = _createCompounder(function(result, word, index) {
+var upperCase = createCompounder(function(result, word, index) {
   return result + (index ? ' ' : '') + word.toUpperCase();
 });
-
-var upperCase_1 = upperCase;
 
 function toInteger(dirtyNumber) {
   if (dirtyNumber === null || dirtyNumber === true || dirtyNumber === false) {
@@ -3703,6 +3635,56 @@ function setMinutes(dirtyDate, dirtyMinutes) {
   return date;
 }
 
+var getTime = function (date) { return date.getTime(); };
+var haveOverlap = function (a, b) {
+    return (getTime(b.startTime) <= getTime(a.endTime) &&
+        getTime(b.endTime) > getTime(a.startTime)) ||
+        (getTime(b.endTime) <= getTime(a.startTime) &&
+            getTime(b.startTime) > getTime(a.endTime));
+};
+var countOverlaps = function (event) { return function (childAcc, comparitorEvent) {
+    if (haveOverlap(event, comparitorEvent))
+        childAcc++;
+    return childAcc;
+}; };
+var sortEvents = function (events) { return events.sort(function (a, b) { return getTime(a.startTime) - getTime(b.startTime); }); };
+var getOverlaps = function (events) {
+    var groupIndex = 0;
+    return events.reduce(function (acc, event) {
+        var overlapCount = events.reduce(countOverlaps(event), 0);
+        if (overlapCount > 1) {
+            if (!acc[groupIndex])
+                acc[groupIndex] = [];
+            acc[groupIndex].push(event);
+        }
+        else {
+            groupIndex++;
+            acc[groupIndex] = [event];
+        }
+        return acc;
+    }, []);
+};
+var getUnassignedEventStyles = function (events, i) { return ({
+    width: "calc(100% / " + events.length + ")",
+    left: i / events.length * 100 + '%'
+}); };
+var getRowHeight = function (from, to) {
+    var numberOfRows = to - from + 1;
+    return round(100 / numberOfRows, 5);
+};
+var getDefaultDayLabel = function (day) { return upperCase(day); };
+var getEventPositionStyles = function (_a) {
+    var event = _a.event, hoursInterval = _a.hoursInterval, rowHeight = _a.rowHeight;
+    var startOfDay = setMinutes(setHours(event.startTime, hoursInterval.from), 0);
+    var minutesFromStartOfDay = round(differenceInMinutes(event.startTime, startOfDay));
+    var minutes = round(differenceInMinutes(event.endTime, event.startTime));
+    console.log(((minutesFromStartOfDay * rowHeight) / 60) / 100 + "%");
+    return {
+        height: (minutes * rowHeight) / 60 + "%",
+        marginTop: ((minutesFromStartOfDay * rowHeight) / 60) / 100 * 1500 + "px",
+    };
+};
+
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
@@ -3730,55 +3712,57 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = ".styles-module_time_table_wrapper__2TIh0 {\r\n  height: 100%;\r\n  margin: 0;\r\n  font-family: 'Open Sans', sans-serif;\r\n  color: #efefef;\r\n  overflow: hidden;\r\n}\r\n\r\n.styles-module_day__1I8NX {\r\n  position: relative;\r\n  height: 100vh;\r\n  float: left;\r\n  background-color: #fff;\r\n  background-image: linear-gradient(rgba(0,0,0,.08) 50%, transparent 50%);\r\n}\r\n\r\n.styles-module_day_title__AI7EC {\r\n  background-color: #34495e;\r\n  font-size: .7rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  text-align: center;\r\n  z-index: 2;\r\n}\r\n\r\n.styles-module_hour__1T19H {\r\n  background-color: rgba(52, 73, 94,0.9);\r\n  font-size: 12px;\r\n  text-align: center;\r\n  width: 5rem;\r\n}\r\n\r\n.styles-module_event__1VBTJ {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 15vh;\r\n  line-height: 15vh;\r\n  background-color: rgb(18, 205, 177);\r\n  font-size: .7em;\r\n  font-weight: 300;\r\n  justify-content: center;\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\r\n}\r\n\r\n.styles-module_event_info__1g0pV {\r\n  line-height: initial;\r\n  text-align: center;\r\n}";
-var classNames = {"time_table_wrapper":"styles-module_time_table_wrapper__2TIh0","day":"styles-module_day__1I8NX","day_title":"styles-module_day_title__AI7EC","hour":"styles-module_hour__1T19H","event":"styles-module_event__1VBTJ","event_info":"styles-module_event_info__1g0pV"};
+var css_248z = ".styles-module_time_table_wrapper__2TIh0 {\r\n  height: 1500px;\r\n  margin: 0;\r\n  font-family: \"Open Sans\", sans-serif;\r\n  color: #efefef;\r\n  overflow: hidden;\r\n}\r\n\r\n.styles-module_day__1I8NX {\r\n  position: relative;\r\n  height: 100%;\r\n  float: left;\r\n  background-color: #fff;\r\n  background-position-y: 57px;\r\n  min-width: 200px;\r\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\r\n}\r\n\r\n.styles-module_time__28Vv1 {\r\n  position: relative;\r\n  height: 100%;\r\n  float: left;\r\n  background-color: #fff;\r\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\r\n}\r\n\r\n.styles-module_day_title__AI7EC {\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  text-align: center;\r\n  z-index: 2;\r\n  color: black;\r\n  border: 1px solid #ccc;\r\n  border-left: none;\r\n  background: white;\r\n}\r\n\r\n.styles-module_time_label__2Ooxg {\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  text-align: center;\r\n  z-index: 2;\r\n  color: black;\r\n  background: white;\r\n  border-right: 1px solid #ccc;\r\n}\r\n\r\n.styles-module_hour__1T19H {\r\n  background-color: #ffffff;\r\n  font-size: 12px;\r\n  text-align: center;\r\n  width: 5rem;\r\n  border-right: 1px solid #ccc;\r\n  color: black;\r\n}\r\n\r\n.styles-module_event__1VBTJ {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 15vh;\r\n  line-height: 15vh;\r\n  background-color: rgb(18, 205, 177);\r\n  font-size: 0.7em;\r\n  font-weight: bolder;\r\n  justify-content: center;\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\r\n  color: black;\r\n  border-radius: 7px;\r\n}\r\n\r\n.styles-module_event_info__1g0pV {\r\n  line-height: initial;\r\n  text-align: center;\r\n}\r\n";
+var classNames = {"time_table_wrapper":"styles-module_time_table_wrapper__2TIh0","day":"styles-module_day__1I8NX","time":"styles-module_time__28Vv1","day_title":"styles-module_day_title__AI7EC","time_label":"styles-module_time_label__2Ooxg","hour":"styles-module_hour__1T19H","event":"styles-module_event__1VBTJ","event_info":"styles-module_event_info__1g0pV"};
 styleInject(css_248z);
 
 var DEFAULT_HOURS_INTERVAL = { from: 7, to: 24 };
 
-var getRowHeight = function (from, to) {
-    var numberOfRows = to - from + 1;
-    return round_1(100 / numberOfRows, 5);
-};
-var getDefaultDayLabel = function (day) { return upperCase_1(day); };
-var getEventPositionStyles = function (_a) {
-    var event = _a.event, hoursInterval = _a.hoursInterval, rowHeight = _a.rowHeight;
-    var startOfDay = setMinutes(setHours(event.startTime, hoursInterval.from), 0);
-    var minutesFromStartOfDay = round_1(differenceInMinutes(event.startTime, startOfDay));
-    var minutes = round_1(differenceInMinutes(event.endTime, event.startTime));
-    return {
-        height: (minutes * rowHeight) / 60 + "vh",
-        marginTop: (minutesFromStartOfDay * rowHeight) / 60 + "vh",
-    };
-};
 var HourPreviewJSX = function (_a) {
     var hour = _a.hour, defaultAttributes = _a.defaultAttributes;
     return (createElement("div", __assign({}, defaultAttributes, { key: hour }), hour));
 };
 var EventPreviewJSX = function (_a) {
     var event = _a.event, defaultAttributes = _a.defaultAttributes, classNames = _a.classNames;
-    return (createElement("div", __assign({}, defaultAttributes, { style: __assign(__assign({ color: 'black', borderRadius: '7px', fontWeight: 'bolder' }, defaultAttributes.style), { background: event.type === "COMPLETE" ? "#66B266" : event.type === "CANCELLED" ? "#FF0000" : 'GOLD' }), title: event.name, key: event.id }), differenceInMinutes(event.endTime, event.startTime) < 30 ? jsxs("span", __assign({ className: classNames.event_info }, { children: [event.name, " (", format(event.startTime, 'hh:mm'), ")"] }), void 0) :
+    return (createElement("div", __assign({}, defaultAttributes, { style: __assign(__assign({}, defaultAttributes.style), { background: event.type === "COMPLETE" ? "#66B266" : event.type === "CANCELLED" ? "#FF0000" : 'GOLD' }), title: event.name, key: event.id }), differenceInMinutes(event.endTime, event.startTime) < 30 ? jsxs("span", __assign({ className: classNames.event_info }, { children: [event.name, " (", format(event.startTime, 'hh:mm'), ")"] }), void 0) :
         jsxs(Fragment, { children: [jsx("span", __assign({ className: classNames.event_info }, { children: event.name }), void 0), differenceInMinutes(event.endTime, event.startTime) >= 60 ? jsx("span", __assign({ className: classNames.event_info }, { children: event.vehicle }), void 0) : '', jsx("span", __assign({ className: classNames.event_info }, { children: event.city }), void 0), jsxs("span", __assign({ className: classNames.event_info }, { children: [format(event.startTime, "hh:mm"), " - ", format(event.endTime, "hh:mm")] }), void 0)] }, void 0)));
 };
-var EventsListJSX = function (_a) {
-    var events = _a.events, day = _a.day, hoursInterval = _a.hoursInterval, rowHeight = _a.rowHeight, renderEvent = _a.renderEvent;
-    return (events[day] || []).map(function (event) {
+var renderEventsListItem = function (_a) {
+    var events = _a.events, renderEvent = _a.renderEvent, hoursInterval = _a.hoursInterval, rowHeight = _a.rowHeight, day = _a.day;
+    return events.map(function (event, i) {
         return renderEvent({
             event: event,
             defaultAttributes: {
                 className: classNames.event + " " + classNames.type,
-                style: getEventPositionStyles({ event: event, hoursInterval: hoursInterval, rowHeight: rowHeight }),
+                style: __assign(__assign({}, (day === 'unassigned' ? getUnassignedEventStyles(events, i) : {})), getEventPositionStyles({ event: event, hoursInterval: hoursInterval, rowHeight: rowHeight }))
             },
             classNames: classNames,
         });
     });
 };
+/**
+ * A calendar timeslot on the item.
+ */
+var EventsListJSX = function (_a) {
+    var events = _a.events, day = _a.day, renderEvent = _a.renderEvent, props = __rest(_a, ["events", "day", "renderEvent"]);
+    if (day === 'unassigned') {
+        var intersectingEvents = getOverlaps(sortEvents(events[day]));
+        return (intersectingEvents || []).flatMap(function (events) {
+            if (events.length > 1) {
+                return renderEventsListItem(__assign({ events: events, renderEvent: renderEvent, day: day }, props));
+            }
+        });
+    }
+    if (events[day].length > 0) {
+        return renderEventsListItem(__assign({ events: events[day], renderEvent: renderEvent, day: day }, props));
+    }
+};
 var DayColumnPreviewJSX = function (_a) {
     var events = _a.events, day = _a.day, index = _a.index, rowHeight = _a.rowHeight, getDayLabel = _a.getDayLabel, renderEvent = _a.renderEvent, hoursInterval = _a.hoursInterval;
     return (jsxs("div", __assign({ className: classNames.day + " " + day, style: {
-            backgroundSize: "1px " + 2 * rowHeight + "vh",
+            backgroundSize: "1px " + 2 * rowHeight + "%",
             width: "calc((100% - 5rem) / " + Object.keys(events).length + ")",
-        } }, { children: [jsx("div", __assign({ className: classNames.day_title, style: { height: rowHeight + "vh" } }, { children: getDayLabel(day) }), void 0), EventsListJSX({
+        } }, { children: [jsx("div", __assign({ className: classNames.day_title, style: { height: "57px", } }, { children: getDayLabel(day) }), void 0), EventsListJSX({
                 events: events,
                 day: day,
                 renderEvent: renderEvent,
@@ -3788,12 +3772,12 @@ var DayColumnPreviewJSX = function (_a) {
 };
 var HoursListJSX = function (_a) {
     var hoursInterval = _a.hoursInterval, rowHeight = _a.rowHeight, renderHour = _a.renderHour;
-    return range_1(hoursInterval.from, hoursInterval.to).map(function (hour) {
+    return range(hoursInterval.from, hoursInterval.to).map(function (hour) {
         return renderHour({
             hour: (hour > 12 ? hour - 12 : hour) + ":00",
             defaultAttributes: {
                 className: classNames.hour,
-                style: { height: rowHeight + "vh" },
+                style: { height: rowHeight + "%" },
             },
             classNames: classNames,
         });
@@ -3805,7 +3789,7 @@ var TimeTableJSX = function (_a) {
     React.useEffect(function () {
         setRowHeight(getRowHeight(hoursInterval.from, hoursInterval.to));
     }, [hoursInterval]);
-    return (jsxs("div", __assign({ className: classNames.time_table_wrapper }, { children: [jsxs("div", __assign({ className: classNames.day }, { children: [jsx("div", __assign({ className: classNames.day_title, style: { height: rowHeight + "vh" } }, console.log(rowHeight), { children: timeLabel }), void 0), HoursListJSX({ hoursInterval: hoursInterval, renderHour: renderHour, rowHeight: rowHeight })] }), void 0), Object.keys(events).map(function (day, index) {
+    return (jsxs("div", __assign({ className: classNames.time_table_wrapper }, { children: [jsxs("div", __assign({ className: classNames.time }, { children: [jsx("div", __assign({ className: classNames.time_label, style: { height: "57px" } }, { children: timeLabel }), void 0), HoursListJSX({ hoursInterval: hoursInterval, renderHour: renderHour, rowHeight: rowHeight })] }), void 0), Object.keys(events).map(function (day, index) {
                 return DayColumnPreviewJSX({
                     events: events,
                     day: day,
@@ -3837,4 +3821,4 @@ TimeTableJSX.defaultProps = {
 };
 
 export default TimeTableJSX;
-export { EventPreviewJSX, EventsListJSX, HourPreviewJSX, HoursListJSX, TimeTableJSX, getDefaultDayLabel };
+export { EventPreviewJSX, EventsListJSX, HourPreviewJSX, HoursListJSX, TimeTableJSX };

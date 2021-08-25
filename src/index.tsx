@@ -20,7 +20,7 @@ import classNames from "./styles.module.css";
 import { DEFAULT_HOURS_INTERVAL } from "./constants";
 
 export const HourPreviewJSX: React.FC<HourPreview> = ({ hour, defaultAttributes }) => (
-  <div {...defaultAttributes} key={hour}>
+  <div {...defaultAttributes}>
     {hour}
   </div>
 );
@@ -35,7 +35,7 @@ export const EventPreviewJSX: React.FC<EventPreview> = ({
     <div {...defaultAttributes} style={{
       ...defaultAttributes.style,
       background: event.type === "COMPLETE" ? "#66B266" : event.type === "CANCELLED" ? "#FF0000" : 'GOLD',
-    }} title={event.name} key={event.id}>
+    }} title={event.name} data-starttime={format(event.startTime, "hh:mm")} data-endtime={format(event.endTime, "hh:mm")}>
       <>
           <span className={classNames.event_info} >{event.name}</span>
           <span className={classNames.event_info}>{event.vehicle}</span>
@@ -53,14 +53,23 @@ type RenderEventsListItem = Omit<EventsList, 'events'> & {
 }
 
 const renderEventsListItem = ({ events, renderEvent, hoursInterval, rowHeight, day }: RenderEventsListItem) => events.map((event, i) => {
+  const intersects = event?.hasIntersection ?? false
+  const left = intersects ? `12%` : 0
+  console.log(left)
+  let styles = {
+    width: events?.hasIntersection ? `calc(100% / ${events.length})` : '100%',
+    left: left,
+    border: '2px solid white',
+    borderColor: intersects ? 'red' : 'white',
+    ...fromUtils.getEventPositionStyles({ event, hoursInterval, rowHeight })
+  }
+
   return renderEvent({
     event,
+    key: i + event.id + event.vehicle,
     defaultAttributes: {
       className: `${differenceInMinutes(event.endTime, event.startTime) < 30 ? classNames.event_small : classNames.event}`,
-      style: {
-        ...(day === 'UNASSIGNED' ? fromUtils.getUnassignedEventStyles(events, i) : {}),
-        ...fromUtils.getEventPositionStyles({ event, hoursInterval, rowHeight }),
-      }
+      style: styles
     },
     classNames,
   })
@@ -75,11 +84,11 @@ export const EventsListJSX = ({
   renderEvent,
   ...props
 }: EventsList) => {
-  if (day === 'unassigned') {
+  if (day === 'UNASSIGNED') {
     const intersectingEvents = fromUtils.getOverlaps(fromUtils.sortEvents(events[day]))
-    return (intersectingEvents || []).flatMap((events) => {
-      if (events.length > 1) {
-        return renderEventsListItem({ events, renderEvent, day, ...props })
+    intersectingEvents.flatMap(events => {
+      if (intersectingEvents.length >= 1) {
+        return renderEventsListItem({ events: events, renderEvent, day, ...props })
       }
     })
   }
@@ -103,7 +112,6 @@ const DayColumnPreviewJSX = ({
       backgroundSize: `1px ${2 * rowHeight}%`,
       width: `calc((100% - 5rem) / ${Object.keys(events).length})`,
     }}
-    key={`${day}-${index}`}
   >
     <div className={classNames.day_title} style={{ height: `57px`, }}>
       {getDayLabel(day)}
@@ -123,8 +131,9 @@ export const HoursListJSX = ({
   rowHeight,
   renderHour,
 }: HoursList) => {
-  return range(hoursInterval.from, hoursInterval.to).map((hour: number) =>
+  return range(hoursInterval.from, hoursInterval.to).map((hour: number, i) =>
     renderHour({
+      key: hour + i,
       hour: `${hour > 12 ? hour - 12 : hour}:00`,
       defaultAttributes: {
         className: classNames.hour,
@@ -163,6 +172,7 @@ export const TimeTableJSX = ({
       </div>
       {Object.keys(events).map((day, index) =>
         DayColumnPreviewJSX({
+          key: day + index,
           events,
           day,
           index,

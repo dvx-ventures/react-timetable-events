@@ -78,6 +78,7 @@
   border-radius: 7px;
   align-items: top;
   cursor: default;
+  border: 1px solid black;
 }
 
 .event_small {
@@ -96,11 +97,12 @@
   border-radius: 7px;
   align-items: top;
   cursor: default;
+  border: 1px solid black;
 }
 
 .event_small:hover {
-  padding-bottom: 20px;
-  padding-top: 20px;
+  padding-bottom: 10px;
+  padding-top: 10px;
   cursor: pointer;
 }
 

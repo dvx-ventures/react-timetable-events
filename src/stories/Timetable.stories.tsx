@@ -53,13 +53,49 @@ Primary.args = {
         id: 1,
         name: "Paul Fulwyler",
         type: "COMPLETE",
-        startTime: new Date("2018-02-23T11:30:00"),
-        endTime: new Date("2018-02-23T11:50:00"),
+        startTime: new Date("2018-02-23T13:30:00"),
+        endTime: new Date("2018-02-23T14:00:00"),
         city: 'San Francisco',
         vehicle: 'something'
       },
       {
-        id: 1,
+        id: 2,
+        name: "Paul Fulwyler",
+        type: "COMPLETE",
+        startTime: new Date("2018-02-23T13:30:00"),
+        endTime: new Date("2018-02-23T14:00:00"),
+        city: 'San Francisco',
+        vehicle: '2007 chevrolet corvette'
+      },
+      {
+        id: 3,
+        name: "Paul Fulwyler",
+        type: "COMPLETE",
+        startTime: new Date("2018-02-23T14:30:00"),
+        endTime: new Date("2018-02-23T15:00:00"),
+        city: 'San Francisco',
+        vehicle: '2007 chevrolet corvette'
+      },
+      {
+        id: 4,
+        name: "Paul Fulwyler",
+        type: "COMPLETE",
+        startTime: new Date("2018-02-23T12:30:00"),
+        endTime: new Date("2018-02-23T13:00:00"),
+        city: 'San Francisco',
+        vehicle: '2007 chevrolet corvette'
+      },
+      {
+        id: 8,
+        name: "Paul Fulwyler",
+        type: "COMPLETE",
+        startTime: new Date("2018-02-23T12:30:00"),
+        endTime: new Date("2018-02-23T13:45:00"),
+        city: 'San Francisco',
+        vehicle: '2007 chevrolet corvette'
+      },
+      {
+        id: 9,
         name: "Paul Fulwyler",
         type: "COMPLETE",
         startTime: new Date("2018-02-23T11:30:00"),
@@ -70,20 +106,20 @@ Primary.args = {
     ],
     tuesday: [
       {
-        id: 2,
+        id: 10,
         name: "Paul Fulwyler",
         type: "SCHEDULED",
-        startTime: new Date("2018-02-22T12:30:00"),
-        endTime: new Date("2018-02-22T13:30:00"),
+        startTime: new Date("2018-02-22T14:30:00"),
+        endTime: new Date("2018-02-22T15:30:00"),
         city: 'San Francisco',
         vehicle: '2007 Toyota Camry'
       },
       {
-        id: 3,
+        id: 11,
         name: "Paul Fulwyler",
         type: "CANCELLED",
         startTime: new Date("2018-02-22T16:30:00"),
-        endTime: new Date("2018-02-22T18:45:00"),
+        endTime: new Date("2018-02-22T17:30:00"),
         city: 'San Francisco',
         vehicle: '2007 Toyota Camry'
       },

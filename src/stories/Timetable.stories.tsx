@@ -48,7 +48,34 @@ const Template: ComponentStory<typeof TimeTableJSX> = (args: any) => (
 export const Primary = Template.bind({});
 Primary.args = {
   events: {
-    monday: [
+    unassigned: [
+      {
+        id: 1,
+        name: "Paul Fulwyler",
+        type: "COMPLETE",
+        startTime: new Date("2018-02-23T11:30:00"),
+        endTime: new Date("2018-02-23T11:50:00"),
+        city: 'San Francisco',
+        vehicle: 'something'
+      },
+      {
+        id: 1,
+        name: "Paul Fulwyler",
+        type: "COMPLETE",
+        startTime: new Date("2018-02-23T11:30:00"),
+        endTime: new Date("2018-02-23T11:50:00"),
+        city: 'San Francisco',
+        vehicle: 'something'
+      },
+      {
+        id: 1,
+        name: "Paul Fulwyler",
+        type: "COMPLETE",
+        startTime: new Date("2018-02-23T11:30:00"),
+        endTime: new Date("2018-02-23T11:50:00"),
+        city: 'San Francisco',
+        vehicle: 'something'
+      },
       {
         id: 1,
         name: "Paul Fulwyler",
@@ -82,12 +109,6 @@ Primary.args = {
     wednesday: [],
     thursday: [],
     friday: [],
-    12: [],
-    13: [],
-    14: [],
-    15: [],
-    16: [],
-    17: [],
   },
   hoursInterval: { from: 6, to: 19 },
   timeLabel: "Time",

@@ -48,7 +48,7 @@ const Template: ComponentStory<typeof TimeTableJSX> = (args: any) => (
 export const Primary = Template.bind({});
 Primary.args = {
   events: {
-    unassigned: [
+    UNASSIGNED: [
       {
         id: 1,
         name: "Paul Fulwyler",
@@ -63,73 +63,10 @@ Primary.args = {
         name: "Paul Fulwyler",
         type: "COMPLETE",
         startTime: new Date("2018-02-23T11:30:00"),
-        endTime: new Date("2018-02-23T11:50:00"),
+        endTime: new Date("2018-02-23T12:00:00"),
         city: 'San Francisco',
-        vehicle: 'something'
+        vehicle: '2007 chevrolet corvette'
       },
-      {
-        id: 1,
-        name: "Paul Fulwyler",
-        type: "COMPLETE",
-        startTime: new Date("2018-02-23T11:30:00"),
-        endTime: new Date("2018-02-23T11:50:00"),
-        city: 'San Francisco',
-        vehicle: 'something'
-      },
-      {
-        id: 1,
-        name: "Paul Fulwyler",
-        type: "COMPLETE",
-        startTime: new Date("2018-02-23T11:30:00"),
-        endTime: new Date("2018-02-23T11:50:00"),
-        city: 'San Francisco',
-        vehicle: 'something'
-      },
-      {
-        id: "apt_HOeKoPxLTDeckDdcKVCttQ",
-        name: "Peter Chapman",
-        startTime: new Date("2021-08-25T15:30:00.000Z"),
-        endTime: new Date("2021-08-25T16:00:00.000Z"),
-        city: "Cupertino",
-        type: "SCHEDULED",
-        vehicle: "2007 Lamborghini Murcielago LP640"
-    },
-    {
-      id: "apt_HOeKoPxLTDeckDdcKVCttQ",
-      name: "Peter Chapman",
-      startTime: new Date("2021-08-25T15:30:00.000Z"),
-      endTime: new Date("2021-08-25T16:00:00.000Z"),
-      city: "Cupertino",
-      type: "SCHEDULED",
-      vehicle: "2007 Lamborghini Murcielago LP640"
-  },
-  {
-    id: "apt_HOeKoPxLTDeckDdcKVCttQ",
-    name: "Peter Chapman",
-    startTime: new Date("2021-08-25T15:30:00.000Z"),
-    endTime: new Date("2021-08-25T16:00:00.000Z"),
-    city: "Cupertino",
-    type: "SCHEDULED",
-    vehicle: "2007 Lamborghini Murcielago LP640"
-  },
-  {
-  id: "apt_HOeKoPxLTDeckDdcKVCttQ",
-  name: "Peter Chapman",
-  startTime: new Date("2021-08-25T15:30:00.000Z"),
-  endTime: new Date("2021-08-25T16:00:00.000Z"),
-  city: "Cupertino",
-  type: "SCHEDULED",
-  vehicle: "2007 Lamborghini Murcielago LP640"
-  },
-  {
-  id: "apt_HOeKoPxLTDeckDdcKVCttQ",
-  name: "Peter Chapman",
-  startTime: new Date("2021-08-25T15:30:00.000Z"),
-  endTime: new Date("2021-08-25T16:00:00.000Z"),
-  city: "Cupertino",
-  type: "SCHEDULED",
-  vehicle: "2007 Lamborghini Murcielago LP640"
-  },
     ],
     tuesday: [
       {
@@ -151,7 +88,7 @@ Primary.args = {
         vehicle: '2007 Toyota Camry'
       },
     ],
-    UNASSIGNED: [],
+    something: [],
     wednesday: [],
     thursday: [],
     friday: [],

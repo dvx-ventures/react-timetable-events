@@ -9,8 +9,8 @@ export declare const getUnassignedEventStyles: (events: Event[], i: number) => {
     width: string;
     left: string;
 };
-export declare const getRowHeight: (from: number, to: number) => any;
-export declare const getDefaultDayLabel: (day: string) => any;
+export declare const getRowHeight: (from: number, to: number) => number;
+export declare const getDefaultDayLabel: (day: string) => string;
 export declare const getEventPositionStyles: ({ event, hoursInterval, rowHeight, }: {
     event: Event;
     hoursInterval: typeof DEFAULT_HOURS_INTERVAL;

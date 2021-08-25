@@ -7,7 +7,7 @@ export declare const EventPreviewJSX: React.FC<EventPreview>;
  * A calendar timeslot on the item.
  */
 export declare const EventsListJSX: ({ events, day, renderEvent, ...props }: EventsList) => (React.ReactElement<any, any> | null | undefined)[] | undefined;
-export declare const HoursListJSX: ({ hoursInterval, rowHeight, renderHour, }: HoursList) => any;
+export declare const HoursListJSX: ({ hoursInterval, rowHeight, renderHour, }: HoursList) => (React.ReactElement<any, any> | null)[];
 export declare const TimeTableJSX: {
     ({ events, hoursInterval, timeLabel, getDayLabel, renderEvent, renderHour, }: TimeTable): JSX.Element;
     propTypes: {
@@ -29,7 +29,7 @@ export declare const TimeTableJSX: {
         timeLabel: string;
         renderHour: React.FC<HourPreview>;
         renderEvent: React.FC<EventPreview>;
-        getDayLabel: (day: string) => any;
+        getDayLabel: (day: string) => string;
     };
 };
 export default TimeTableJSX;

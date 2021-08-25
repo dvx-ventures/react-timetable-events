@@ -20,6 +20,7 @@ export type ClassNames = {
     hour: string;
     event: string;
     event_info: string;
+    event_small: string;
 };
 
 export interface Event {

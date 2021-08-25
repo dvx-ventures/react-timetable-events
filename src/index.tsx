@@ -36,14 +36,14 @@ export const EventPreviewJSX: React.FC<EventPreview> = ({
       ...defaultAttributes.style,
       background: event.type === "COMPLETE" ? "#66B266" : event.type === "CANCELLED" ? "#FF0000" : 'GOLD',
     }} title={event.name} key={event.id}>
-        <>
-          <span className={classNames.event_info}>{event.name}</span>
-          {differenceInMinutes(event.endTime, event.startTime) > 30 ? <span className={classNames.event_info}>{event.vehicle}</span> : ''}
+      <>
+          <span className={classNames.event_info} >{event.name}</span>
+          <span className={classNames.event_info}>{event.vehicle}</span>
           <span className={classNames.event_info}>{event.city}</span>
           <span className={classNames.event_info}>
             {format(event.startTime, "hh:mm")} - {format(event.endTime, "hh:mm")}
           </span>
-        </>
+          </>
     </div>
   );
 };
@@ -56,9 +56,9 @@ const renderEventsListItem = ({ events, renderEvent, hoursInterval, rowHeight, d
   return renderEvent({
     event,
     defaultAttributes: {
-      className: `${classNames.event} ${classNames.type}`,
+      className: `${differenceInMinutes(event.endTime, event.startTime) < 30 ? classNames.event_small : classNames.event}`,
       style: {
-        ...(day === 'unassigned' ? fromUtils.getUnassignedEventStyles(events, i) : {}),
+        ...(day === 'UNASSIGNED' ? fromUtils.getUnassignedEventStyles(events, i) : {}),
         ...fromUtils.getEventPositionStyles({ event, hoursInterval, rowHeight }),
       }
     },

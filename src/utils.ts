@@ -29,16 +29,34 @@ export const countOverlaps =
 export const sortEvents = (events: Event[]) =>
   events.sort((a, b) => getTime(a.startTime) - getTime(b.startTime));
 
+
+const doesBelongToLastOverlap = (acc: Event[][], event: Event, groupIndex: number) => {
+  const group = acc[groupIndex]
+  if(!group) {
+    return false
+  }
+  if(group.length && group[group.length - 1]) {
+    if(haveOverlap(event, group[group.length - 1])) {
+      return true
+    }
+  }
+  return false
+}
+
 export const getOverlaps = (events: Event[]) => {
   let groupIndex = 0;
   return events.reduce((acc, event) => {
     const overlapCount = events.reduce(countOverlaps(event), 0);
     if (overlapCount > 1) {
-      if (!acc[groupIndex]) acc[groupIndex] = [];
-      if (acc[groupIndex].some((item) => !item.hasIntersection)) {
-        groupIndex++;
-        acc[groupIndex] = [];
+      if(doesBelongToLastOverlap(acc, event, groupIndex)) {
+        acc[groupIndex].push({
+          ...event,
+          hasIntersection: true,
+        });
+        return acc
       }
+      groupIndex++;
+      if (!acc[groupIndex]) acc[groupIndex] = [];
       acc[groupIndex].push({
         ...event,
         hasIntersection: true,

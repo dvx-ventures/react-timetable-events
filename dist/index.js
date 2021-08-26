@@ -3682,18 +3682,31 @@ var countOverlaps = function (event) { return function (acc, comparitorEvent) {
 var sortEvents = function (events) {
     return events.sort(function (a, b) { return getTime(a.startTime) - getTime(b.startTime); });
 };
+var doesBelongToLastOverlap = function (acc, event, groupIndex) {
+    var group = acc[groupIndex];
+    if (!group) {
+        return false;
+    }
+    if (group.length && group[group.length - 1]) {
+        if (haveOverlap(event, group[group.length - 1])) {
+            return true;
+        }
+    }
+    return false;
+};
 var getOverlaps = function (events) {
     var groupIndex = 0;
     return events.reduce(function (acc, event) {
         var _a;
         var overlapCount = events.reduce(countOverlaps(event), 0);
         if (overlapCount > 1) {
+            if (doesBelongToLastOverlap(acc, event, groupIndex)) {
+                acc[groupIndex].push(__assign(__assign({}, event), { hasIntersection: true }));
+                return acc;
+            }
+            groupIndex++;
             if (!acc[groupIndex])
                 acc[groupIndex] = [];
-            if (acc[groupIndex].some(function (item) { return !item.hasIntersection; })) {
-                groupIndex++;
-                acc[groupIndex] = [];
-            }
             acc[groupIndex].push(__assign(__assign({}, event), { hasIntersection: true }));
         }
         else {
@@ -3790,10 +3803,12 @@ var isUnassigned = function (day) { return day === "UNASSIGNED"; };
 var EventsList = function (_a) {
     var events = _a.events, day = _a.day, props = __rest(_a, ["events", "day"]);
     var intersectingEvents = React__default['default'].useMemo(function () {
+        console.log(sortEvents(events[day]));
         return getOverlaps(sortEvents(events[day]));
     }, [day]);
     return (jsxRuntime.jsx(jsxRuntime.Fragment, { children: isUnassigned(day)
             ? intersectingEvents.flatMap(function (_events) {
+                console.log(intersectingEvents);
                 return _events.map(function (event, i) { return (jsxRuntime.jsx(EventsListItem, __assign({ event: event, events: _events, index: i }, props), void 0)); });
             })
             : events[day].map(function (event, i) { return (jsxRuntime.jsx(EventsListItem, __assign({ event: event, events: events[day], index: i }, props), void 0)); }) }, void 0));

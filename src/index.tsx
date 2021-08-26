@@ -7,7 +7,7 @@ import classNames from "./styles.module.css";
 import { DEFAULT_HOURS_INTERVAL } from "./constants";
 import { DayColumn } from "./components";
 
-export type TimeTableEvent = EventWithIntersection | Event
+export type TimeTableEvent = EventWithIntersection | Event;
 
 export const TimeTableJSX = ({
   events,

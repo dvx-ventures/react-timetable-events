@@ -6,6 +6,11 @@
   margin: 0;
   overflow-x: auto;
   position: relative;
+  box-sizing: border-box;
+}
+
+.time_table_wrapper > *, *::before, *::after  {
+  box-sizing: border-box;
 }
 
 .day {
@@ -21,7 +26,6 @@
   background-position-y: 57px;
   background-size: var(--day-col-size);
   bottom: 0;
-  box-sizing: border-box;
   content: '';
   left: 0;
   position: absolute;
@@ -108,7 +112,6 @@
 
 .event {
   align-items: start;
-  box-sizing: border-box;
   color: black;
   cursor: pointer;
   display: flex;

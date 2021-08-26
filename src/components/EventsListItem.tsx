@@ -5,17 +5,18 @@ import classNames from "../styles.module.css";
 import type { HoursList, EventWithIntersection } from "../types";
 
 type EventsListItem = HoursList & {
-  onEventClick(event: Event | EventWithIntersection): void
+  onEventClick(event: Event | EventWithIntersection): void;
   events: EventWithIntersection[];
   event: EventWithIntersection;
   index: number;
 };
 
-const getBackgroundColorByEventType = (type: string | undefined) => type === "SCHEDULED"
-? "rgb(208 208 208)"
-: type === "CANCELLED"
-? "rgb(255 105 105)"
-: "rgb(119 224 123)"
+const getBackgroundColorByEventType = (type: string | undefined) =>
+  type === "SCHEDULED"
+    ? "rgb(208 208 208)"
+    : type === "CANCELLED"
+    ? "rgb(255 105 105)"
+    : "rgb(119 224 123)";
 
 export const EventsListItem: React.FC<EventsListItem> = ({
   events,
@@ -23,7 +24,7 @@ export const EventsListItem: React.FC<EventsListItem> = ({
   hoursInterval,
   rowHeight,
   index,
-  onEventClick
+  onEventClick,
 }) => {
   const style = React.useMemo(() => {
     const { height, marginTop } = fromUtils.getEventPositionStyles({
@@ -43,15 +44,13 @@ export const EventsListItem: React.FC<EventsListItem> = ({
     return _style;
   }, [rowHeight]);
 
-  const [open, setOpen] = React.useState(false)
-
   return (
     <div
       style={{
         ...style,
         zIndex: 1,
-        borderLeft: '6px solid #458ebb',
-        background: getBackgroundColorByEventType(event.type)
+        borderLeft: "6px solid #458ebb",
+        background: getBackgroundColorByEventType(event.type),
       }}
       className={`${classNames.event} ${classNames.type}`}
       title={event.name}
@@ -60,8 +59,16 @@ export const EventsListItem: React.FC<EventsListItem> = ({
       onClick={() => onEventClick(event)}
     >
       <span className={classNames.event_info}>{event.name}</span>
-      {differenceInMinutes(event.endTime, event.startTime) > 30 ? <span className={classNames.event_info}>{event.vehicle}</span> : ''}
-      {differenceInMinutes(event.endTime, event.startTime) > 20 ? <span className={classNames.event_info}>{event.city}</span> : ''}
+      {differenceInMinutes(event.endTime, event.startTime) > 30 ? (
+        <span className={classNames.event_info}>{event.vehicle}</span>
+      ) : (
+        ""
+      )}
+      {differenceInMinutes(event.endTime, event.startTime) > 20 ? (
+        <span className={classNames.event_info}>{event.city}</span>
+      ) : (
+        ""
+      )}
       <span className={classNames.event_info}>
         {format(event.startTime, "hh:mm")} - {format(event.endTime, "hh:mm")}
       </span>

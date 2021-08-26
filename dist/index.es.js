@@ -1,7 +1,7 @@
 import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
 import * as React from 'react';
 import React__default from 'react';
-import useResizable from 'use-resizable';
+import { createReducerAction } from 'use-reducer-action';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -3731,7 +3731,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = ".styles-module_time_table_wrapper__2TIh0 {\n  height: 1500px;\n  margin: 0;\n  font-family: \"Open Sans\", sans-serif;\n  color: #efefef;\n  overflow: auto;\n  display: flex;\n}\n\n.styles-module_day__1I8NX {\n  position: relative;\n  height: 100%;\n  float: left;\n  background-color: #fff;\n  min-width: 200px;\n  border-right: 1px solid #eaeaea;\n}\n\n.styles-module_day__1I8NX::after {\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\n  background-position-y: 57px;\n  background-size: var(--day-col-size);\n  bottom: 0;\n  width: calc(100% + 24px);\n  box-sizing: border-box;\n  content: '';\n  left: 0;\n  position: absolute;\n  right: 0;\n  top: 0;\n}\n\n.styles-module_time__28Vv1 {\n  position: relative;\n  height: 100%;\n  float: left;\n  background-color: #fff;\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\n}\n\n.styles-module_day_title__AI7EC {\n  font-size: 0.7rem;\n  font-weight: 600;\n  text-transform: uppercase;\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  text-align: center;\n  z-index: 2;\n  color: black;\n  background: white;\n  position: relative;\n}\n\n.styles-module_day_title__AI7EC::after {\n  content: '';\n  bottom: 0;\n  left: 0;\n  position: absolute;\n  height: 1px;\n  width: calc(100% + 13px);\n  background: #c7c7c7;\n}\n\n.styles-module_day_title__AI7EC::before {\n  content: '';\n  top: 0;\n  left: 0;\n  position: absolute;\n  height: 1px;\n  width: calc(100% + 13px);\n  background: #c7c7c7;\n}\n\n.styles-module_resize_handler__3ie7h {\n  position: absolute;\n  width: 10px;\n  height: 100%;\n  top: 0;\n  right: 0;\n  z-index: 1;\n  cursor: col-resize;\n}\n\n.styles-module_time_label__2Ooxg {\n  font-size: 0.7rem;\n  font-weight: 600;\n  text-transform: uppercase;\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  text-align: center;\n  z-index: 2;\n  color: black;\n  background: white;\n  border-right: 1px solid #ccc;\n}\n\n.styles-module_hour__1T19H {\n  background-color: #ffffff;\n  font-size: 12px;\n  text-align: center;\n  width: 5rem;\n  border-right: 1px solid #ccc;\n  color: black;\n}\n\n.styles-module_event__1VBTJ {\n  position: absolute;\n  width: 100%;\n  height: 15vh;\n  line-height: 15vh;\n  background-color: rgb(18, 205, 177);\n  font-size: 0.7em;\n  font-weight: bolder;\n  justify-content: center;\n  display: flex;\n  flex-direction: column;\n  overflow: hidden;\n  color: black;\n  border-radius: 7px;\n  align-items: top;\n  cursor: default;\n  border: 1px solid black;\n}\n\n.styles-module_event_small__2MS_i {\n  position: absolute;\n  width: 100%;\n  height: 15vh;\n  line-height: 15vh;\n  background-color: rgb(18, 205, 177);\n  font-size: 0.7em;\n  font-weight: bolder;\n  justify-content: center;\n  display: flex;\n  flex-direction: column;\n  overflow: hidden;\n  color: black;\n  border-radius: 7px;\n  align-items: top;\n  cursor: default;\n  border: 1px solid black;\n}\n\n.styles-module_event_small__2MS_i:hover {\n  padding-bottom: 10px;\n  padding-top: 10px;\n  cursor: pointer;\n}\n\n.styles-module_event_info__1g0pV {\n  line-height: initial;\n  text-align: center;\n}\n";
+var css_248z = ".styles-module_time_table_wrapper__2TIh0 {\r\n  height: 1500px;\r\n  margin: 0;\r\n  font-family: \"Open Sans\", sans-serif;\r\n  color: #efefef;\r\n  overflow: auto;\r\n  display: flex;\r\n}\r\n\r\n.styles-module_day__1I8NX {\r\n  position: relative;\r\n  height: 100%;\r\n  float: left;\r\n  background-color: #fff;\r\n  min-width: 200px;\r\n  border-right: 1px solid #eaeaea;\r\n}\r\n\r\n.styles-module_day__1I8NX::after {\r\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\r\n  background-position-y: 57px;\r\n  background-size: var(--day-col-size);\r\n  bottom: 0;\r\n  width: calc(100% + 24px);\r\n  box-sizing: border-box;\r\n  content: '';\r\n  left: 0;\r\n  position: absolute;\r\n  right: 0;\r\n  top: 0;\r\n}\r\n\r\n.styles-module_time__28Vv1 {\r\n  position: relative;\r\n  height: 100%;\r\n  float: left;\r\n  background-color: #fff;\r\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\r\n}\r\n\r\n.styles-module_day_title__AI7EC {\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  text-align: center;\r\n  z-index: 2;\r\n  color: black;\r\n  background: white;\r\n  position: relative;\r\n}\r\n\r\n.styles-module_day_title__AI7EC::after {\r\n  content: '';\r\n  bottom: 0;\r\n  left: 0;\r\n  position: absolute;\r\n  height: 1px;\r\n  width: calc(100% + 13px);\r\n  background: #c7c7c7;\r\n}\r\n\r\n.styles-module_day_title__AI7EC::before {\r\n  content: '';\r\n  top: 0;\r\n  left: 0;\r\n  position: absolute;\r\n  height: 1px;\r\n  width: calc(100% + 13px);\r\n  background: #c7c7c7;\r\n}\r\n\r\n.styles-module_resize_handler__3ie7h {\r\n  position: absolute;\r\n  width: 10px;\r\n  height: 100%;\r\n  top: 0;\r\n  right: 0;\r\n  z-index: 1;\r\n  cursor: col-resize;\r\n}\r\n\r\n.styles-module_time_label__2Ooxg {\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  text-align: center;\r\n  z-index: 2;\r\n  color: black;\r\n  background: white;\r\n  border-right: 1px solid #ccc;\r\n}\r\n\r\n.styles-module_hour__1T19H {\r\n  background-color: #ffffff;\r\n  font-size: 12px;\r\n  text-align: center;\r\n  width: 5rem;\r\n  border-right: 1px solid #ccc;\r\n  color: black;\r\n}\r\n\r\n.styles-module_event__1VBTJ {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 15vh;\r\n  line-height: 15vh;\r\n  background-color: rgb(18, 205, 177);\r\n  font-size: 0.7em;\r\n  font-weight: bolder;\r\n  justify-content: center;\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\r\n  color: black;\r\n  border-radius: 7px;\r\n  align-items: top;\r\n  cursor: default;\r\n  border: 1px solid black;\r\n}\r\n\r\n.styles-module_event_small__2MS_i {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 15vh;\r\n  line-height: 15vh;\r\n  background-color: rgb(18, 205, 177);\r\n  font-size: 0.7em;\r\n  font-weight: bolder;\r\n  justify-content: center;\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\r\n  color: black;\r\n  border-radius: 7px;\r\n  align-items: top;\r\n  cursor: default;\r\n  border: 1px solid black;\r\n}\r\n\r\n.styles-module_event_small__2MS_i:hover {\r\n  padding-bottom: 10px;\r\n  padding-top: 10px;\r\n  cursor: pointer;\r\n}\r\n\r\n.styles-module_event_info__1g0pV {\r\n  line-height: initial;\r\n  text-align: center;\r\n}\r\n";
 var classNames = {"time_table_wrapper":"styles-module_time_table_wrapper__2TIh0","day":"styles-module_day__1I8NX","time":"styles-module_time__28Vv1","day_title":"styles-module_day_title__AI7EC","resize_handler":"styles-module_resize_handler__3ie7h","time_label":"styles-module_time_label__2Ooxg","hour":"styles-module_hour__1T19H","event":"styles-module_event__1VBTJ","event_small":"styles-module_event_small__2MS_i","event_info":"styles-module_event_info__1g0pV"};
 styleInject(css_248z);
 
@@ -3776,10 +3776,127 @@ var Hour = function (_a) {
     return (jsxs("div", __assign({ className: classNames.hour }, props, { children: [hour > 12 ? hour - 12 : hour, ":00"] }), void 0));
 };
 
+var directionGroupMap = {
+    left: "horizontal",
+    right: "horizontal",
+    up: "vertical",
+    down: "vertical",
+    top: "vertical",
+    bottom: "vertical",
+};
+var directionCalcMap = {
+    left: -1,
+    right: 1,
+    up: -1,
+    down: 1,
+    top: -1,
+    bottom: 1,
+};
+var windowEventTypes = [
+    "mousemove",
+    "touchmove",
+    "mouseup",
+    "touchend",
+];
+
+function eventIsTouch(event) {
+    return event.type.includes("touch");
+}
+function getPositionFromMouseOrTouch(direction, event) {
+    if (eventIsTouch(event)) {
+        return direction === "vertical"
+            ? event.touches[0].screenY
+            : event.touches[0].screenX;
+    }
+    else {
+        return direction === "vertical" ? event.screenY : event.screenX;
+    }
+}
+var resizableActions = {
+    init: function (state, payload) {
+        return __assign(__assign({}, state), { size: payload.size });
+    },
+    start: function (state, payload) {
+        return __assign(__assign({}, state), { isMove: true, position: payload.position, initSize: state.size });
+    },
+    move: function (state, payload) {
+        if (!state.isMove ||
+            state.position === undefined ||
+            state.initSize === undefined) {
+            return state;
+        }
+        var calc = directionCalcMap[state.direction];
+        var size = state.initSize + (payload.position - state.position) * calc;
+        if (state.maxSize && size > state.maxSize) {
+            size = state.maxSize;
+        }
+        if (state.minSize && size < state.minSize) {
+            size = state.minSize;
+        }
+        return __assign(__assign({}, state), { size: size });
+    },
+    end: function (state) {
+        return __assign(__assign({}, state), { isMove: false, initSize: undefined });
+    },
+};
+var useResizableReducer = createReducerAction(resizableActions);
+
+function useResizable(option) {
+    var ref = React.useRef(null);
+    var _a = useResizableReducer(option), state = _a[0], actions = _a[1];
+    var group = directionGroupMap[state.direction];
+    var handleStartMove = React.useCallback(function (event) {
+        actions.start({
+            position: getPositionFromMouseOrTouch(group, event.nativeEvent),
+        });
+    }, [group, actions.start]);
+    React.useEffect(function () {
+        if (!option.size && ref.current) {
+            actions.init({
+                size: group === "vertical"
+                    ? ref.current.offsetHeight
+                    : ref.current.offsetWidth,
+            });
+        }
+    }, [option.size, group]);
+    React.useEffect(function () {
+        var dispatchEvent = function (event) {
+            if (event.type.includes("move")) {
+                actions.move({
+                    position: getPositionFromMouseOrTouch(group, event),
+                });
+            }
+            else {
+                actions.end();
+            }
+        };
+        if (state.isMove) {
+            windowEventTypes.forEach(function (type) {
+                return window.addEventListener(type, dispatchEvent);
+            });
+            document.body.style.userSelect = "none";
+            document.body.style.cursor =
+                group === "vertical" ? "row-resize" : "col-resize";
+        }
+        return function () {
+            windowEventTypes.forEach(function (type) {
+                return window.removeEventListener(type, dispatchEvent);
+            });
+            document.body.style.cursor = "";
+            document.body.style.userSelect = "";
+        };
+    }, [state.isMove, group]);
+    return {
+        ref: ref,
+        size: state.size,
+        handler: handleStartMove,
+    };
+}
+
 var DayColumn = function (_a) {
     var events = _a.events, day = _a.day, rowHeight = _a.rowHeight, getDayLabel = _a.getDayLabel, hoursInterval = _a.hoursInterval;
     var _b = useResizable({
-        minSize: "calc((100% - 5rem) / " + Object.keys(events).length + ")",
+        minSize: 300,
         maxSize: 12000,
         size: 200,
         direction: "right",

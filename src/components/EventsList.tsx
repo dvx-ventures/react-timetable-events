@@ -1,5 +1,5 @@
 import React from "react";
-import { Events } from "../types";
+import { Events, Event } from "../types";
 import { DEFAULT_HOURS_INTERVAL } from "../constants";
 import * as fromUtils from "../utils";
 import { EventsListItem } from "./EventsListItem";
@@ -9,6 +9,7 @@ export interface EventsList {
   events: Events;
   hoursInterval: typeof DEFAULT_HOURS_INTERVAL;
   rowHeight: number;
+  onEventClick(event: Event): void
 }
 
 const isUnassigned = (day: string) => day === "UNASSIGNED";
@@ -26,8 +27,8 @@ export const EventsList: React.FC<EventsList> = ({ events, day, ...props }) => {
               <EventsListItem
                 event={event}
                 events={_events}
-                {...props}
                 index={i}
+                {...props}
               />
             ));
           })
@@ -35,8 +36,8 @@ export const EventsList: React.FC<EventsList> = ({ events, day, ...props }) => {
             <EventsListItem
               event={event}
               events={events[day]}
-              {...props}
               index={i}
+              {...props}
             />
           ))}
     </>

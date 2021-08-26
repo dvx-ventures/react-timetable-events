@@ -1,20 +1,22 @@
 import React from "react";
 import classNames from "../styles.module.css";
-import type { DayColumnPreview } from "../types";
+import type { DayColumnPreview, Event } from "../types";
 import { EventsList } from "./EventsList";
 import useResizable from "../hooks/use-resizable";
 
 export const DayColumn: React.FC<DayColumnPreview> = ({
   events,
   day,
+  index,
   rowHeight,
   getDayLabel,
   hoursInterval,
+  onEventClick
 }: DayColumnPreview) => {
   const { size, handler } = useResizable({
-    minSize: 300,
+    minSize: 100,
     maxSize: 12000,
-    size: 200,
+    size: day === 'UNASSIGNED' ? 300 : 200,
     direction: "right",
   });
 
@@ -22,6 +24,7 @@ export const DayColumn: React.FC<DayColumnPreview> = ({
     "--day-col-size": `1px ${2 * rowHeight}%`,
     marginRight: "12px",
     width: size,
+    flex: `1 0 ${size}px`,
     height: `100%`,
   } as React.CSSProperties;
 
@@ -31,6 +34,7 @@ export const DayColumn: React.FC<DayColumnPreview> = ({
         {getDayLabel(day)}
       </div>
       <EventsList
+        onEventClick={onEventClick}
         events={events}
         day={day}
         hoursInterval={hoursInterval}

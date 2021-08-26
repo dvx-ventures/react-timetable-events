@@ -1,7 +1,6 @@
-import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
+import { jsxs, jsx, Fragment } from 'react/jsx-runtime';
 import * as React from 'react';
 import React__default from 'react';
-import { createReducerAction } from 'use-reducer-action';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -3731,12 +3730,17 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = ".styles-module_time_table_wrapper__2TIh0 {\r\n  height: 1500px;\r\n  margin: 0;\r\n  font-family: \"Open Sans\", sans-serif;\r\n  color: #efefef;\r\n  overflow: auto;\r\n  display: flex;\r\n}\r\n\r\n.styles-module_day__1I8NX {\r\n  position: relative;\r\n  height: 100%;\r\n  float: left;\r\n  background-color: #fff;\r\n  min-width: 200px;\r\n  border-right: 1px solid #eaeaea;\r\n}\r\n\r\n.styles-module_day__1I8NX::after {\r\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\r\n  background-position-y: 57px;\r\n  background-size: var(--day-col-size);\r\n  bottom: 0;\r\n  width: calc(100% + 24px);\r\n  box-sizing: border-box;\r\n  content: '';\r\n  left: 0;\r\n  position: absolute;\r\n  right: 0;\r\n  top: 0;\r\n}\r\n\r\n.styles-module_time__28Vv1 {\r\n  position: relative;\r\n  height: 100%;\r\n  float: left;\r\n  background-color: #fff;\r\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\r\n}\r\n\r\n.styles-module_day_title__AI7EC {\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  text-align: center;\r\n  z-index: 2;\r\n  color: black;\r\n  background: white;\r\n  position: relative;\r\n}\r\n\r\n.styles-module_day_title__AI7EC::after {\r\n  content: '';\r\n  bottom: 0;\r\n  left: 0;\r\n  position: absolute;\r\n  height: 1px;\r\n  width: calc(100% + 13px);\r\n  background: #c7c7c7;\r\n}\r\n\r\n.styles-module_day_title__AI7EC::before {\r\n  content: '';\r\n  top: 0;\r\n  left: 0;\r\n  position: absolute;\r\n  height: 1px;\r\n  width: calc(100% + 13px);\r\n  background: #c7c7c7;\r\n}\r\n\r\n.styles-module_resize_handler__3ie7h {\r\n  position: absolute;\r\n  width: 10px;\r\n  height: 100%;\r\n  top: 0;\r\n  right: 0;\r\n  z-index: 1;\r\n  cursor: col-resize;\r\n}\r\n\r\n.styles-module_time_label__2Ooxg {\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  text-align: center;\r\n  z-index: 2;\r\n  color: black;\r\n  background: white;\r\n  border-right: 1px solid #ccc;\r\n}\r\n\r\n.styles-module_hour__1T19H {\r\n  background-color: #ffffff;\r\n  font-size: 12px;\r\n  text-align: center;\r\n  width: 5rem;\r\n  border-right: 1px solid #ccc;\r\n  color: black;\r\n}\r\n\r\n.styles-module_event__1VBTJ {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 15vh;\r\n  line-height: 15vh;\r\n  background-color: rgb(18, 205, 177);\r\n  font-size: 0.7em;\r\n  font-weight: bolder;\r\n  justify-content: center;\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\r\n  color: black;\r\n  border-radius: 7px;\r\n  align-items: top;\r\n  cursor: default;\r\n  border: 1px solid black;\r\n}\r\n\r\n.styles-module_event_small__2MS_i {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 15vh;\r\n  line-height: 15vh;\r\n  background-color: rgb(18, 205, 177);\r\n  font-size: 0.7em;\r\n  font-weight: bolder;\r\n  justify-content: center;\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\r\n  color: black;\r\n  border-radius: 7px;\r\n  align-items: top;\r\n  cursor: default;\r\n  border: 1px solid black;\r\n}\r\n\r\n.styles-module_event_small__2MS_i:hover {\r\n  padding-bottom: 10px;\r\n  padding-top: 10px;\r\n  cursor: pointer;\r\n}\r\n\r\n.styles-module_event_info__1g0pV {\r\n  line-height: initial;\r\n  text-align: center;\r\n}\r\n";
+var css_248z = ".styles-module_time_table_wrapper__2TIh0 {\r\n  height: 1500px;\r\n  margin: 0;\r\n  font-family: \"Open Sans\", sans-serif;\r\n  color: #efefef;\r\n  display: flex;\r\n}\r\n\r\n.styles-module_day__1I8NX {\r\n  position: relative;\r\n  height: 100%;\r\n  float: left;\r\n  background-color: #fff;\r\n  border-right: 1px solid #eaeaea;\r\n}\r\n\r\n.styles-module_day__1I8NX::after {\r\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\r\n  background-position-y: 57px;\r\n  background-size: var(--day-col-size);\r\n  bottom: 0;\r\n  width: calc(100% + 24px);\r\n  box-sizing: border-box;\r\n  content: '';\r\n  left: 0;\r\n  position: absolute;\r\n  right: 0;\r\n  top: 0;\r\n}\r\n\r\n.styles-module_time__28Vv1 {\r\n  position: relative;\r\n  height: 100%;\r\n  float: left;\r\n  background-color: #fff;\r\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\r\n}\r\n\r\n.styles-module_day_title__AI7EC {\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  text-align: center;\r\n  z-index: 2;\r\n  color: black;\r\n  background: white;\r\n  position: relative;\r\n}\r\n\r\n.styles-module_day_title__AI7EC::after {\r\n  content: '';\r\n  bottom: 0;\r\n  left: 0;\r\n  position: absolute;\r\n  height: 1px;\r\n  width: calc(100% + 13px);\r\n  background: #c7c7c7;\r\n}\r\n\r\n.styles-module_day_title__AI7EC::before {\r\n  content: '';\r\n  top: 0;\r\n  left: 0;\r\n  position: absolute;\r\n  height: 1px;\r\n  width: calc(100% + 13px);\r\n  background: #c7c7c7;\r\n}\r\n\r\n.styles-module_resize_handler__3ie7h {\r\n  position: absolute;\r\n  width: 10px;\r\n  height: 100%;\r\n  top: 0;\r\n  left: 100%;\r\n  z-index: 1;\r\n  background: rgba(128, 128, 128, 0.1);\r\n  cursor: col-resize;\r\n}\r\n\r\n.styles-module_time_label__2Ooxg {\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  text-align: center;\r\n  z-index: 2;\r\n  color: black;\r\n  background: white;\r\n  border-right: 1px solid #ccc;\r\n}\r\n\r\n.styles-module_hour__1T19H {\r\n  background-color: #ffffff;\r\n  font-size: 12px;\r\n  text-align: center;\r\n  width: 5rem;\r\n  border-right: 1px solid #ccc;\r\n  color: black;\r\n}\r\n\r\n.styles-module_event__1VBTJ {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 15vh;\r\n  line-height: 15vh;\r\n  padding: 2px 0 0 4px;\r\n  font-size: 0.7em;\r\n  font-weight: bolder;\r\n  justify-content: center;\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\r\n  color: black;\r\n  display: flex;\r\n  align-items: start;\r\n  justify-content: flex-start;\r\n}\r\n\r\n.styles-module_event_small__2MS_i {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 15vh;\r\n  line-height: 15vh;\r\n  background-color: rgb(18, 205, 177);\r\n  font-size: 0.7em;\r\n  font-weight: bolder;\r\n  justify-content: center;\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\r\n  color: black;\r\n  border-radius: 7px;\r\n  align-items: top;\r\n  border: 1px solid black;\r\n}\r\n\r\n.styles-module_event_info__1g0pV {\r\n  line-height: initial;\r\n  text-align: center;\r\n  white-space: nowrap;\r\n  font-size: 10px;\r\n  padding: 2px 0;\r\n}\r\n";
 var classNames = {"time_table_wrapper":"styles-module_time_table_wrapper__2TIh0","day":"styles-module_day__1I8NX","time":"styles-module_time__28Vv1","day_title":"styles-module_day_title__AI7EC","resize_handler":"styles-module_resize_handler__3ie7h","time_label":"styles-module_time_label__2Ooxg","hour":"styles-module_hour__1T19H","event":"styles-module_event__1VBTJ","event_small":"styles-module_event_small__2MS_i","event_info":"styles-module_event_info__1g0pV"};
 styleInject(css_248z);
 
+var getBackgroundColorByEventType = function (type) { return type === "SCHEDULED"
+    ? "rgb(208 208 208)"
+    : type === "CANCELLED"
+        ? "rgb(255 105 105)"
+        : "rgb(119 224 123)"; };
 var EventsListItem = function (_a) {
-    var events = _a.events, event = _a.event, hoursInterval = _a.hoursInterval, rowHeight = _a.rowHeight, index = _a.index;
+    var events = _a.events, event = _a.event, hoursInterval = _a.hoursInterval, rowHeight = _a.rowHeight, index = _a.index, onEventClick = _a.onEventClick;
     var style = React__default.useMemo(function () {
         var _a = getEventPositionStyles({
             event: event,
@@ -3750,12 +3754,8 @@ var EventsListItem = function (_a) {
         }
         return _style;
     }, [rowHeight]);
-    console.log(event, index);
-    return (jsx("div", __assign({ style: __assign(__assign({}, style), { background: event.type === "COMPLETE"
-                ? "#66B266"
-                : event.type === "CANCELLED"
-                    ? "#FF0000"
-                    : "GOLD" }), className: classNames.event + " " + classNames.type, title: event.name, "data-starttime": format(event.startTime, "hh:mm"), "data-endtime": format(event.endTime, "hh:mm") }, { children: jsxs(Fragment, { children: [jsx("span", __assign({ className: classNames.event_info }, { children: event.name }), void 0), jsx("span", __assign({ className: classNames.event_info }, { children: event.vehicle }), void 0), jsx("span", __assign({ className: classNames.event_info }, { children: event.city }), void 0), jsxs("span", __assign({ className: classNames.event_info }, { children: [format(event.startTime, "hh:mm"), " - ", format(event.endTime, "hh:mm")] }), void 0)] }, void 0) }), void 0));
+    var _b = React__default.useState(false); _b[0]; _b[1];
+    return (jsxs("div", __assign({ style: __assign(__assign({}, style), { zIndex: 1, borderLeft: '6px solid #458ebb', background: getBackgroundColorByEventType(event.type) }), className: classNames.event + " " + classNames.type, title: event.name, "data-starttime": format(event.startTime, "hh:mm"), "data-endtime": format(event.endTime, "hh:mm"), onClick: function () { return onEventClick(event); } }, { children: [jsx("span", __assign({ className: classNames.event_info }, { children: event.name }), void 0), differenceInMinutes(event.endTime, event.startTime) > 30 ? jsx("span", __assign({ className: classNames.event_info }, { children: event.vehicle }), void 0) : '', differenceInMinutes(event.endTime, event.startTime) > 20 ? jsx("span", __assign({ className: classNames.event_info }, { children: event.city }), void 0) : '', jsxs("span", __assign({ className: classNames.event_info }, { children: [format(event.startTime, "hh:mm"), " - ", format(event.endTime, "hh:mm")] }), void 0)] }), void 0));
 };
 
 var isUnassigned = function (day) { return day === "UNASSIGNED"; };
@@ -3766,9 +3766,9 @@ var EventsList = function (_a) {
     }, [day]);
     return (jsx(Fragment, { children: isUnassigned(day)
             ? intersectingEvents.flatMap(function (_events) {
-                return _events.map(function (event, i) { return (jsx(EventsListItem, __assign({ event: event, events: _events }, props, { index: i }), void 0)); });
+                return _events.map(function (event, i) { return (jsx(EventsListItem, __assign({ event: event, events: _events, index: i }, props), void 0)); });
             })
-            : events[day].map(function (event, i) { return (jsx(EventsListItem, __assign({ event: event, events: events[day] }, props, { index: i }), void 0)); }) }, void 0));
+            : events[day].map(function (event, i) { return (jsx(EventsListItem, __assign({ event: event, events: events[day], index: i }, props), void 0)); }) }, void 0));
 };
 
 var Hour = function (_a) {
@@ -3798,6 +3798,51 @@ var windowEventTypes = [
     "mouseup",
     "touchend",
 ];
+
+var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+function unwrapExports (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
+var dist = createCommonjsModule(function (module, exports) {
+var __importStar = (commonjsGlobal && commonjsGlobal.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const React = __importStar(React__default);
+function createReducerAction(actions) {
+    function recuder(state, action) {
+        if (actions[action.type]) {
+            return actions[action.type](state, action.payload);
+        }
+        throw new Error(`Action[${action.type}] is not defined!`);
+    }
+    return function (initialState) {
+        const [state, dispatch] = React.useReducer(recuder, initialState);
+        const handlers = React.useMemo(() => Object.keys(actions).reduce((result, actionKey) => ({
+            ...result,
+            [actionKey]: (payload) => {
+                dispatch({ type: actionKey, payload });
+            }
+        }), {}), []);
+        return [state, handlers];
+    };
+}
+exports.createReducerAction = createReducerAction;
+
+});
+
+unwrapExports(dist);
+var dist_1 = dist.createReducerAction;
 
 function eventIsTouch(event) {
     return event.type.includes("touch");
@@ -3839,7 +3884,7 @@ var resizableActions = {
         return __assign(__assign({}, state), { isMove: false, initSize: undefined });
     },
 };
-var useResizableReducer = createReducerAction(resizableActions);
+var useResizableReducer = dist_1(resizableActions);
 
 function useResizable(option) {
     var ref = React.useRef(null);
@@ -3894,31 +3939,32 @@ function useResizable(option) {
 }
 
 var DayColumn = function (_a) {
-    var events = _a.events, day = _a.day, rowHeight = _a.rowHeight, getDayLabel = _a.getDayLabel, hoursInterval = _a.hoursInterval;
+    var events = _a.events, day = _a.day; _a.index; var rowHeight = _a.rowHeight, getDayLabel = _a.getDayLabel, hoursInterval = _a.hoursInterval, onEventClick = _a.onEventClick;
     var _b = useResizable({
-        minSize: 300,
+        minSize: 100,
         maxSize: 12000,
-        size: 200,
+        size: day === 'UNASSIGNED' ? 300 : 200,
         direction: "right",
     }), size = _b.size, handler = _b.handler;
     var style = {
         "--day-col-size": "1px " + 2 * rowHeight + "%",
         marginRight: "12px",
         width: size,
+        flex: "1 0 " + size + "px",
         height: "100%",
     };
-    return (jsxs("div", __assign({ className: classNames.day + " " + day, style: style }, { children: [jsx("div", __assign({ className: classNames.day_title, style: { height: "57px" } }, { children: getDayLabel(day) }), void 0), jsx(EventsList, { events: events, day: day, hoursInterval: hoursInterval, rowHeight: rowHeight }, void 0), jsx("div", { onMouseDown: handler, onTouchStart: handler, className: classNames.resize_handler }, void 0)] }), void 0));
+    return (jsxs("div", __assign({ className: classNames.day + " " + day, style: style }, { children: [jsx("div", __assign({ className: classNames.day_title, style: { height: "57px" } }, { children: getDayLabel(day) }), void 0), jsx(EventsList, { onEventClick: onEventClick, events: events, day: day, hoursInterval: hoursInterval, rowHeight: rowHeight }, void 0), jsx("div", { onMouseDown: handler, onTouchStart: handler, className: classNames.resize_handler }, void 0)] }), void 0));
 };
 
 var DEFAULT_HOURS_INTERVAL = { from: 7, to: 24 };
 
 var TimeTableJSX = function (_a) {
-    var events = _a.events, _b = _a.hoursInterval, hoursInterval = _b === void 0 ? DEFAULT_HOURS_INTERVAL : _b, _c = _a.timeLabel, timeLabel = _c === void 0 ? "Time" : _c, _d = _a.getDayLabel, getDayLabel = _d === void 0 ? getDefaultDayLabel : _d;
+    var events = _a.events, onEventClick = _a.onEventClick, _b = _a.hoursInterval, hoursInterval = _b === void 0 ? DEFAULT_HOURS_INTERVAL : _b, _c = _a.timeLabel, timeLabel = _c === void 0 ? "Time" : _c, _d = _a.getDayLabel, getDayLabel = _d === void 0 ? getDefaultDayLabel : _d;
     var _e = React.useState(0), rowHeight = _e[0], setRowHeight = _e[1];
     React.useEffect(function () {
         setRowHeight(getRowHeight(hoursInterval.from, hoursInterval.to));
     }, [hoursInterval]);
-    return (jsxs("div", __assign({ className: classNames.time_table_wrapper }, { children: [jsxs("div", __assign({ className: classNames.time }, { children: [jsx("div", __assign({ className: classNames.time_label, style: { height: "57px" } }, { children: timeLabel }), void 0), range(hoursInterval.from, hoursInterval.to).map(function (hour) { return (jsx(Hour, { hour: hour, style: { height: rowHeight + "%" } }, hour + "-" + Math.random() * 10000)); })] }), void 0), Object.keys(events).map(function (day, index) { return (jsx(DayColumn, { events: events, day: day, index: index, rowHeight: rowHeight, getDayLabel: getDayLabel, hoursInterval: hoursInterval }, day + index)); })] }), void 0));
+    return (jsxs("div", __assign({ className: classNames.time_table_wrapper }, { children: [jsxs("div", __assign({ className: classNames.time }, { children: [jsx("div", __assign({ className: classNames.time_label, style: { height: "57px" } }, { children: timeLabel }), void 0), range(hoursInterval.from, hoursInterval.to).map(function (hour) { return (jsx(Hour, { hour: hour, style: { height: rowHeight + "%" } }, hour + "-" + Math.random() * 10000)); })] }), void 0), Object.keys(events).map(function (day, index) { return (jsx(DayColumn, { onEventClick: onEventClick, events: events, day: day, index: index, rowHeight: rowHeight, getDayLabel: getDayLabel, hoursInterval: hoursInterval }, day + index)); })] }), void 0));
 };
 
 export default TimeTableJSX;

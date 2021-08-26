@@ -1,14 +1,17 @@
 import { range } from "lodash-es";
 import * as React from "react";
 import * as fromUtils from "./utils";
-import type { TimeTable } from "./types";
+import type { TimeTable, Event, EventWithIntersection } from "./types";
 import * as fromComponents from "./components";
 import classNames from "./styles.module.css";
 import { DEFAULT_HOURS_INTERVAL } from "./constants";
 import { DayColumn } from "./components";
 
+export type TimeTableEvent = EventWithIntersection | Event
+
 export const TimeTableJSX = ({
   events,
+  onEventClick,
   hoursInterval = DEFAULT_HOURS_INTERVAL,
   timeLabel = "Time",
   getDayLabel = fromUtils.getDefaultDayLabel,
@@ -35,6 +38,7 @@ export const TimeTableJSX = ({
       </div>
       {Object.keys(events).map((day, index) => (
         <DayColumn
+          onEventClick={onEventClick}
           key={day + index}
           events={events}
           day={day}

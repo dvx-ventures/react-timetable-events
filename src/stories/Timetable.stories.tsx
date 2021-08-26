@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
-import { EventPreview, HourPreview } from "./../types";
+import { EventPreview } from "./../types";
 import { format } from 'date-fns'
 import { TimeTableJSX } from "..";
 
@@ -52,7 +52,7 @@ Primary.args = {
       {
         id: 1,
         name: "Paul Fulwyler",
-        type: "COMPLETE",
+        type: "SCHEDULED",
         startTime: new Date("2018-02-23T13:30:00"),
         endTime: new Date("2018-02-23T14:00:00"),
         city: 'San Francisco',
@@ -61,7 +61,7 @@ Primary.args = {
       {
         id: 2,
         name: "Paul Fulwyler",
-        type: "COMPLETE",
+        type: "SCHEDULED",
         startTime: new Date("2018-02-23T13:30:00"),
         endTime: new Date("2018-02-23T14:00:00"),
         city: 'San Francisco',
@@ -70,7 +70,7 @@ Primary.args = {
       {
         id: 3,
         name: "Paul Fulwyler",
-        type: "COMPLETE",
+        type: "SCHEDULED",
         startTime: new Date("2018-02-23T14:30:00"),
         endTime: new Date("2018-02-23T15:00:00"),
         city: 'San Francisco',
@@ -79,7 +79,7 @@ Primary.args = {
       {
         id: 4,
         name: "Paul Fulwyler",
-        type: "COMPLETE",
+        type: "SCHEDULED",
         startTime: new Date("2018-02-23T12:30:00"),
         endTime: new Date("2018-02-23T13:00:00"),
         city: 'San Francisco',
@@ -88,7 +88,7 @@ Primary.args = {
       {
         id: 8,
         name: "Paul Fulwyler",
-        type: "COMPLETE",
+        type: "SCHEDULED",
         startTime: new Date("2018-02-23T12:30:00"),
         endTime: new Date("2018-02-23T13:45:00"),
         city: 'San Francisco',
@@ -97,7 +97,7 @@ Primary.args = {
       {
         id: 9,
         name: "Paul Fulwyler",
-        type: "COMPLETE",
+        type: "SCHEDULED",
         startTime: new Date("2018-02-23T11:30:00"),
         endTime: new Date("2018-02-23T12:00:00"),
         city: 'San Francisco',
@@ -108,7 +108,7 @@ Primary.args = {
       {
         id: 10,
         name: "Paul Fulwyler",
-        type: "SCHEDULED",
+        type: "COMPLETE",
         startTime: new Date("2018-02-22T14:30:00"),
         endTime: new Date("2018-02-22T15:30:00"),
         city: 'San Francisco',
@@ -124,7 +124,15 @@ Primary.args = {
         vehicle: '2007 Toyota Camry'
       },
     ],
-    something: [],
+    something: [{
+      id: 11,
+      name: "Paul Fulwyler",
+      type: "CANCELLED",
+      startTime: new Date("2018-02-22T16:30:00"),
+      endTime: new Date("2018-02-22T17:30:00"),
+      city: 'San Francisco',
+      vehicle: '2007 Toyota Camry'
+    },],
     wednesday: [],
     thursday: [],
     friday: [],
@@ -133,43 +141,10 @@ Primary.args = {
   timeLabel: "Time",
   getDayLabel: (day: string) => day.slice(0, 3),
 };
-
-const HourPreviewJSX = ({ hour, defaultAttributes }: HourPreview) => {
-  return (
-    <div {...defaultAttributes} key={hour}>
-      {hour}
-    </div>
-  );
-};
-
-const EventPreviewJSX = ({
-  event,
-  defaultAttributes,
-  classNames,
-}: EventPreview) => {
-  return (
-    <div
-      {...defaultAttributes}
-      style={{
-        ...defaultAttributes.style,
-        background: event.type === "error" ? "#720000" : "#66B266",
-      }}
-      title={event.name}
-      key={event.id}
-      className={`${classNames.event}`}
-    >
-      <span className={classNames.event_info}>[ {event.name} ]</span>
-      <span className={classNames.event_info}>
-        {format(event.startTime, "hh:mm")} - {format(event.endTime, "hh:mm")}
-      </span>
-    </div>
-  );
-};
+     
 
 export const Secondary = Template.bind({});
 Secondary.storyName = 'Customized: `renderEvent` and `renderHour`'
 Secondary.args = {
   ...Primary.args,
-  renderEvent: EventPreviewJSX,
-  renderHour: HourPreviewJSX,
 };

@@ -35,6 +35,7 @@ export interface TimeTable {
   hoursInterval?: typeof DEFAULT_HOURS_INTERVAL;
   timeLabel?: string;
   getDayLabel?: (day: string) => string;
+  onEventClick(event: Event | EventWithIntersection): void
 }
 
 export interface HoursList {
@@ -48,6 +49,7 @@ export interface DayColumnPreview {
   index: number;
   rowHeight: number;
   getDayLabel: (day: string) => string;
+  onEventClick(event: Event | EventWithIntersection): void
   hoursInterval: typeof DEFAULT_HOURS_INTERVAL;
 }
 

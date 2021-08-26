@@ -1,17 +1,19 @@
 .time_table_wrapper {
-  height: 1500px;
-  margin: 0;
-  font-family: "Open Sans", sans-serif;
   color: #efefef;
   display: flex;
+  font-family: "Open Sans", sans-serif;
+  height: 1500px;
+  margin: 0;
+  overflow-x: auto;
+  position: relative;
 }
 
 .day {
-  position: relative;
-  height: 100%;
-  float: left;
   background-color: #fff;
   border-right: 1px solid #eaeaea;
+  float: left;
+  height: 100%;
+  position: relative;
 }
 
 .day::after {
@@ -19,35 +21,35 @@
   background-position-y: 57px;
   background-size: var(--day-col-size);
   bottom: 0;
-  width: calc(100% + 24px);
   box-sizing: border-box;
   content: '';
   left: 0;
   position: absolute;
   right: 0;
   top: 0;
+  width: calc(100% + 24px);
 }
 
 .time {
-  position: relative;
-  height: 100%;
-  float: left;
   background-color: #fff;
   background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);
+  left: 0;
+  position: sticky;
+  z-index: 1000;
 }
 
 .day_title {
+  background: white;
+  color: black;
+  display: flex;
+  flex-direction: column;
   font-size: 0.7rem;
   font-weight: 600;
-  text-transform: uppercase;
-  display: flex;
   justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  z-index: 2;
-  color: black;
-  background: white;
   position: relative;
+  text-align: center;
+  text-transform: uppercase;
+  z-index: 2;
 }
 
 .day_title::after {
@@ -105,21 +107,22 @@
 }
 
 .event {
-  position: absolute;
-  width: 100%;
-  height: 15vh;
-  line-height: 15vh;
-  padding: 2px 0 0 4px;
-  font-size: 0.7em;
-  font-weight: bolder;
+  align-items: start;
+  box-sizing: border-box;
+  color: black;
+  cursor: pointer;
+  display: flex;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  color: black;
-  display: flex;
-  align-items: start;
+  font-size: 0.7em;
+  font-weight: bolder;
+  height: 15vh;
   justify-content: flex-start;
-  box-sizing: border-box;
+  line-height: 15vh;
+  overflow: hidden;
+  padding: 2px 0 0 4px;
+  position: absolute;
+  width: 100%;
 }
 
 .event_small {

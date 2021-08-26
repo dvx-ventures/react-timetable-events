@@ -4,7 +4,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 var jsxRuntime = require('react/jsx-runtime');
 var React = require('react');
-var PropTypes = require('prop-types');
+var useResizable = require('use-resizable');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -28,8 +28,9 @@ function _interopNamespace(e) {
     return Object.freeze(n);
 }
 
+var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var React__namespace = /*#__PURE__*/_interopNamespace(React);
-var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
+var useResizable__default = /*#__PURE__*/_interopDefaultLegacy(useResizable);
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -3664,35 +3665,57 @@ function setMinutes(dirtyDate, dirtyMinutes) {
 }
 
 var getTime = function (date) { return date.getTime(); };
-var haveOverlap = function (a, b) { return (getTime(b.startTime) <= getTime(a.endTime) &&
-    getTime(b.endTime) > getTime(a.startTime)) ||
-    (getTime(b.endTime) <= getTime(a.startTime) &&
-        getTime(b.startTime) > getTime(a.endTime)); };
-var countOverlaps = function (event) { return function (childAcc, comparitorEvent) {
-    if (haveOverlap(event, comparitorEvent))
-        childAcc++;
-    return childAcc;
+var getEndTime = function (date) {
+    var _date = new Date(date);
+    return getTime(new Date(_date.setMinutes(_date.getMinutes() - 1)));
+};
+var haveOverlap = function (a, b) {
+    return ((getTime(b.startTime) <= getTime(a.endTime) &&
+        getEndTime(b.endTime) > getTime(a.startTime)) ||
+        (getEndTime(b.endTime) <= getTime(a.startTime) &&
+            getTime(b.startTime) > getEndTime(a.endTime)));
+};
+var countOverlaps = function (event) { return function (acc, comparitorEvent) {
+    var overlaps = haveOverlap(event, comparitorEvent);
+    if (overlaps)
+        acc++;
+    return acc;
 }; };
-var sortEvents = function (events) { return events.sort(function (a, b) { return getTime(a.startTime) - getTime(b.startTime); }); };
+var sortEvents = function (events) {
+    return events.sort(function (a, b) { return getTime(a.startTime) - getTime(b.startTime); });
+};
 var getOverlaps = function (events) {
     var groupIndex = 0;
     return events.reduce(function (acc, event) {
+        var _a;
         var overlapCount = events.reduce(countOverlaps(event), 0);
         if (overlapCount > 1) {
             if (!acc[groupIndex])
                 acc[groupIndex] = [];
-            acc[groupIndex].push(event);
+            if (acc[groupIndex].some(function (item) { return !item.hasIntersection; })) {
+                groupIndex++;
+                acc[groupIndex] = [];
+            }
+            acc[groupIndex].push(__assign(__assign({}, event), { hasIntersection: true }));
         }
         else {
-            groupIndex++;
-            acc[groupIndex] = [event];
+            if ((_a = acc[groupIndex]) === null || _a === void 0 ? void 0 : _a.length) {
+                groupIndex++;
+                if (!acc[groupIndex])
+                    acc[groupIndex] = [];
+                acc[groupIndex].push(__assign(__assign({}, event), { hasIntersection: false }));
+            }
+            else {
+                acc[groupIndex] = [];
+                acc[groupIndex].push(__assign(__assign({}, event), { hasIntersection: false }));
+            }
         }
         return acc;
     }, []);
 };
 var getUnassignedEventStyles = function (events, i) { return ({
     width: "calc(100% / " + events.length + ")",
-    left: i / events.length * 100 + '%'
+    left: (i / events.length) * 100 + "%",
 }); };
 var getRowHeight = function (from, to) {
     var numberOfRows = to - from + 1;
@@ -3706,7 +3729,7 @@ var getEventPositionStyles = function (_a) {
     var minutes = round(differenceInMinutes(event.endTime, event.startTime));
     return {
         height: (minutes * rowHeight) / 60 + "%",
-        marginTop: ((minutesFromStartOfDay * rowHeight) / 60) / 100 * 1500 + "px",
+        marginTop: ((minutesFromStartOfDay * rowHeight) / 60 / 100) * 1500 + "px",
     };
 };
 
@@ -3737,117 +3760,78 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = ".styles-module_time_table_wrapper__2TIh0 {\r\n  height: 1500px;\r\n  margin: 0;\r\n  font-family: \"Open Sans\", sans-serif;\r\n  color: #efefef;\r\n  overflow: hidden;\r\n}\r\n\r\n.styles-module_day__1I8NX {\r\n  position: relative;\r\n  height: 100%;\r\n  float: left;\r\n  background-color: #fff;\r\n  background-position-y: 57px;\r\n  min-width: 200px;\r\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\r\n}\r\n\r\n.styles-module_time__28Vv1 {\r\n  position: relative;\r\n  height: 100%;\r\n  float: left;\r\n  background-color: #fff;\r\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\r\n}\r\n\r\n.styles-module_day_title__AI7EC {\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  text-align: center;\r\n  z-index: 2;\r\n  color: black;\r\n  border: 1px solid #ccc;\r\n  border-left: none;\r\n  background: white;\r\n}\r\n\r\n.styles-module_time_label__2Ooxg {\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  text-align: center;\r\n  z-index: 2;\r\n  color: black;\r\n  background: white;\r\n  border-right: 1px solid #ccc;\r\n}\r\n\r\n.styles-module_hour__1T19H {\r\n  background-color: #ffffff;\r\n  font-size: 12px;\r\n  text-align: center;\r\n  width: 5rem;\r\n  border-right: 1px solid #ccc;\r\n  color: black;\r\n}\r\n\r\n.styles-module_event__1VBTJ {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 15vh;\r\n  line-height: 15vh;\r\n  background-color: rgb(18, 205, 177);\r\n  font-size: 0.7em;\r\n  font-weight: bolder;\r\n  justify-content: center;\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\r\n  color: black;\r\n  border-radius: 7px;\r\n  align-items: top;\r\n  cursor: default;\r\n}\r\n\r\n.styles-module_event_small__2MS_i {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 15vh;\r\n  line-height: 15vh;\r\n  background-color: rgb(18, 205, 177);\r\n  font-size: 0.7em;\r\n  font-weight: bolder;\r\n  justify-content: center;\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\r\n  color: black;\r\n  border-radius: 7px;\r\n  align-items: top;\r\n  cursor: default;\r\n}\r\n\r\n.styles-module_event_small__2MS_i:hover {\r\n  padding-bottom: 20px;\r\n  padding-top: 20px;\r\n  cursor: pointer;\r\n}\r\n\r\n.styles-module_event_info__1g0pV {\r\n  line-height: initial;\r\n  text-align: center;\r\n}\r\n";
-var classNames = {"time_table_wrapper":"styles-module_time_table_wrapper__2TIh0","day":"styles-module_day__1I8NX","time":"styles-module_time__28Vv1","day_title":"styles-module_day_title__AI7EC","time_label":"styles-module_time_label__2Ooxg","hour":"styles-module_hour__1T19H","event":"styles-module_event__1VBTJ","event_small":"styles-module_event_small__2MS_i","event_info":"styles-module_event_info__1g0pV"};
+var css_248z = ".styles-module_time_table_wrapper__2TIh0 {\n  height: 1500px;\n  margin: 0;\n  font-family: \"Open Sans\", sans-serif;\n  color: #efefef;\n  overflow: auto;\n  display: flex;\n}\n\n.styles-module_day__1I8NX {\n  position: relative;\n  height: 100%;\n  float: left;\n  background-color: #fff;\n  min-width: 200px;\n  border-right: 1px solid #eaeaea;\n}\n\n.styles-module_day__1I8NX::after {\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\n  background-position-y: 57px;\n  background-size: var(--day-col-size);\n  bottom: 0;\n  width: calc(100% + 24px);\n  box-sizing: border-box;\n  content: '';\n  left: 0;\n  position: absolute;\n  right: 0;\n  top: 0;\n}\n\n.styles-module_time__28Vv1 {\n  position: relative;\n  height: 100%;\n  float: left;\n  background-color: #fff;\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\n}\n\n.styles-module_day_title__AI7EC {\n  font-size: 0.7rem;\n  font-weight: 600;\n  text-transform: uppercase;\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  text-align: center;\n  z-index: 2;\n  color: black;\n  background: white;\n  position: relative;\n}\n\n.styles-module_day_title__AI7EC::after {\n  content: '';\n  bottom: 0;\n  left: 0;\n  position: absolute;\n  height: 1px;\n  width: calc(100% + 13px);\n  background: #c7c7c7;\n}\n\n.styles-module_day_title__AI7EC::before {\n  content: '';\n  top: 0;\n  left: 0;\n  position: absolute;\n  height: 1px;\n  width: calc(100% + 13px);\n  background: #c7c7c7;\n}\n\n.styles-module_resize_handler__3ie7h {\n  position: absolute;\n  width: 10px;\n  height: 100%;\n  top: 0;\n  right: 0;\n  z-index: 1;\n  cursor: col-resize;\n}\n\n.styles-module_time_label__2Ooxg {\n  font-size: 0.7rem;\n  font-weight: 600;\n  text-transform: uppercase;\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  text-align: center;\n  z-index: 2;\n  color: black;\n  background: white;\n  border-right: 1px solid #ccc;\n}\n\n.styles-module_hour__1T19H {\n  background-color: #ffffff;\n  font-size: 12px;\n  text-align: center;\n  width: 5rem;\n  border-right: 1px solid #ccc;\n  color: black;\n}\n\n.styles-module_event__1VBTJ {\n  position: absolute;\n  width: 100%;\n  height: 15vh;\n  line-height: 15vh;\n  background-color: rgb(18, 205, 177);\n  font-size: 0.7em;\n  font-weight: bolder;\n  justify-content: center;\n  display: flex;\n  flex-direction: column;\n  overflow: hidden;\n  color: black;\n  border-radius: 7px;\n  align-items: top;\n  cursor: default;\n  border: 1px solid black;\n}\n\n.styles-module_event_small__2MS_i {\n  position: absolute;\n  width: 100%;\n  height: 15vh;\n  line-height: 15vh;\n  background-color: rgb(18, 205, 177);\n  font-size: 0.7em;\n  font-weight: bolder;\n  justify-content: center;\n  display: flex;\n  flex-direction: column;\n  overflow: hidden;\n  color: black;\n  border-radius: 7px;\n  align-items: top;\n  cursor: default;\n  border: 1px solid black;\n}\n\n.styles-module_event_small__2MS_i:hover {\n  padding-bottom: 10px;\n  padding-top: 10px;\n  cursor: pointer;\n}\n\n.styles-module_event_info__1g0pV {\n  line-height: initial;\n  text-align: center;\n}\n";
+var classNames = {"time_table_wrapper":"styles-module_time_table_wrapper__2TIh0","day":"styles-module_day__1I8NX","time":"styles-module_time__28Vv1","day_title":"styles-module_day_title__AI7EC","resize_handler":"styles-module_resize_handler__3ie7h","time_label":"styles-module_time_label__2Ooxg","hour":"styles-module_hour__1T19H","event":"styles-module_event__1VBTJ","event_small":"styles-module_event_small__2MS_i","event_info":"styles-module_event_info__1g0pV"};
 styleInject(css_248z);
+
+var EventsListItem = function (_a) {
+    var events = _a.events, event = _a.event, hoursInterval = _a.hoursInterval, rowHeight = _a.rowHeight, index = _a.index;
+    var style = React__default['default'].useMemo(function () {
+        var _a = getEventPositionStyles({
+            event: event,
+            hoursInterval: hoursInterval,
+            rowHeight: rowHeight,
+        }), height = _a.height, marginTop = _a.marginTop;
+        var _style = { height: height, marginTop: marginTop };
+        if (event.hasIntersection) {
+            var _b = getUnassignedEventStyles(events, index), width = _b.width, left = _b.left;
+            return __assign(__assign({}, _style), { width: width, left: left });
+        }
+        return _style;
+    }, [rowHeight]);
+    console.log(event, index);
+    return (jsxRuntime.jsx("div", __assign({ style: __assign(__assign({}, style), { background: event.type === "COMPLETE"
+                ? "#66B266"
+                : event.type === "CANCELLED"
+                    ? "#FF0000"
+                    : "GOLD" }), className: classNames.event + " " + classNames.type, title: event.name, "data-starttime": format(event.startTime, "hh:mm"), "data-endtime": format(event.endTime, "hh:mm") }, { children: jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx("span", __assign({ className: classNames.event_info }, { children: event.name }), void 0), jsxRuntime.jsx("span", __assign({ className: classNames.event_info }, { children: event.vehicle }), void 0), jsxRuntime.jsx("span", __assign({ className: classNames.event_info }, { children: event.city }), void 0), jsxRuntime.jsxs("span", __assign({ className: classNames.event_info }, { children: [format(event.startTime, "hh:mm"), " - ", format(event.endTime, "hh:mm")] }), void 0)] }, void 0) }), void 0));
+};
+
+var isUnassigned = function (day) { return day === "UNASSIGNED"; };
+var EventsList = function (_a) {
+    var events = _a.events, day = _a.day, props = __rest(_a, ["events", "day"]);
+    var intersectingEvents = React__default['default'].useMemo(function () {
+        return getOverlaps(sortEvents(events[day]));
+    }, [day]);
+    return (jsxRuntime.jsx(jsxRuntime.Fragment, { children: isUnassigned(day)
+            ? intersectingEvents.flatMap(function (_events) {
+                return _events.map(function (event, i) { return (jsxRuntime.jsx(EventsListItem, __assign({ event: event, events: _events }, props, { index: i }), void 0)); });
+            })
+            : events[day].map(function (event, i) { return (jsxRuntime.jsx(EventsListItem, __assign({ event: event, events: events[day] }, props, { index: i }), void 0)); }) }, void 0));
+};
+
+var Hour = function (_a) {
+    var hour = _a.hour, props = __rest(_a, ["hour"]);
+    return (jsxRuntime.jsxs("div", __assign({ className: classNames.hour }, props, { children: [hour > 12 ? hour - 12 : hour, ":00"] }), void 0));
+};
+
+var DayColumn = function (_a) {
+    var events = _a.events, day = _a.day, rowHeight = _a.rowHeight, getDayLabel = _a.getDayLabel, hoursInterval = _a.hoursInterval;
+    var _b = useResizable__default['default']({
+        minSize: "calc((100% - 5rem) / " + Object.keys(events).length + ")",
+        maxSize: 12000,
+        size: 200,
+        direction: "right",
+    }), size = _b.size, handler = _b.handler;
+    var style = {
+        "--day-col-size": "1px " + 2 * rowHeight + "%",
+        marginRight: "12px",
+        width: size,
+        height: "100%",
+    };
+    return (jsxRuntime.jsxs("div", __assign({ className: classNames.day + " " + day, style: style }, { children: [jsxRuntime.jsx("div", __assign({ className: classNames.day_title, style: { height: "57px" } }, { children: getDayLabel(day) }), void 0), jsxRuntime.jsx(EventsList, { events: events, day: day, hoursInterval: hoursInterval, rowHeight: rowHeight }, void 0), jsxRuntime.jsx("div", { onMouseDown: handler, onTouchStart: handler, className: classNames.resize_handler }, void 0)] }), void 0));
+};
 
 var DEFAULT_HOURS_INTERVAL = { from: 7, to: 24 };
 
-var HourPreviewJSX = function (_a) {
-    var hour = _a.hour, defaultAttributes = _a.defaultAttributes;
-    return (React.createElement("div", __assign({}, defaultAttributes, { key: hour }), hour));
-};
-var EventPreviewJSX = function (_a) {
-    var event = _a.event, defaultAttributes = _a.defaultAttributes, classNames = _a.classNames;
-    return (React.createElement("div", __assign({}, defaultAttributes, { style: __assign(__assign({}, defaultAttributes.style), { background: event.type === "COMPLETE" ? "#66B266" : event.type === "CANCELLED" ? "#FF0000" : 'GOLD' }), title: event.name, key: event.id }),
-        jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx("span", __assign({ className: classNames.event_info }, { children: event.name }), void 0), jsxRuntime.jsx("span", __assign({ className: classNames.event_info }, { children: event.vehicle }), void 0), jsxRuntime.jsx("span", __assign({ className: classNames.event_info }, { children: event.city }), void 0), jsxRuntime.jsxs("span", __assign({ className: classNames.event_info }, { children: [format(event.startTime, "hh:mm"), " - ", format(event.endTime, "hh:mm")] }), void 0)] }, void 0)));
-};
-var renderEventsListItem = function (_a) {
-    var events = _a.events, renderEvent = _a.renderEvent, hoursInterval = _a.hoursInterval, rowHeight = _a.rowHeight, day = _a.day;
-    return events.map(function (event, i) {
-        return renderEvent({
-            event: event,
-            defaultAttributes: {
-                className: "" + (differenceInMinutes(event.endTime, event.startTime) < 30 ? classNames.event_small : classNames.event),
-                style: __assign(__assign({}, (day === 'UNASSIGNED' ? getUnassignedEventStyles(events, i) : {})), getEventPositionStyles({ event: event, hoursInterval: hoursInterval, rowHeight: rowHeight }))
-            },
-            classNames: classNames,
-        });
-    });
-};
-/**
- * A calendar timeslot on the item.
- */
-var EventsListJSX = function (_a) {
-    var events = _a.events, day = _a.day, renderEvent = _a.renderEvent, props = __rest(_a, ["events", "day", "renderEvent"]);
-    if (day === 'unassigned') {
-        var intersectingEvents = getOverlaps(sortEvents(events[day]));
-        return (intersectingEvents || []).flatMap(function (events) {
-            if (events.length > 1) {
-                return renderEventsListItem(__assign({ events: events, renderEvent: renderEvent, day: day }, props));
-            }
-        });
-    }
-    if (events[day].length > 0) {
-        return renderEventsListItem(__assign({ events: events[day], renderEvent: renderEvent, day: day }, props));
-    }
-};
-var DayColumnPreviewJSX = function (_a) {
-    var events = _a.events, day = _a.day, index = _a.index, rowHeight = _a.rowHeight, getDayLabel = _a.getDayLabel, renderEvent = _a.renderEvent, hoursInterval = _a.hoursInterval;
-    return (jsxRuntime.jsxs("div", __assign({ className: classNames.day + " " + day, style: {
-            backgroundSize: "1px " + 2 * rowHeight + "%",
-            width: "calc((100% - 5rem) / " + Object.keys(events).length + ")",
-        } }, { children: [jsxRuntime.jsx("div", __assign({ className: classNames.day_title, style: { height: "57px", } }, { children: getDayLabel(day) }), void 0), EventsListJSX({
-                events: events,
-                day: day,
-                renderEvent: renderEvent,
-                hoursInterval: hoursInterval,
-                rowHeight: rowHeight,
-            })] }), day + "-" + index));
-};
-var HoursListJSX = function (_a) {
-    var hoursInterval = _a.hoursInterval, rowHeight = _a.rowHeight, renderHour = _a.renderHour;
-    return range(hoursInterval.from, hoursInterval.to).map(function (hour) {
-        return renderHour({
-            hour: (hour > 12 ? hour - 12 : hour) + ":00",
-            defaultAttributes: {
-                className: classNames.hour,
-                style: { height: rowHeight + "%" },
-            },
-            classNames: classNames,
-        });
-    });
-};
 var TimeTableJSX = function (_a) {
-    var events = _a.events, _b = _a.hoursInterval, hoursInterval = _b === void 0 ? DEFAULT_HOURS_INTERVAL : _b, _c = _a.timeLabel, timeLabel = _c === void 0 ? "Time" : _c, _d = _a.getDayLabel, getDayLabel = _d === void 0 ? getDefaultDayLabel : _d, _e = _a.renderEvent, renderEvent = _e === void 0 ? EventPreviewJSX : _e, _f = _a.renderHour, renderHour = _f === void 0 ? HourPreviewJSX : _f;
-    var _g = React__namespace.useState(0), rowHeight = _g[0], setRowHeight = _g[1];
+    var events = _a.events, _b = _a.hoursInterval, hoursInterval = _b === void 0 ? DEFAULT_HOURS_INTERVAL : _b, _c = _a.timeLabel, timeLabel = _c === void 0 ? "Time" : _c, _d = _a.getDayLabel, getDayLabel = _d === void 0 ? getDefaultDayLabel : _d;
+    var _e = React__namespace.useState(0), rowHeight = _e[0], setRowHeight = _e[1];
     React__namespace.useEffect(function () {
         setRowHeight(getRowHeight(hoursInterval.from, hoursInterval.to));
     }, [hoursInterval]);
-    return (jsxRuntime.jsxs("div", __assign({ className: classNames.time_table_wrapper }, { children: [jsxRuntime.jsxs("div", __assign({ className: classNames.time }, { children: [jsxRuntime.jsx("div", __assign({ className: classNames.time_label, style: { height: "57px" } }, { children: timeLabel }), void 0), HoursListJSX({ hoursInterval: hoursInterval, renderHour: renderHour, rowHeight: rowHeight })] }), void 0), Object.keys(events).map(function (day, index) {
-                return DayColumnPreviewJSX({
-                    events: events,
-                    day: day,
-                    index: index,
-                    rowHeight: rowHeight,
-                    getDayLabel: getDayLabel,
-                    renderEvent: renderEvent,
-                    hoursInterval: hoursInterval,
-                });
-            })] }), void 0));
-};
-TimeTableJSX.propTypes = {
-    events: PropTypes__default['default'].object.isRequired,
-    hoursInterval: PropTypes__default['default'].shape({
-        from: PropTypes__default['default'].number.isRequired,
-        to: PropTypes__default['default'].number.isRequired,
-    }),
-    renderHour: PropTypes__default['default'].func,
-    renderEvent: PropTypes__default['default'].func,
-    getDayLabel: PropTypes__default['default'].func,
-    timeLabel: PropTypes__default['default'].string,
-};
-TimeTableJSX.defaultProps = {
-    hoursInterval: DEFAULT_HOURS_INTERVAL,
-    timeLabel: "Time",
-    renderHour: HourPreviewJSX,
-    renderEvent: EventPreviewJSX,
-    getDayLabel: getDefaultDayLabel,
+    return (jsxRuntime.jsxs("div", __assign({ className: classNames.time_table_wrapper }, { children: [jsxRuntime.jsxs("div", __assign({ className: classNames.time }, { children: [jsxRuntime.jsx("div", __assign({ className: classNames.time_label, style: { height: "57px" } }, { children: timeLabel }), void 0), range(hoursInterval.from, hoursInterval.to).map(function (hour) { return (jsxRuntime.jsx(Hour, { hour: hour, style: { height: rowHeight + "%" } }, hour + "-" + Math.random() * 10000)); })] }), void 0), Object.keys(events).map(function (day, index) { return (jsxRuntime.jsx(DayColumn, { events: events, day: day, index: index, rowHeight: rowHeight, getDayLabel: getDayLabel, hoursInterval: hoursInterval }, day + index)); })] }), void 0));
 };
 
-exports.EventPreviewJSX = EventPreviewJSX;
-exports.EventsListJSX = EventsListJSX;
-exports.HourPreviewJSX = HourPreviewJSX;
-exports.HoursListJSX = HoursListJSX;
 exports.TimeTableJSX = TimeTableJSX;
 exports.default = TimeTableJSX;

@@ -1,10 +1,11 @@
-import { Event } from './types';
+import { Event, EventWithIntersection } from "./types";
 import { DEFAULT_HOURS_INTERVAL } from "./constants";
 export declare const getTime: (date: Date) => number;
+export declare const getEndTime: (date: Date) => number;
 export declare const haveOverlap: (a: Event, b: Event) => boolean;
-export declare const countOverlaps: (event: Event) => (childAcc: number, comparitorEvent: Event) => number;
+export declare const countOverlaps: (event: Event) => (acc: number, comparitorEvent: Event) => number;
 export declare const sortEvents: (events: Event[]) => Event[];
-export declare const getOverlaps: (events: Event[]) => Event[][];
+export declare const getOverlaps: (events: Event[]) => EventWithIntersection[][];
 export declare const getUnassignedEventStyles: (events: Event[], i: number) => {
     width: string;
     left: string;

@@ -3,7 +3,8 @@
   margin: 0;
   font-family: "Open Sans", sans-serif;
   color: #efefef;
-  overflow: hidden;
+  overflow: auto;
+  display: flex;
 }
 
 .day {
@@ -11,9 +12,22 @@
   height: 100%;
   float: left;
   background-color: #fff;
-  background-position-y: 57px;
   min-width: 200px;
+  border-right: 1px solid #eaeaea;
+}
+
+.day::after {
   background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);
+  background-position-y: 57px;
+  background-size: var(--day-col-size);
+  bottom: 0;
+  width: calc(100% + 24px);
+  box-sizing: border-box;
+  content: '';
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .time {
@@ -34,9 +48,38 @@
   text-align: center;
   z-index: 2;
   color: black;
-  border: 1px solid #ccc;
-  border-left: none;
   background: white;
+  position: relative;
+}
+
+.day_title::after {
+  content: '';
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  height: 1px;
+  width: calc(100% + 13px);
+  background: #c7c7c7;
+}
+
+.day_title::before {
+  content: '';
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 1px;
+  width: calc(100% + 13px);
+  background: #c7c7c7;
+}
+
+.resize_handler {
+  position: absolute;
+  width: 10px;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  cursor: col-resize;
 }
 
 .time_label {

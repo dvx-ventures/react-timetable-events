@@ -1,14 +1,7 @@
-import * as React from 'react';
-import { DEFAULT_HOURS_INTERVAL } from './constants';
+import { DEFAULT_HOURS_INTERVAL } from "./constants";
 export interface EventPreview {
     event: Event;
-    defaultAttributes: React.HTMLAttributes<HTMLDivElement>;
     classNames: ClassNames;
-}
-export interface HourPreview {
-    hour: string;
-    defaultAttributes: React.HTMLAttributes<HTMLDivElement>;
-    classNames?: ClassNames;
 }
 export declare type ClassNames = {
     time_table_wrapper: string;
@@ -37,20 +30,10 @@ export interface TimeTable {
     hoursInterval?: typeof DEFAULT_HOURS_INTERVAL;
     timeLabel?: string;
     getDayLabel?: (day: string) => string;
-    renderEvent?: React.FC<EventPreview>;
-    renderHour?: React.FC<HourPreview>;
-}
-export interface EventsList {
-    day: string;
-    events: Events;
-    renderEvent: React.FC<EventPreview>;
-    hoursInterval: typeof DEFAULT_HOURS_INTERVAL;
-    rowHeight: number;
 }
 export interface HoursList {
     hoursInterval: typeof DEFAULT_HOURS_INTERVAL;
     rowHeight: number;
-    renderHour: React.FC<HourPreview>;
 }
 export interface DayColumnPreview {
     events: Events;
@@ -58,6 +41,8 @@ export interface DayColumnPreview {
     index: number;
     rowHeight: number;
     getDayLabel: (day: string) => string;
-    renderEvent: React.FC<EventPreview>;
     hoursInterval: typeof DEFAULT_HOURS_INTERVAL;
 }
+export declare type EventWithIntersection = Event & {
+    hasIntersection?: boolean;
+};

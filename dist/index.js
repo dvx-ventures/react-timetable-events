@@ -3673,12 +3673,6 @@ var haveOverlap = function (a, b) {
         (getEndTime(b.endTime) <= getTime(a.startTime) &&
             getTime(b.startTime) > getEndTime(a.endTime)));
 };
-var countOverlaps = function (event) { return function (acc, comparitorEvent) {
-    var overlaps = haveOverlap(event, comparitorEvent);
-    if (overlaps)
-        acc++;
-    return acc;
-}; };
 var sortEvents = function (events) {
     return events.sort(function (a, b) { return getTime(a.startTime) - getTime(b.startTime); });
 };
@@ -3697,30 +3691,13 @@ var doesBelongToLastOverlap = function (acc, event, groupIndex) {
 var getOverlaps = function (events) {
     var groupIndex = 0;
     return events.reduce(function (acc, event) {
-        var _a;
-        var overlapCount = events.reduce(countOverlaps(event), 0);
-        if (overlapCount > 1) {
-            if (doesBelongToLastOverlap(acc, event, groupIndex)) {
-                acc[groupIndex].push(__assign(__assign({}, event), { hasIntersection: true }));
-                return acc;
-            }
-            groupIndex++;
-            if (!acc[groupIndex])
-                acc[groupIndex] = [];
+        if (doesBelongToLastOverlap(acc, event, groupIndex)) {
             acc[groupIndex].push(__assign(__assign({}, event), { hasIntersection: true }));
+            return acc;
         }
-        else {
-            if ((_a = acc[groupIndex]) === null || _a === void 0 ? void 0 : _a.length) {
-                groupIndex++;
-                if (!acc[groupIndex])
-                    acc[groupIndex] = [];
-                acc[groupIndex].push(__assign(__assign({}, event), { hasIntersection: false }));
-            }
-            else {
-                acc[groupIndex] = [];
-                acc[groupIndex].push(__assign(__assign({}, event), { hasIntersection: false }));
-            }
-        }
+        groupIndex++;
+        acc[groupIndex] = [];
+        acc[groupIndex].push(__assign(__assign({}, event), { hasIntersection: true }));
         return acc;
     }, []);
 };
@@ -3771,7 +3748,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = ".styles-module_time_table_wrapper__2TIh0 {\r\n  color: #efefef;\r\n  display: flex;\r\n  font-family: \"Open Sans\", sans-serif;\r\n  height: 1500px;\r\n  margin: 0;\r\n  overflow-x: auto;\r\n  position: relative;\r\n}\r\n\r\n.styles-module_day__1I8NX {\r\n  background-color: #fff;\r\n  border-right: 1px solid #eaeaea;\r\n  float: left;\r\n  height: 100%;\r\n  position: relative;\r\n}\r\n\r\n.styles-module_day__1I8NX::after {\r\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\r\n  background-position-y: 57px;\r\n  background-size: var(--day-col-size);\r\n  bottom: 0;\r\n  box-sizing: border-box;\r\n  content: '';\r\n  left: 0;\r\n  position: absolute;\r\n  right: 0;\r\n  top: 0;\r\n  width: calc(100% + 24px);\r\n}\r\n\r\n.styles-module_time__28Vv1 {\r\n  background-color: #fff;\r\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\r\n  left: 0;\r\n  position: sticky;\r\n  z-index: 1000;\r\n}\r\n\r\n.styles-module_day_title__AI7EC {\r\n  background: white;\r\n  color: black;\r\n  display: flex;\r\n  flex-direction: column;\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  justify-content: center;\r\n  position: relative;\r\n  text-align: center;\r\n  text-transform: uppercase;\r\n  z-index: 2;\r\n}\r\n\r\n.styles-module_day_title__AI7EC::after {\r\n  content: '';\r\n  bottom: 0;\r\n  left: 0;\r\n  position: absolute;\r\n  height: 1px;\r\n  width: calc(100% + 13px);\r\n  background: #c7c7c7;\r\n}\r\n\r\n.styles-module_day_title__AI7EC::before {\r\n  content: '';\r\n  top: 0;\r\n  left: 0;\r\n  position: absolute;\r\n  height: 1px;\r\n  width: calc(100% + 13px);\r\n  background: #c7c7c7;\r\n}\r\n\r\n.styles-module_resize_handler__3ie7h {\r\n  position: absolute;\r\n  width: 10px;\r\n  height: 100%;\r\n  top: 0;\r\n  left: 100%;\r\n  z-index: 1;\r\n  background: rgba(128, 128, 128, 0.1);\r\n  cursor: col-resize;\r\n}\r\n\r\n.styles-module_time_label__2Ooxg {\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  text-align: center;\r\n  z-index: 2;\r\n  color: black;\r\n  background: white;\r\n  border-right: 1px solid #ccc;\r\n}\r\n\r\n.styles-module_hour__1T19H {\r\n  background-color: #ffffff;\r\n  font-size: 12px;\r\n  text-align: center;\r\n  width: 5rem;\r\n  border-right: 1px solid #ccc;\r\n  color: black;\r\n}\r\n\r\n.styles-module_event__1VBTJ {\r\n  align-items: start;\r\n  box-sizing: border-box;\r\n  color: black;\r\n  cursor: pointer;\r\n  display: flex;\r\n  display: flex;\r\n  flex-direction: column;\r\n  font-size: 0.7em;\r\n  font-weight: bolder;\r\n  height: 15vh;\r\n  justify-content: flex-start;\r\n  line-height: 15vh;\r\n  overflow: hidden;\r\n  padding: 2px 0 0 4px;\r\n  position: absolute;\r\n  width: 100%;\r\n}\r\n\r\n.styles-module_event_small__2MS_i {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 15vh;\r\n  line-height: 15vh;\r\n  background-color: rgb(18, 205, 177);\r\n  font-size: 0.7em;\r\n  font-weight: bolder;\r\n  justify-content: center;\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\r\n  color: black;\r\n  border-radius: 7px;\r\n  align-items: top;\r\n  border: 1px solid black;\r\n}\r\n\r\n.styles-module_event_info__1g0pV {\r\n  line-height: initial;\r\n  text-align: center;\r\n  white-space: nowrap;\r\n  font-size: 10px;\r\n  padding: 2px 0;\r\n}\r\n";
+var css_248z = ".styles-module_time_table_wrapper__2TIh0 {\r\n  color: #efefef;\r\n  display: flex;\r\n  font-family: \"Open Sans\", sans-serif;\r\n  height: 1500px;\r\n  margin: 0;\r\n  overflow-x: auto;\r\n  position: relative;\r\n  box-sizing: border-box;\r\n}\r\n\r\n.styles-module_time_table_wrapper__2TIh0 > *, *::before, *::after  {\r\n  box-sizing: border-box;\r\n}\r\n\r\n.styles-module_day__1I8NX {\r\n  background-color: #fff;\r\n  border-right: 1px solid #eaeaea;\r\n  float: left;\r\n  height: 100%;\r\n  position: relative;\r\n}\r\n\r\n.styles-module_day__1I8NX::after {\r\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\r\n  background-position-y: 57px;\r\n  background-size: var(--day-col-size);\r\n  bottom: 0;\r\n  content: '';\r\n  left: 0;\r\n  position: absolute;\r\n  right: 0;\r\n  top: 0;\r\n  width: calc(100% + 24px);\r\n}\r\n\r\n.styles-module_time__28Vv1 {\r\n  background-color: #fff;\r\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\r\n  left: 0;\r\n  position: sticky;\r\n  z-index: 1000;\r\n}\r\n\r\n.styles-module_day_title__AI7EC {\r\n  background: white;\r\n  color: black;\r\n  display: flex;\r\n  flex-direction: column;\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  justify-content: center;\r\n  position: relative;\r\n  text-align: center;\r\n  text-transform: uppercase;\r\n  z-index: 2;\r\n}\r\n\r\n.styles-module_day_title__AI7EC::after {\r\n  content: '';\r\n  bottom: 0;\r\n  left: 0;\r\n  position: absolute;\r\n  height: 1px;\r\n  width: calc(100% + 13px);\r\n  background: #c7c7c7;\r\n}\r\n\r\n.styles-module_day_title__AI7EC::before {\r\n  content: '';\r\n  top: 0;\r\n  left: 0;\r\n  position: absolute;\r\n  height: 1px;\r\n  width: calc(100% + 13px);\r\n  background: #c7c7c7;\r\n}\r\n\r\n.styles-module_resize_handler__3ie7h {\r\n  position: absolute;\r\n  width: 10px;\r\n  height: 100%;\r\n  top: 0;\r\n  left: 100%;\r\n  z-index: 1;\r\n  background: rgba(128, 128, 128, 0.1);\r\n  cursor: col-resize;\r\n}\r\n\r\n.styles-module_time_label__2Ooxg {\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  text-align: center;\r\n  z-index: 2;\r\n  color: black;\r\n  background: white;\r\n  border-right: 1px solid #ccc;\r\n}\r\n\r\n.styles-module_hour__1T19H {\r\n  background-color: #ffffff;\r\n  font-size: 12px;\r\n  text-align: center;\r\n  width: 5rem;\r\n  border-right: 1px solid #ccc;\r\n  color: black;\r\n}\r\n\r\n.styles-module_event__1VBTJ {\r\n  align-items: start;\r\n  color: black;\r\n  cursor: pointer;\r\n  display: flex;\r\n  display: flex;\r\n  flex-direction: column;\r\n  font-size: 0.7em;\r\n  font-weight: bolder;\r\n  height: 15vh;\r\n  justify-content: flex-start;\r\n  line-height: 15vh;\r\n  overflow: hidden;\r\n  padding: 2px 0 0 4px;\r\n  position: absolute;\r\n  width: 100%;\r\n}\r\n\r\n.styles-module_event_small__2MS_i {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 15vh;\r\n  line-height: 15vh;\r\n  background-color: rgb(18, 205, 177);\r\n  font-size: 0.7em;\r\n  font-weight: bolder;\r\n  justify-content: center;\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\r\n  color: black;\r\n  border-radius: 7px;\r\n  align-items: top;\r\n  border: 1px solid black;\r\n}\r\n\r\n.styles-module_event_info__1g0pV {\r\n  line-height: initial;\r\n  text-align: center;\r\n  white-space: nowrap;\r\n  font-size: 10px;\r\n  padding: 2px 0;\r\n}\r\n";
 var classNames = {"time_table_wrapper":"styles-module_time_table_wrapper__2TIh0","day":"styles-module_day__1I8NX","time":"styles-module_time__28Vv1","day_title":"styles-module_day_title__AI7EC","resize_handler":"styles-module_resize_handler__3ie7h","time_label":"styles-module_time_label__2Ooxg","hour":"styles-module_hour__1T19H","event":"styles-module_event__1VBTJ","event_small":"styles-module_event_small__2MS_i","event_info":"styles-module_event_info__1g0pV"};
 styleInject(css_248z);
 
@@ -3803,12 +3780,10 @@ var isUnassigned = function (day) { return day === "UNASSIGNED"; };
 var EventsList = function (_a) {
     var events = _a.events, day = _a.day, props = __rest(_a, ["events", "day"]);
     var intersectingEvents = React__default['default'].useMemo(function () {
-        console.log(sortEvents(events[day]));
         return getOverlaps(sortEvents(events[day]));
     }, [day]);
     return (jsxRuntime.jsx(jsxRuntime.Fragment, { children: isUnassigned(day)
             ? intersectingEvents.flatMap(function (_events) {
-                console.log(intersectingEvents);
                 return _events.map(function (event, i) { return (jsxRuntime.jsx(EventsListItem, __assign({ event: event, events: _events, index: i }, props), void 0)); });
             })
             : events[day].map(function (event, i) { return (jsxRuntime.jsx(EventsListItem, __assign({ event: event, events: events[day], index: i }, props), void 0)); }) }, void 0));
@@ -3982,11 +3957,11 @@ function useResizable(option) {
 }
 
 var DayColumn = function (_a) {
-    var events = _a.events, day = _a.day; _a.index; var rowHeight = _a.rowHeight, getDayLabel = _a.getDayLabel, hoursInterval = _a.hoursInterval, onEventClick = _a.onEventClick;
+    var events = _a.events, day = _a.day, rowHeight = _a.rowHeight, getDayLabel = _a.getDayLabel, hoursInterval = _a.hoursInterval, onEventClick = _a.onEventClick;
     var _b = useResizable({
         minSize: 100,
         maxSize: 12000,
-        size: day === 'UNASSIGNED' ? 300 : 200,
+        size: day === "UNASSIGNED" ? 300 : 200,
         direction: "right",
     }), size = _b.size, handler = _b.handler;
     var style = {

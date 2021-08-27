@@ -22,7 +22,7 @@ export interface Event {
   endTime: Date;
   city: string;
   vehicle: string;
-  type?: string;
+  type: string;
   [key: string]: unknown;
 }
 

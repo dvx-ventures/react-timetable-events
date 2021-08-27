@@ -3775,18 +3775,19 @@ var css_248z = ".styles-module_time_table_wrapper__2TIh0 {\r\n  color: #efefef;\
 var classNames = {"time_table_wrapper":"styles-module_time_table_wrapper__2TIh0","day":"styles-module_day__1I8NX","time":"styles-module_time__28Vv1","day_title":"styles-module_day_title__AI7EC","resize_handler":"styles-module_resize_handler__3ie7h","time_label":"styles-module_time_label__2Ooxg","hour":"styles-module_hour__1T19H","event":"styles-module_event__1VBTJ","event_small":"styles-module_event_small__2MS_i","event_info":"styles-module_event_info__1g0pV"};
 styleInject(css_248z);
 
-var getBackgroundColorByEventType = function (type) { return type === "SCHEDULED"
-    ? "rgb(208 208 208)"
-    : type === "CANCELLED"
-        ? "rgb(255 105 105)"
-        : "rgb(119 224 123)"; };
+var getBackgroundColorByEventType = function (type) {
+    return type === "ATTACH_REPAIR_ORDER"
+        ? "#DC2127"
+        : "#FBD75B"
+            ;
+};
 var EventsListItem = function (_a) {
     var events = _a.events, event = _a.event, hoursInterval = _a.hoursInterval, rowHeight = _a.rowHeight, index = _a.index, onEventClick = _a.onEventClick;
     var style = React__default['default'].useMemo(function () {
         var _a = getEventPositionStyles({
             event: event,
             hoursInterval: hoursInterval,
-            rowHeight: rowHeight,
+            rowHeight: rowHeight
         }), height = _a.height, marginTop = _a.marginTop;
         var _style = { height: height, marginTop: marginTop };
         if (event.hasIntersection) {
@@ -3795,8 +3796,7 @@ var EventsListItem = function (_a) {
         }
         return _style;
     }, [rowHeight]);
-    var _b = React__default['default'].useState(false); _b[0]; _b[1];
-    return (jsxRuntime.jsxs("div", __assign({ style: __assign(__assign({}, style), { zIndex: 1, borderLeft: '6px solid #458ebb', background: getBackgroundColorByEventType(event.type) }), className: classNames.event + " " + classNames.type, title: event.name, "data-starttime": format(event.startTime, "hh:mm"), "data-endtime": format(event.endTime, "hh:mm"), onClick: function () { return onEventClick(event); } }, { children: [jsxRuntime.jsx("span", __assign({ className: classNames.event_info }, { children: event.name }), void 0), differenceInMinutes(event.endTime, event.startTime) > 30 ? jsxRuntime.jsx("span", __assign({ className: classNames.event_info }, { children: event.vehicle }), void 0) : '', differenceInMinutes(event.endTime, event.startTime) > 20 ? jsxRuntime.jsx("span", __assign({ className: classNames.event_info }, { children: event.city }), void 0) : '', jsxRuntime.jsxs("span", __assign({ className: classNames.event_info }, { children: [format(event.startTime, "hh:mm"), " - ", format(event.endTime, "hh:mm")] }), void 0)] }), void 0));
+    return (jsxRuntime.jsxs("div", __assign({ style: __assign(__assign({}, style), { zIndex: 1, borderLeft: "6px solid #458ebb", background: getBackgroundColorByEventType(event.type) }), className: classNames.event + " " + classNames.type, title: event.name, "data-starttime": format(event.startTime, "hh:mm"), "data-endtime": format(event.endTime, "hh:mm"), onClick: function () { return onEventClick(event); } }, { children: [jsxRuntime.jsx("span", __assign({ className: classNames.event_info }, { children: event.name }), void 0), differenceInMinutes(event.endTime, event.startTime) > 30 ? (jsxRuntime.jsx("span", __assign({ className: classNames.event_info }, { children: event.vehicle }), void 0)) : (""), differenceInMinutes(event.endTime, event.startTime) > 20 ? (jsxRuntime.jsx("span", __assign({ className: classNames.event_info }, { children: event.city }), void 0)) : (""), jsxRuntime.jsxs("span", __assign({ className: classNames.event_info }, { children: [format(event.startTime, "hh:mm"), " - ", format(event.endTime, "hh:mm")] }), void 0)] }), void 0));
 };
 
 var isUnassigned = function (day) { return day === "UNASSIGNED"; };

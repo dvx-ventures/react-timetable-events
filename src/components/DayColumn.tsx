@@ -1,22 +1,21 @@
 import React from "react";
 import classNames from "../styles.module.css";
-import type { DayColumnPreview, Event } from "../types";
+import type { DayColumnPreview } from "../types";
 import { EventsList } from "./EventsList";
 import useResizable from "../hooks/use-resizable";
 
 export const DayColumn: React.FC<DayColumnPreview> = ({
   events,
   day,
-  index,
   rowHeight,
   getDayLabel,
   hoursInterval,
-  onEventClick
+  onEventClick,
 }: DayColumnPreview) => {
   const { size, handler } = useResizable({
     minSize: 100,
     maxSize: 12000,
-    size: day === 'UNASSIGNED' ? 300 : 200,
+    size: day === "UNASSIGNED" ? 300 : 200,
     direction: "right",
   });
 

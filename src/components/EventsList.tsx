@@ -9,14 +9,13 @@ export interface EventsList {
   events: Events;
   hoursInterval: typeof DEFAULT_HOURS_INTERVAL;
   rowHeight: number;
-  onEventClick(event: Event): void
+  onEventClick(event: Event): void;
 }
 
 const isUnassigned = (day: string) => day === "UNASSIGNED";
 
 export const EventsList: React.FC<EventsList> = ({ events, day, ...props }) => {
   const intersectingEvents = React.useMemo(() => {
-    console.log(fromUtils.sortEvents(events[day]))
     return fromUtils.getOverlaps(fromUtils.sortEvents(events[day]));
   }, [day]);
 
@@ -24,7 +23,6 @@ export const EventsList: React.FC<EventsList> = ({ events, day, ...props }) => {
     <>
       {isUnassigned(day)
         ? intersectingEvents.flatMap((_events) => {
-          console.log(intersectingEvents)
             return _events.map((event, i) => (
               <EventsListItem
                 event={event}

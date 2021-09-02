@@ -14,29 +14,27 @@ type EventsListItem = HoursList & {
 const getBackgroundColorByEventType = (type: string | undefined) =>
   type === "ATTACH_REPAIR_ORDER"
     ? "#DC2127"
-    : "ORDER_PARTS"
+    : type === "ORDER_PARTS"
     ? "#FBD75B"
-    : "RECEIVE_PARTS"
+    : type === "RECEIVE_PARTS"
     ? "#FF887C"
-    : "LOADS_PARTS"
+    : type === "LOADS_PARTS"
     ? "#A4BDFC"
-    : "READY"
+    : type === "READY"
     ? "#7AE7BF"
-    : "EN_ROUTE"
+    : type === "EN_ROUTE"
     ? "#46D6DB"
-    : "WORKING"
-    ? "White"
-    : "READY_FOR_BILLING"
+    : type === "IN_PROGRESS"
+    ? "white"
+    : type === "READY_FOR_BILLING"
     ? "#51B749"
-    : "BILLING_ISSUE"
+    : type === "BILLING_ISSUE"
     ? "#FFB878"
-    : "COMPLETE"
+    : type === "COMPLETE"
     ? "#5484ED"
-    : "CANCELLED"
+    : type === "CANCELLED"
     ? "#616161"
-    : "NO_SHOW"
-    ? "#B74ED4"
-    : "#7AE7BF";
+    : "#B74ED4";
 
 export const EventsListItem: React.FC<EventsListItem> = ({
   events,
@@ -44,13 +42,13 @@ export const EventsListItem: React.FC<EventsListItem> = ({
   hoursInterval,
   rowHeight,
   index,
-  onEventClick
+  onEventClick,
 }) => {
   const style = React.useMemo(() => {
     const { height, marginTop } = fromUtils.getEventPositionStyles({
       event,
       hoursInterval,
-      rowHeight
+      rowHeight,
     });
     const _style = { height, marginTop };
     if (event.hasIntersection) {
@@ -58,7 +56,7 @@ export const EventsListItem: React.FC<EventsListItem> = ({
       return {
         ..._style,
         width,
-        left
+        left,
       };
     }
     return _style;
@@ -70,7 +68,7 @@ export const EventsListItem: React.FC<EventsListItem> = ({
         ...style,
         zIndex: 1,
         borderLeft: "6px solid #458ebb",
-        background: getBackgroundColorByEventType(event.type)
+        background: getBackgroundColorByEventType(event.type),
       }}
       className={`${classNames.event} ${classNames.type}`}
       title={event.name}

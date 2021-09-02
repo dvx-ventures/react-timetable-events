@@ -3727,8 +3727,27 @@ styleInject(css_248z);
 var getBackgroundColorByEventType = function (type) {
     return type === "ATTACH_REPAIR_ORDER"
         ? "#DC2127"
-        : "#FBD75B"
-            ;
+        : type === "ORDER_PARTS"
+            ? "#FBD75B"
+            : type === "RECEIVE_PARTS"
+                ? "#FF887C"
+                : type === "LOADS_PARTS"
+                    ? "#A4BDFC"
+                    : type === "READY"
+                        ? "#7AE7BF"
+                        : type === "EN_ROUTE"
+                            ? "#46D6DB"
+                            : type === "IN_PROGRESS"
+                                ? "white"
+                                : type === "READY_FOR_BILLING"
+                                    ? "#51B749"
+                                    : type === "BILLING_ISSUE"
+                                        ? "#FFB878"
+                                        : type === "COMPLETE"
+                                            ? "#5484ED"
+                                            : type === "CANCELLED"
+                                                ? "#616161"
+                                                : "#B74ED4";
 };
 var EventsListItem = function (_a) {
     var events = _a.events, event = _a.event, hoursInterval = _a.hoursInterval, rowHeight = _a.rowHeight, index = _a.index, onEventClick = _a.onEventClick;
@@ -3736,7 +3755,7 @@ var EventsListItem = function (_a) {
         var _a = getEventPositionStyles({
             event: event,
             hoursInterval: hoursInterval,
-            rowHeight: rowHeight
+            rowHeight: rowHeight,
         }), height = _a.height, marginTop = _a.marginTop;
         var _style = { height: height, marginTop: marginTop };
         if (event.hasIntersection) {

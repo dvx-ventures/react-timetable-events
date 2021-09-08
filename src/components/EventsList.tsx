@@ -29,7 +29,7 @@ export const EventsList: React.FC<EventsList> = ({ events, day, ...props }) => {
                 event={event}
                 events={_events}
                 index={i}
-                key={nanoid()}
+                key={event.id + nanoid()}
                 {...props}
               />
             ));
@@ -39,7 +39,7 @@ export const EventsList: React.FC<EventsList> = ({ events, day, ...props }) => {
               event={event}
               events={events[day]}
               index={i}
-              key={nanoid()}
+              key={event.id + nanoid()}
               {...props}
             />
           ))}

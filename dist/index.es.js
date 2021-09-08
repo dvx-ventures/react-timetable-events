@@ -3832,9 +3832,9 @@ var EventsList = function (_a) {
     }, [day]);
     return (jsx(Fragment, { children: isUnassigned(day)
             ? intersectingEvents.flatMap(function (_events) {
-                return _events.map(function (event, i) { return (jsx(EventsListItem, __assign({ event: event, events: _events, index: i }, props), nanoid())); });
+                return _events.map(function (event, i) { return (jsx(EventsListItem, __assign({ event: event, events: _events, index: i }, props), event.id + nanoid())); });
             })
-            : events[day].map(function (event, i) { return (jsx(EventsListItem, __assign({ event: event, events: events[day], index: i }, props), nanoid())); }) }, void 0));
+            : events[day].map(function (event, i) { return (jsx(EventsListItem, __assign({ event: event, events: events[day], index: i }, props), event.id + nanoid())); }) }, void 0));
 };
 
 var Hour = function (_a) {
@@ -4030,7 +4030,7 @@ var TimeTableJSX = function (_a) {
     React.useEffect(function () {
         setRowHeight(getRowHeight(hoursInterval.from, hoursInterval.to));
     }, [hoursInterval]);
-    return (jsxs("div", __assign({ className: classNames.time_table_wrapper }, { children: [jsxs("div", __assign({ className: classNames.time }, { children: [jsx("div", __assign({ className: classNames.time_label, style: { height: "57px" } }, { children: timeLabel }), void 0), range(hoursInterval.from, hoursInterval.to).map(function (hour) { return (jsx(Hour, { hour: hour, style: { height: rowHeight + "%" } }, hour + "-" + Math.random() * 10000)); })] }), void 0), Object.keys(events).map(function (day, index) { return (jsx(DayColumn, { onEventClick: onEventClick, events: events, day: day, index: index, rowHeight: rowHeight, getDayLabel: getDayLabel, hoursInterval: hoursInterval }, nanoid())); })] }), void 0));
+    return (jsxs("div", __assign({ className: classNames.time_table_wrapper }, { children: [jsxs("div", __assign({ className: classNames.time }, { children: [jsx("div", __assign({ className: classNames.time_label, style: { height: "57px" } }, { children: timeLabel }), void 0), range(hoursInterval.from, hoursInterval.to).map(function (hour) { return (jsx(Hour, { hour: hour, style: { height: rowHeight + "%" } }, hour + "-" + Math.random() * 10000)); })] }), void 0), Object.keys(events).map(function (day, index) { return (jsx(DayColumn, { onEventClick: onEventClick, events: events, day: day, index: index, rowHeight: rowHeight, getDayLabel: getDayLabel, hoursInterval: hoursInterval }, day + nanoid())); })] }), void 0));
 };
 
 export default TimeTableJSX;

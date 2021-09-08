@@ -40,7 +40,7 @@ export const TimeTableJSX = ({
       {Object.keys(events).map((day, index) => (
         <DayColumn
           onEventClick={onEventClick}
-          key={nanoid()}
+          key={day + nanoid()}
           events={events}
           day={day}
           index={index}

@@ -28,7 +28,7 @@ export const EventsList: React.FC<EventsList> = ({ events, day, ...props }) => {
                 event={event}
                 events={_events}
                 index={i}
-                key={`${day}-${i}`}
+                key={`${day}-${i}-${event.name}`}
                 {...props}
               />
             ));
@@ -39,7 +39,7 @@ export const EventsList: React.FC<EventsList> = ({ events, day, ...props }) => {
               events={events[day]}
               index={i}
               {...props}
-              key={`${day}-${i}`}
+              key={`${day}-${i}-${event.name}`}
             />
           ))}
     </>

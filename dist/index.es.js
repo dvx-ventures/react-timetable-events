@@ -3775,9 +3775,9 @@ var EventsList = function (_a) {
     }, [day]);
     return (jsx(Fragment, { children: isUnassigned(day)
             ? intersectingEvents.flatMap(function (_events) {
-                return _events.map(function (event, i) { return (jsx(EventsListItem, __assign({ event: event, events: _events, index: i }, props), day + "-" + i)); });
+                return _events.map(function (event, i) { return (jsx(EventsListItem, __assign({ event: event, events: _events, index: i }, props), day + "-" + i + "-" + event.name)); });
             })
-            : events[day].map(function (event, i) { return (createElement(EventsListItem, __assign({ event: event, events: events[day], index: i }, props, { key: day + "-" + i }))); }) }, void 0));
+            : events[day].map(function (event, i) { return (createElement(EventsListItem, __assign({ event: event, events: events[day], index: i }, props, { key: day + "-" + i + "-" + event.name }))); }) }, void 0));
 };
 
 var Hour = function (_a) {

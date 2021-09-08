@@ -25,6 +25,7 @@
     "@material-ui/core": "^4.12.3",
     "@types/lodash-es": "^4.17.4",
     "lodash-es": "^4.17.21",
+    "nanoid": "^3.1.25",
     "use-resizable": "^1.0.5"
   },
   "peerDependencies": {

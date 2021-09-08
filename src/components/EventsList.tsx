@@ -3,6 +3,7 @@ import { Events, Event } from "../types";
 import { DEFAULT_HOURS_INTERVAL } from "../constants";
 import * as fromUtils from "../utils";
 import { EventsListItem } from "./EventsListItem";
+import { nanoid } from 'nanoid'
 
 export interface EventsList {
   day: string;
@@ -28,7 +29,7 @@ export const EventsList: React.FC<EventsList> = ({ events, day, ...props }) => {
                 event={event}
                 events={_events}
                 index={i}
-                key={`${day}-${i}-${event.name}`}
+                key={nanoid()}
                 {...props}
               />
             ));
@@ -38,8 +39,8 @@ export const EventsList: React.FC<EventsList> = ({ events, day, ...props }) => {
               event={event}
               events={events[day]}
               index={i}
+              key={nanoid()}
               {...props}
-              key={`${day}-${i}-${event.name}`}
             />
           ))}
     </>

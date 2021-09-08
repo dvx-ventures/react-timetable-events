@@ -6,6 +6,7 @@ import * as fromComponents from "./components";
 import classNames from "./styles.module.css";
 import { DEFAULT_HOURS_INTERVAL } from "./constants";
 import { DayColumn } from "./components";
+import { nanoid } from 'nanoid'
 
 export type TimeTableEvent = EventWithIntersection | Event;
 
@@ -39,7 +40,7 @@ export const TimeTableJSX = ({
       {Object.keys(events).map((day, index) => (
         <DayColumn
           onEventClick={onEventClick}
-          key={day + index}
+          key={nanoid()}
           events={events}
           day={day}
           index={index}

@@ -1,7 +1,6 @@
 import { jsxs, jsx, Fragment } from 'react/jsx-runtime';
 import * as React from 'react';
 import React__default from 'react';
-import crypto from 'crypto';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -3768,45 +3767,59 @@ var EventsListItem = function (_a) {
     return (jsxs("div", __assign({ style: __assign(__assign({}, style), { zIndex: 1, borderLeft: "6px solid #458ebb", background: getBackgroundColorByEventType(event.type) }), className: classNames.event + " " + classNames.type, title: event.name, "data-starttime": format(event.startTime, "hh:mm"), "data-endtime": format(event.endTime, "hh:mm"), onClick: function () { return onEventClick(event); } }, { children: [jsx("span", __assign({ className: classNames.event_info }, { children: event.name }), void 0), differenceInMinutes(event.endTime, event.startTime) > 30 ? (jsx("span", __assign({ className: classNames.event_info }, { children: event.vehicle }), void 0)) : (""), differenceInMinutes(event.endTime, event.startTime) > 20 ? (jsx("span", __assign({ className: classNames.event_info }, { children: event.city }), void 0)) : (""), jsxs("span", __assign({ className: classNames.event_info }, { children: [format(event.startTime, "hh:mm"), " - ", format(event.endTime, "hh:mm")] }), void 0)] }), void 0));
 };
 
-// This alphabet uses `A-Za-z0-9_-` symbols. The genetic algorithm helped
-// optimize the gzip compression for this alphabet.
-let urlAlphabet =
-  'ModuleSymbhasOwnPr-0123456789ABCDEFGHNRVfgctiUvz_KqYTJkLxpZXIjQW';
+// This file replaces `index.js` in bundlers like webpack or Rollup,
 
-// It is best to make fewer, larger requests to the crypto module to
-// avoid system call overhead. So, random numbers are generated in a
-// pool. The pool is a Buffer that is larger than the initial random
-// request size by this multiplier. The pool is enlarged if subsequent
-// requests exceed the maximum buffer size.
-const POOL_SIZE_MULTIPLIER = 32;
-let pool, poolOffset;
-
-let random = bytes => {
-  if (!pool || pool.length < bytes) {
-    pool = Buffer.allocUnsafe(bytes * POOL_SIZE_MULTIPLIER);
-    crypto.randomFillSync(pool);
-    poolOffset = 0;
-  } else if (poolOffset + bytes > pool.length) {
-    crypto.randomFillSync(pool);
-    poolOffset = 0;
+{
+  // All bundlers will remove this block in the production bundle.
+  if (
+    typeof navigator !== 'undefined' &&
+    navigator.product === 'ReactNative' &&
+    typeof crypto === 'undefined'
+  ) {
+    throw new Error(
+      'React Native does not have a built-in secure random generator. ' +
+        'If you don’t need unpredictable IDs use `nanoid/non-secure`. ' +
+        'For secure IDs, import `react-native-get-random-values` ' +
+        'before Nano ID.'
+    )
   }
-
-  let res = pool.subarray(poolOffset, poolOffset + bytes);
-  poolOffset += bytes;
-  return res
-};
+  if (typeof msCrypto !== 'undefined' && typeof crypto === 'undefined') {
+    throw new Error(
+      'Import file with `if (!window.crypto) window.crypto = window.msCrypto`' +
+        ' before importing Nano ID to fix IE 11 support'
+    )
+  }
+  if (typeof crypto === 'undefined') {
+    throw new Error(
+      'Your browser does not have secure random generator. ' +
+        'If you don’t need unpredictable IDs, you can use nanoid/non-secure.'
+    )
+  }
+}
 
 let nanoid = (size = 21) => {
-  let bytes = random(size);
   let id = '';
-  // A compact alternative for `for (let i = 0; i < size; i++)`.
+  let bytes = crypto.getRandomValues(new Uint8Array(size));
+
+  // A compact alternative for `for (var i = 0; i < step; i++)`.
   while (size--) {
     // It is incorrect to use bytes exceeding the alphabet size.
     // The following mask reduces the random byte in the 0-255 value
     // range to the 0-63 value range. Therefore, adding hacks, such
     // as empty string fallback or magic numbers, is unneccessary because
     // the bitmask trims bytes down to the alphabet size.
-    id += urlAlphabet[bytes[size] & 63];
+    let byte = bytes[size] & 63;
+    if (byte < 36) {
+      // `0-9a-z`
+      id += byte.toString(36);
+    } else if (byte < 62) {
+      // `A-Z`
+      id += (byte - 26).toString(36).toUpperCase();
+    } else if (byte < 63) {
+      id += '_';
+    } else {
+      id += '-';
+    }
   }
   return id
 };

@@ -25,10 +25,14 @@ export default function useResizable(option: IResizableOption) {
     }
   }, [option.size, group]);
   React.useEffect(() => {
-    const dispatchEvent = (event: MouseEvent | TouchEvent) => {
+    const dispatchEvent = (
+      event:
+        | Event
+        | (MouseEvent | (TouchEvent & { type: keyof WindowEventMap }))
+    ) => {
       if (event.type.includes("move")) {
         actions.move({
-          position: getPositionFromMouseOrTouch(group, event),
+          position: getPositionFromMouseOrTouch(group, event as MouseEvent),
         });
       } else {
         actions.end();

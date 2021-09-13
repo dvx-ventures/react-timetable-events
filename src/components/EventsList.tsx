@@ -3,7 +3,7 @@ import { Events, Event } from "../types";
 import { DEFAULT_HOURS_INTERVAL } from "../constants";
 import * as fromUtils from "../utils";
 import { EventsListItem } from "./EventsListItem";
-import { nanoid } from 'nanoid'
+import { nanoid } from "nanoid";
 
 export interface EventsList {
   day: string;
@@ -13,8 +13,6 @@ export interface EventsList {
   onEventClick(event: Event): void;
 }
 
-const isUnassigned = (day: string) => day === "UNASSIGNED";
-
 export const EventsList: React.FC<EventsList> = ({ events, day, ...props }) => {
   const intersectingEvents = React.useMemo(() => {
     return fromUtils.getOverlaps(fromUtils.sortEvents(events[day]));
@@ -22,27 +20,17 @@ export const EventsList: React.FC<EventsList> = ({ events, day, ...props }) => {
 
   return (
     <>
-      {isUnassigned(day)
-        ? intersectingEvents.flatMap((_events) => {
-            return _events.map((event, i) => (
-              <EventsListItem
-                event={event}
-                events={_events}
-                index={i}
-                key={event.id + nanoid()}
-                {...props}
-              />
-            ));
-          })
-        : events[day].map((event, i) => (
-            <EventsListItem
-              event={event}
-              events={events[day]}
-              index={i}
-              key={event.id + nanoid()}
-              {...props}
-            />
-          ))}
+      {intersectingEvents.flatMap((_events) => {
+        return _events.map((event, i) => (
+          <EventsListItem
+            event={event}
+            events={_events}
+            index={i}
+            key={event.id + nanoid()}
+            {...props}
+          />
+        ));
+      })}
     </>
   );
 };

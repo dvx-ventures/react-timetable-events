@@ -5,6 +5,7 @@ declare type EventsListItem = HoursList & {
     events: EventWithIntersection[];
     event: EventWithIntersection;
     index: number;
+    renderEvent(event: Event | EventWithIntersection): JSX.Element;
 };
 export declare const EventsListItem: React.FC<EventsListItem>;
 export {};

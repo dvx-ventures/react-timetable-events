@@ -9,6 +9,7 @@ type EventsListItem = HoursList & {
   events: EventWithIntersection[];
   event: EventWithIntersection;
   index: number;
+  renderEvent(event: Event | EventWithIntersection): JSX.Element;
 };
 
 const getBackgroundColorByEventType = (type: string | undefined) =>
@@ -43,6 +44,7 @@ export const EventsListItem: React.FC<EventsListItem> = ({
   rowHeight,
   index,
   onEventClick,
+  renderEvent,
 }) => {
   const style = React.useMemo(() => {
     const { height, marginTop } = fromUtils.getEventPositionStyles({
@@ -76,20 +78,7 @@ export const EventsListItem: React.FC<EventsListItem> = ({
       data-endtime={format(event.endTime, "hh:mm")}
       onClick={() => onEventClick(event)}
     >
-      <span className={classNames.event_info}>{event.name}</span>
-      {differenceInMinutes(event.endTime, event.startTime) > 30 ? (
-        <span className={classNames.event_info}>{event.vehicle}</span>
-      ) : (
-        ""
-      )}
-      {differenceInMinutes(event.endTime, event.startTime) > 20 ? (
-        <span className={classNames.event_info}>{event.city}</span>
-      ) : (
-        ""
-      )}
-      <span className={classNames.event_info}>
-        {format(event.startTime, "hh:mm")} - {format(event.endTime, "hh:mm")}
-      </span>
+      {renderEvent(event, style)}
     </div>
   );
 };

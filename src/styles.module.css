@@ -120,8 +120,7 @@
   font-size: 0.7em;
   font-weight: bolder;
   height: 15vh;
-  justify-content: flex-start;
-  line-height: 15vh;
+  justify-content: center;
   overflow: hidden;
   padding: 2px 0 0 4px;
   position: absolute;

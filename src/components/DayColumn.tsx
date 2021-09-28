@@ -11,6 +11,7 @@ export const DayColumn: React.FC<DayColumnPreview> = ({
   getDayLabel,
   hoursInterval,
   onEventClick,
+  renderEvent,
 }: DayColumnPreview) => {
   const { size, handler } = useResizable({
     minSize: 100,
@@ -29,7 +30,7 @@ export const DayColumn: React.FC<DayColumnPreview> = ({
 
   return (
     <div className={`${classNames.day} ${day}`} style={style}>
-      <div className={classNames.day_title} style={{ height: `57px` }}>
+      <div className={classNames.day_title} style={{ height: `85px` }}>
         {getDayLabel(day)}
       </div>
       <EventsList
@@ -38,6 +39,7 @@ export const DayColumn: React.FC<DayColumnPreview> = ({
         day={day}
         hoursInterval={hoursInterval}
         rowHeight={rowHeight}
+        renderEvent={renderEvent}
       />
       <div
         onMouseDown={handler}

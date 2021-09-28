@@ -30,8 +30,9 @@ export interface TimeTable {
     events: Events;
     hoursInterval?: typeof DEFAULT_HOURS_INTERVAL;
     timeLabel?: string;
-    getDayLabel?: (day: string) => string;
+    getDayLabel?: (day: string) => JSX.Element | string;
     onEventClick(event: Event | EventWithIntersection): void;
+    renderEvent?: (event: Event | EventWithIntersection) => JSX.Element;
 }
 export interface HoursList {
     hoursInterval: typeof DEFAULT_HOURS_INTERVAL;
@@ -42,9 +43,10 @@ export interface DayColumnPreview {
     day: string;
     index: number;
     rowHeight: number;
-    getDayLabel: (day: string) => string;
+    getDayLabel: (day: string) => JSX.Element | string;
     onEventClick(event: Event | EventWithIntersection): void;
     hoursInterval: typeof DEFAULT_HOURS_INTERVAL;
+    renderEvent: (event: Event | EventWithIntersection) => JSX.Element;
 }
 export declare type EventWithIntersection = Event & {
     hasIntersection?: boolean;

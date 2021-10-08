@@ -6,8 +6,7 @@ import * as fromComponents from "./components";
 import classNames from "./styles.module.css";
 import { DEFAULT_HOURS_INTERVAL } from "./constants";
 import { DayColumn } from "./components";
-import { nanoid } from 'nanoid';
-import { format, differenceInMinutes } from "date-fns";
+import { nanoid } from "nanoid";
 
 export type TimeTableEvent = EventWithIntersection | Event;
 
@@ -17,24 +16,7 @@ export const TimeTableJSX = ({
   hoursInterval = DEFAULT_HOURS_INTERVAL,
   timeLabel = "Time",
   getDayLabel = fromUtils.getDefaultDayLabel,
-  renderEvent = (event: Event | EventWithIntersection) => (
-    <>
-    <span className={classNames.event_info}>{event.name}</span>
-      {differenceInMinutes(event.endTime, event.startTime) > 30 ? (
-        <span className={classNames.event_info}>{event.vehicle}</span>
-      ) : (
-        ""
-      )}
-      {differenceInMinutes(event.endTime, event.startTime) > 20 ? (
-        <span className={classNames.event_info}>{event.city}</span>
-      ) : (
-        ""
-      )}
-      <span className={classNames.event_info}>
-        {format(event.startTime, "hh:mm")} - {format(event.endTime, "hh:mm")}
-      </span>
-    </>
-  )
+  renderEvent = fromComponents.DefaultEventLayout,
 }: TimeTable) => {
   const [rowHeight, setRowHeight] = React.useState<number>(0);
 
@@ -51,7 +33,7 @@ export const TimeTableJSX = ({
         {range(hoursInterval.from, hoursInterval.to).map((hour: number) => (
           <fromComponents.Hour
             hour={hour}
-            key={`${hour}-${Math.random() * 10000}`}
+            key={`${hour}-${nanoid()}`}
             style={{ height: `${rowHeight}%` }}
           />
         ))}

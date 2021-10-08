@@ -1,5 +1,5 @@
 import React from "react";
-import { format, differenceInMinutes } from "date-fns";
+import { format } from "date-fns";
 import * as fromUtils from "../utils";
 import classNames from "../styles.module.css";
 import type { HoursList, EventWithIntersection } from "../types";
@@ -78,7 +78,7 @@ export const EventsListItem: React.FC<EventsListItem> = ({
       data-endtime={format(event.endTime, "hh:mm")}
       onClick={() => onEventClick(event)}
     >
-      {renderEvent(event, style)}
+      {renderEvent(event)}
     </div>
   );
 };

@@ -12,13 +12,19 @@ export const DayColumn: React.FC<DayColumnPreview> = ({
   hoursInterval,
   onEventClick,
   renderEvent,
+  width,
+  onSizeChanged,
 }: DayColumnPreview) => {
-  const { size, handler } = useResizable({
+  const { isMove, size, handler } = useResizable({
     minSize: 100,
     maxSize: 12000,
-    size: day === "UNASSIGNED" ? 300 : 200,
+    size: width ? width : day === "UNASSIGNED" ? 300 : 200,
     direction: "right",
   });
+
+  React.useEffect(() => {
+    if (isMove === false && onSizeChanged) onSizeChanged(day, size);
+  }, [isMove, size]);
 
   const style = {
     "--day-col-size": `1px ${2 * rowHeight}%`,

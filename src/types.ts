@@ -38,6 +38,8 @@ export interface TimeTable {
   getDayLabel?: (day: string) => JSX.Element | string;
   onEventClick(event: Event | EventWithIntersection): void;
   renderEvent?: (event: Event | EventWithIntersection) => JSX.Element;
+  dayColumnSizes?: { [key: string]: number };
+  onDayComunSizeChanged?(day: string, size: number | undefined): void;
 }
 
 export interface HoursList {
@@ -51,9 +53,11 @@ export interface DayColumnPreview {
   index: number;
   rowHeight: number;
   getDayLabel: (day: string) => JSX.Element | string;
-  onEventClick(event: Event | EventWithIntersection): void
+  onEventClick(event: Event | EventWithIntersection): void;
   hoursInterval: typeof DEFAULT_HOURS_INTERVAL;
-  renderEvent: (event: Event | EventWithIntersection) => JSX.Element
+  renderEvent: (event: Event | EventWithIntersection) => JSX.Element;
+  width?: number;
+  onSizeChanged?(day: string, size: number | undefined): void;
 }
 
 export type EventWithIntersection = Event & {

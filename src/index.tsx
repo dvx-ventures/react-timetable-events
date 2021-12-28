@@ -17,6 +17,8 @@ export const TimeTableJSX = ({
   timeLabel = "Time",
   getDayLabel = fromUtils.getDefaultDayLabel,
   renderEvent = fromComponents.DefaultEventLayout,
+  dayColumnSizes,
+  onDayComunSizeChanged,
 }: TimeTable) => {
   const [rowHeight, setRowHeight] = React.useState<number>(0);
 
@@ -49,6 +51,8 @@ export const TimeTableJSX = ({
           getDayLabel={getDayLabel}
           hoursInterval={hoursInterval}
           renderEvent={renderEvent}
+          width={dayColumnSizes ? dayColumnSizes[day] : undefined}
+          onSizeChanged={onDayComunSizeChanged}
         />
       ))}
     </div>

@@ -57,6 +57,7 @@ export default function useResizable(option: IResizableOption) {
   }, [state.isMove, group]);
   return {
     ref,
+    isMove: state.isMove,
     size: state.size,
     handler: handleStartMove,
   };

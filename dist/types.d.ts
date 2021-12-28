@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { DEFAULT_HOURS_INTERVAL } from "./constants";
 export interface EventPreview {
     event: Event;
@@ -33,6 +34,10 @@ export interface TimeTable {
     getDayLabel?: (day: string) => JSX.Element | string;
     onEventClick(event: Event | EventWithIntersection): void;
     renderEvent?: (event: Event | EventWithIntersection) => JSX.Element;
+    dayColumnSizes?: {
+        [key: string]: number;
+    };
+    onDayComunSizeChanged?(day: string, size: number | undefined): void;
 }
 export interface HoursList {
     hoursInterval: typeof DEFAULT_HOURS_INTERVAL;
@@ -47,6 +52,8 @@ export interface DayColumnPreview {
     onEventClick(event: Event | EventWithIntersection): void;
     hoursInterval: typeof DEFAULT_HOURS_INTERVAL;
     renderEvent: (event: Event | EventWithIntersection) => JSX.Element;
+    width?: number;
+    onSizeChanged?(day: string, size: number | undefined): void;
 }
 export declare type EventWithIntersection = Event & {
     hasIntersection?: boolean;

@@ -20,3 +20,7 @@ export declare const getEventPositionStyles: ({ event, hoursInterval, rowHeight,
     height: string;
     marginTop: string;
 };
+export declare const getCurrentTimePosition: ({ hoursInterval, rowHeight, }: {
+    hoursInterval: typeof DEFAULT_HOURS_INTERVAL;
+    rowHeight: number;
+}) => number | undefined;

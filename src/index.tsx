@@ -27,34 +27,42 @@ export const TimeTableJSX = ({
   }, [hoursInterval]);
 
   return (
-    <div className={classNames.time_table_wrapper}>
-      <div className={classNames.time}>
-        <div className={classNames.time_label} style={{ height: `85px` }}>
-          {timeLabel}
+    <div style={{ position: "relative" }}>
+      <fromComponents.CurrentTime
+        hoursInterval={hoursInterval}
+        rowHeight={rowHeight}
+      />
+
+      <div className={classNames.time_table_wrapper}>
+        <div className={classNames.time}>
+          <div className={classNames.time_label} style={{ height: `85px` }}>
+            {timeLabel}
+          </div>
+          {range(hoursInterval.from, hoursInterval.to).map((hour: number) => (
+            <fromComponents.Hour
+              hour={hour}
+              key={`${hour}-${nanoid()}`}
+              style={{ height: `${rowHeight}%` }}
+            />
+          ))}
         </div>
-        {range(hoursInterval.from, hoursInterval.to).map((hour: number) => (
-          <fromComponents.Hour
-            hour={hour}
-            key={`${hour}-${nanoid()}`}
-            style={{ height: `${rowHeight}%` }}
+
+        {Object.keys(events).map((day, index) => (
+          <DayColumn
+            onEventClick={onEventClick}
+            key={day + nanoid()}
+            events={events}
+            day={day}
+            index={index}
+            rowHeight={rowHeight}
+            getDayLabel={getDayLabel}
+            hoursInterval={hoursInterval}
+            renderEvent={renderEvent}
+            width={dayColumnSizes ? dayColumnSizes[day] : undefined}
+            onSizeChanged={onDayComunSizeChanged}
           />
         ))}
       </div>
-      {Object.keys(events).map((day, index) => (
-        <DayColumn
-          onEventClick={onEventClick}
-          key={day + nanoid()}
-          events={events}
-          day={day}
-          index={index}
-          rowHeight={rowHeight}
-          getDayLabel={getDayLabel}
-          hoursInterval={hoursInterval}
-          renderEvent={renderEvent}
-          width={dayColumnSizes ? dayColumnSizes[day] : undefined}
-          onSizeChanged={onDayComunSizeChanged}
-        />
-      ))}
     </div>
   );
 };

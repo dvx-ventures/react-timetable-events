@@ -70,6 +70,7 @@ export const EventsListItem: React.FC<EventsListItem> = ({
         ...style,
         zIndex: 1,
         borderLeft: "6px solid #458ebb",
+        borderBottom: "2px solid black",
         background: getBackgroundColorByEventType(event.type),
       }}
       className={`${classNames.event} ${classNames.type}`}

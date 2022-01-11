@@ -104,3 +104,24 @@ export const getEventPositionStyles = ({
     marginTop: ((minutesFromStartOfDay * rowHeight) / 60 / 100) * 1500 + "px",
   };
 };
+
+export const getCurrentTimePosition = ({
+  hoursInterval,
+  rowHeight,
+}: {
+  hoursInterval: typeof DEFAULT_HOURS_INTERVAL;
+  rowHeight: number;
+}): number | undefined => {
+  const currentDate = new Date();
+  if (
+    currentDate.getHours() > hoursInterval.to + 1 ||
+    currentDate.getHours() < hoursInterval.from
+  )
+    return;
+  const startOfDay = setMinutes(setHours(currentDate, hoursInterval.from), 0);
+  const minutesFromStartOfDay = round(
+    differenceInMinutes(currentDate, startOfDay)
+  );
+
+  return ((minutesFromStartOfDay * rowHeight) / 60 / 100) * 1500;
+};

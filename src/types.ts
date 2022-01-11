@@ -40,6 +40,7 @@ export interface TimeTable {
   renderEvent?: (event: Event | EventWithIntersection) => JSX.Element;
   dayColumnSizes?: { [key: string]: number };
   onDayComunSizeChanged?(day: string, size: number | undefined): void;
+  showCurrentTime?: boolean;
 }
 
 export interface HoursList {
@@ -57,6 +58,7 @@ export interface DayColumnPreview {
   hoursInterval: typeof DEFAULT_HOURS_INTERVAL;
   renderEvent: (event: Event | EventWithIntersection) => JSX.Element;
   width?: number;
+  showCurrentTime?: boolean;
   onSizeChanged?(day: string, size: number | undefined): void;
 }
 

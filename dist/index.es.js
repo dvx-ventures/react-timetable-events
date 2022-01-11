@@ -3778,7 +3778,7 @@ var getOverlaps = function (events) {
     }, []);
 };
 var getUnassignedEventStyles = function (events, i) { return ({
-    width: "calc(100% / ".concat(events.length, ")"),
+    width: "calc(100% / " + events.length + ")",
     left: (i / events.length) * 100 + "%",
 }); };
 var getRowHeight = function (from, to) {
@@ -3834,8 +3834,8 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = ".styles-module_time_table_wrapper__TT-cf {\n  color: #efefef;\n  display: flex;\n  font-family: \"Open Sans\", sans-serif;\n  height: 1500px;\n  margin: 0;\n  position: relative;\n  box-sizing: border-box;\n}\n\n.styles-module_time_table_wrapper__TT-cf > *, *::before, *::after  {\n  box-sizing: border-box;\n}\n\n.styles-module_time_current__TfcjV {\n  position: absolute;\n  width: 100%;\n  background-color: red;\n  height: 2px;\n  z-index: 10;\n  margin-top: 85px;\n}\n\n.styles-module_day__aQ2Tt {\n  background-color: #fff;\n  border-right: 1px solid #eaeaea;\n  float: left;\n  height: 100%;\n  position: relative;\n}\n\n.styles-module_day__aQ2Tt::after {\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\n  background-position-y: 57px;\n  background-size: var(--day-col-size);\n  bottom: 0;\n  content: '';\n  left: 0;\n  position: absolute;\n  right: 0;\n  top: 0;\n  width: calc(100% + 24px);\n}\n\n.styles-module_time__WlLu6 {\n  background-color: #fff;\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\n  left: 0;\n  position: sticky;\n  z-index: 1000;\n}\n\n.styles-module_day_title__cc17c {\n  background: white;\n  color: black;\n  display: flex;\n  flex-direction: column;\n  font-size: 1rem;\n  font-weight: 600;\n  justify-content: center;\n  position: relative;\n  text-align: center;\n  text-transform: uppercase;\n  z-index: 2;\n}\n\n.styles-module_day_title__cc17c::after {\n  content: '';\n  bottom: 0;\n  left: 0;\n  position: absolute;\n  height: 1px;\n  width: calc(100% + 13px);\n  background: #c7c7c7;\n}\n\n.styles-module_day_title__cc17c::before {\n  content: '';\n  top: 0;\n  left: 0;\n  position: absolute;\n  height: 1px;\n  width: calc(100% + 13px);\n  background: #c7c7c7;\n}\n\n.styles-module_resize_handler__yXrYn {\n  position: absolute;\n  width: 10px;\n  height: 100%;\n  top: 0;\n  left: 100%;\n  z-index: 1;\n  background: rgba(128, 128, 128, 0.1);\n  cursor: col-resize;\n}\n\n.styles-module_time_label__B1bBc {\n  font-size: 0.7rem;\n  font-weight: 600;\n  text-transform: uppercase;\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  text-align: center;\n  z-index: 2;\n  color: black;\n  background: white;\n  border-right: 1px solid #ccc;\n}\n\n.styles-module_hour__TLyj9 {\n  background-color: #ffffff;\n  font-size: 12px;\n  text-align: center;\n  width: 5rem;\n  border-right: 1px solid #ccc;\n  color: black;\n}\n\n.styles-module_event__28gBZ {\n  align-items: start;\n  color: black;\n  cursor: pointer;\n  display: flex;\n  display: flex;\n  flex-direction: column;\n  font-size: 0.7em;\n  font-weight: bolder;\n  height: 15vh;\n  justify-content: center;\n  overflow: hidden;\n  padding: 2px 0 0 4px;\n  position: absolute;\n  width: 100%;\n}\n\n.styles-module_event_small__Onb2q {\n  position: absolute;\n  width: 100%;\n  height: 15vh;\n  line-height: 15vh;\n  background-color: rgb(18, 205, 177);\n  font-size: 0.7em;\n  font-weight: bolder;\n  justify-content: center;\n  display: flex;\n  flex-direction: column;\n  overflow: hidden;\n  color: black;\n  border-radius: 7px;\n  align-items: top;\n  border: 1px solid black;\n}\n\n.styles-module_event_info__WLqqh {\n  line-height: initial;\n  text-align: center;\n  white-space: nowrap;\n  font-size: 10px;\n  padding: 2px 0;\n}\n";
-var classNames = {"time_table_wrapper":"styles-module_time_table_wrapper__TT-cf","time_current":"styles-module_time_current__TfcjV","day":"styles-module_day__aQ2Tt","time":"styles-module_time__WlLu6","day_title":"styles-module_day_title__cc17c","resize_handler":"styles-module_resize_handler__yXrYn","time_label":"styles-module_time_label__B1bBc","hour":"styles-module_hour__TLyj9","event":"styles-module_event__28gBZ","event_small":"styles-module_event_small__Onb2q","event_info":"styles-module_event_info__WLqqh"};
+var css_248z = ".styles-module_time_table_wrapper__2TIh0 {\n  color: #efefef;\n  display: flex;\n  font-family: \"Open Sans\", sans-serif;\n  height: 1500px;\n  margin: 0;\n  position: relative;\n  box-sizing: border-box;\n}\n\n.styles-module_time_table_wrapper__2TIh0 > *, *::before, *::after  {\n  box-sizing: border-box;\n}\n\n.styles-module_time_current__1-rIY {\n  position: absolute;\n  width: calc(100% + 15px);\n  background-color: red;\n  height: 2px;\n  z-index: 10;\n  margin-top: 85px;\n}\n\n.styles-module_day__1I8NX {\n  background-color: #fff;\n  border-right: 1px solid #eaeaea;\n  float: left;\n  height: 100%;\n  position: relative;\n}\n\n.styles-module_day__1I8NX::after {\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\n  background-position-y: 57px;\n  background-size: var(--day-col-size);\n  bottom: 0;\n  content: '';\n  left: 0;\n  position: absolute;\n  right: 0;\n  top: 0;\n  width: calc(100% + 24px);\n}\n\n.styles-module_time__28Vv1 {\n  background-color: #fff;\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\n  left: 0;\n  position: sticky;\n  z-index: 1000;\n}\n\n.styles-module_day_title__AI7EC {\n  background: white;\n  color: black;\n  display: flex;\n  flex-direction: column;\n  font-size: 1rem;\n  font-weight: 600;\n  justify-content: center;\n  position: relative;\n  text-align: center;\n  text-transform: uppercase;\n  z-index: 2;\n}\n\n.styles-module_day_title__AI7EC::after {\n  content: '';\n  bottom: 0;\n  left: 0;\n  position: absolute;\n  height: 1px;\n  width: calc(100% + 13px);\n  background: #c7c7c7;\n}\n\n.styles-module_day_title__AI7EC::before {\n  content: '';\n  top: 0;\n  left: 0;\n  position: absolute;\n  height: 1px;\n  width: calc(100% + 13px);\n  background: #c7c7c7;\n}\n\n.styles-module_resize_handler__3ie7h {\n  position: absolute;\n  width: 10px;\n  height: 100%;\n  top: 0;\n  left: 100%;\n  z-index: 1;\n  background: rgba(128, 128, 128, 0.1);\n  cursor: col-resize;\n}\n\n.styles-module_time_label__2Ooxg {\n  font-size: 0.7rem;\n  font-weight: 600;\n  text-transform: uppercase;\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  text-align: center;\n  z-index: 2;\n  color: black;\n  background: white;\n  border-right: 1px solid #ccc;\n}\n\n.styles-module_hour__1T19H {\n  background-color: #ffffff;\n  font-size: 12px;\n  text-align: center;\n  width: 5rem;\n  border-right: 1px solid #ccc;\n  color: black;\n}\n\n.styles-module_event__1VBTJ {\n  align-items: start;\n  color: black;\n  cursor: pointer;\n  display: flex;\n  display: flex;\n  flex-direction: column;\n  font-size: 0.7em;\n  font-weight: bolder;\n  height: 15vh;\n  justify-content: center;\n  overflow: hidden;\n  padding: 2px 0 0 4px;\n  position: absolute;\n  width: 100%;\n}\n\n.styles-module_event_small__2MS_i {\n  position: absolute;\n  width: 100%;\n  height: 15vh;\n  line-height: 15vh;\n  background-color: rgb(18, 205, 177);\n  font-size: 0.7em;\n  font-weight: bolder;\n  justify-content: center;\n  display: flex;\n  flex-direction: column;\n  overflow: hidden;\n  color: black;\n  border-radius: 7px;\n  align-items: top;\n  border: 1px solid black;\n}\n\n.styles-module_event_info__1g0pV {\n  line-height: initial;\n  text-align: center;\n  white-space: nowrap;\n  font-size: 10px;\n  padding: 2px 0;\n}\n";
+var classNames = {"time_table_wrapper":"styles-module_time_table_wrapper__2TIh0","time_current":"styles-module_time_current__1-rIY","day":"styles-module_day__1I8NX","time":"styles-module_time__28Vv1","day_title":"styles-module_day_title__AI7EC","resize_handler":"styles-module_resize_handler__3ie7h","time_label":"styles-module_time_label__2Ooxg","hour":"styles-module_hour__1T19H","event":"styles-module_event__1VBTJ","event_small":"styles-module_event_small__2MS_i","event_info":"styles-module_event_info__1g0pV"};
 styleInject(css_248z);
 
 var getBackgroundColorByEventType = function (type) {
@@ -3878,10 +3878,13 @@ var EventsListItem = function (_a) {
         }
         return _style;
     }, [rowHeight]);
-    return (jsx("div", __assign({ style: __assign(__assign({}, style), { zIndex: 1, borderLeft: "6px solid #458ebb", background: getBackgroundColorByEventType(event.type) }), className: "".concat(classNames.event, " ").concat(classNames.type), title: event.name, "data-starttime": format(event.startTime, "hh:mm"), "data-endtime": format(event.endTime, "hh:mm"), onClick: function () { return onEventClick(event); } }, { children: renderEvent(event) }), void 0));
+    return (jsx("div", __assign({ style: __assign(__assign({}, style), { zIndex: 1, borderLeft: "6px solid #458ebb", borderBottom: "2px solid black", background: getBackgroundColorByEventType(event.type) }), className: classNames.event + " " + classNames.type, title: event.name, "data-starttime": format(event.startTime, "hh:mm"), "data-endtime": format(event.endTime, "hh:mm"), onClick: function () { return onEventClick(event); } }, { children: renderEvent(event) }), void 0));
 };
 
+// This file replaces `index.js` in bundlers like webpack or Rollup,
+
 {
+  // All bundlers will remove this block in the production bundle.
   if (
     typeof navigator !== 'undefined' &&
     navigator.product === 'ReactNative' &&
@@ -3907,14 +3910,24 @@ var EventsListItem = function (_a) {
     )
   }
 }
+
 let nanoid = (size = 21) => {
   let id = '';
   let bytes = crypto.getRandomValues(new Uint8Array(size));
+
+  // A compact alternative for `for (var i = 0; i < step; i++)`.
   while (size--) {
+    // It is incorrect to use bytes exceeding the alphabet size.
+    // The following mask reduces the random byte in the 0-255 value
+    // range to the 0-63 value range. Therefore, adding hacks, such
+    // as empty string fallback or magic numbers, is unneccessary because
+    // the bitmask trims bytes down to the alphabet size.
     let byte = bytes[size] & 63;
     if (byte < 36) {
+      // `0-9a-z`
       id += byte.toString(36);
     } else if (byte < 62) {
+      // `A-Z`
       id += (byte - 26).toString(36).toUpperCase();
     } else if (byte < 63) {
       id += '_';
@@ -4104,7 +4117,7 @@ function useResizable(option) {
 }
 
 var DayColumn = function (_a) {
-    var events = _a.events, day = _a.day, rowHeight = _a.rowHeight, getDayLabel = _a.getDayLabel, hoursInterval = _a.hoursInterval, onEventClick = _a.onEventClick, renderEvent = _a.renderEvent, width = _a.width, onSizeChanged = _a.onSizeChanged;
+    var events = _a.events, day = _a.day, rowHeight = _a.rowHeight, getDayLabel = _a.getDayLabel, hoursInterval = _a.hoursInterval, onEventClick = _a.onEventClick, renderEvent = _a.renderEvent, width = _a.width, onSizeChanged = _a.onSizeChanged, showCurrentTime = _a.showCurrentTime;
     var _b = useResizable({
         minSize: 100,
         maxSize: 12000,
@@ -4116,13 +4129,13 @@ var DayColumn = function (_a) {
             onSizeChanged(day, size);
     }, [isMove, size]);
     var style = {
-        "--day-col-size": "1px ".concat(2 * rowHeight, "%"),
+        "--day-col-size": "1px " + 2 * rowHeight + "%",
         marginRight: "12px",
         width: size,
-        flex: "1 0 ".concat(size, "px"),
+        flex: "1 0 " + size + "px",
         height: "100%",
     };
-    return (jsxs("div", __assign({ className: "".concat(classNames.day, " ").concat(day), style: style }, { children: [jsx("div", __assign({ className: classNames.day_title, style: { height: "85px" } }, { children: getDayLabel(day) }), void 0), jsx(EventsList, { onEventClick: onEventClick, events: events, day: day, hoursInterval: hoursInterval, rowHeight: rowHeight, renderEvent: renderEvent }, void 0), jsx("div", { onMouseDown: handler, onTouchStart: handler, className: classNames.resize_handler }, void 0)] }), void 0));
+    return (jsxs("div", __assign({ className: classNames.day + " " + day, style: style }, { children: [jsx("div", __assign({ className: classNames.day_title, style: { height: "85px" } }, { children: getDayLabel(day) }), void 0), showCurrentTime && (jsx(CurrentTime, { hoursInterval: hoursInterval, rowHeight: rowHeight }, void 0)), jsx(EventsList, { onEventClick: onEventClick, events: events, day: day, hoursInterval: hoursInterval, rowHeight: rowHeight, renderEvent: renderEvent }, void 0), jsx("div", { onMouseDown: handler, onTouchStart: handler, className: classNames.resize_handler }, void 0)] }), void 0));
 };
 
 var DefaultEventLayout = function (event) { return (jsxs(Fragment, { children: [jsx("span", __assign({ className: classNames.event_info }, { children: event.name }), void 0), differenceInMinutes(event.endTime, event.startTime) > 30 ? (jsx("span", __assign({ className: classNames.event_info }, { children: event.vehicle }), void 0)) : (""), differenceInMinutes(event.endTime, event.startTime) > 20 ? (jsx("span", __assign({ className: classNames.event_info }, { children: event.city }), void 0)) : (""), jsxs("span", __assign({ className: classNames.event_info }, { children: [format(event.startTime, "hh:mm"), " - ", format(event.endTime, "hh:mm")] }), void 0)] }, void 0)); };
@@ -4137,7 +4150,7 @@ var CurrentTime = function (_a) {
         }, 10 * 1000);
         return function () { return clearInterval(interval); };
     }, [hoursInterval, rowHeight]);
-    return topPosition !== undefined ? (jsx("div", { className: classNames.time_current, style: { top: "".concat(topPosition, "px") } }, void 0)) : null;
+    return topPosition !== undefined ? (jsx("div", { className: classNames.time_current, style: { top: topPosition + "px" } }, void 0)) : null;
 };
 
 var DEFAULT_HOURS_INTERVAL = { from: 7, to: 24 };
@@ -4148,7 +4161,7 @@ var TimeTableJSX = function (_a) {
     React.useEffect(function () {
         setRowHeight(getRowHeight(hoursInterval.from, hoursInterval.to));
     }, [hoursInterval]);
-    return (jsxs("div", __assign({ style: { position: "relative" } }, { children: [showCurrentTime && (jsx(CurrentTime, { hoursInterval: hoursInterval, rowHeight: rowHeight }, void 0)), jsxs("div", __assign({ className: classNames.time_table_wrapper }, { children: [jsxs("div", __assign({ className: classNames.time }, { children: [jsx("div", __assign({ className: classNames.time_label, style: { height: "85px" } }, { children: timeLabel }), void 0), range$1(hoursInterval.from, hoursInterval.to).map(function (hour) { return (jsx(Hour, { hour: hour, style: { height: "".concat(rowHeight, "%") } }, "".concat(hour, "-").concat(nanoid()))); })] }), void 0), Object.keys(events).map(function (day, index) { return (jsx(DayColumn, { onEventClick: onEventClick, events: events, day: day, index: index, rowHeight: rowHeight, getDayLabel: getDayLabel, hoursInterval: hoursInterval, renderEvent: renderEvent, width: dayColumnSizes ? dayColumnSizes[day] : undefined, onSizeChanged: onDayComunSizeChanged }, day + nanoid())); })] }), void 0)] }), void 0));
+    return (jsx(Fragment, { children: jsxs("div", __assign({ className: classNames.time_table_wrapper }, { children: [jsxs("div", __assign({ className: classNames.time }, { children: [jsx("div", __assign({ className: classNames.time_label, style: { height: "85px" } }, { children: timeLabel }), void 0), range$1(hoursInterval.from, hoursInterval.to).map(function (hour) { return (jsx(Hour, { hour: hour, style: { height: rowHeight + "%" } }, hour + "-" + nanoid())); })] }), void 0), Object.keys(events).map(function (day, index) { return (jsx(DayColumn, { onEventClick: onEventClick, events: events, day: day, index: index, rowHeight: rowHeight, getDayLabel: getDayLabel, hoursInterval: hoursInterval, renderEvent: renderEvent, width: dayColumnSizes ? dayColumnSizes[day] : undefined, onSizeChanged: onDayComunSizeChanged, showCurrentTime: showCurrentTime }, day + nanoid())); })] }), void 0) }, void 0));
 };
 
 export { TimeTableJSX, TimeTableJSX as default };

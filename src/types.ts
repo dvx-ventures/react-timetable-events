@@ -58,6 +58,7 @@ export interface DayColumnPreview {
   hoursInterval: typeof DEFAULT_HOURS_INTERVAL;
   renderEvent: (event: Event | EventWithIntersection) => JSX.Element;
   width?: number;
+  showCurrentTime?: boolean;
   onSizeChanged?(day: string, size: number | undefined): void;
 }
 

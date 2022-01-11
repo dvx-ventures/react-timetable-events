@@ -3,6 +3,7 @@ import classNames from "../styles.module.css";
 import type { DayColumnPreview } from "../types";
 import { EventsList } from "./EventsList";
 import useResizable from "../hooks/use-resizable";
+import { CurrentTime } from ".";
 
 export const DayColumn: React.FC<DayColumnPreview> = ({
   events,
@@ -14,6 +15,7 @@ export const DayColumn: React.FC<DayColumnPreview> = ({
   renderEvent,
   width,
   onSizeChanged,
+  showCurrentTime,
 }: DayColumnPreview) => {
   const { isMove, size, handler } = useResizable({
     minSize: 100,
@@ -39,6 +41,9 @@ export const DayColumn: React.FC<DayColumnPreview> = ({
       <div className={classNames.day_title} style={{ height: `85px` }}>
         {getDayLabel(day)}
       </div>
+      {showCurrentTime && (
+        <CurrentTime hoursInterval={hoursInterval} rowHeight={rowHeight} />
+      )}
       <EventsList
         onEventClick={onEventClick}
         events={events}

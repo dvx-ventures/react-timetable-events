@@ -14,7 +14,7 @@
 
 .time_current {
   position: absolute;
-  width: 100%;
+  width: calc(100% + 15px);
   background-color: red;
   height: 2px;
   z-index: 10;

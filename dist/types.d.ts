@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { DEFAULT_HOURS_INTERVAL } from "./constants";
 export interface EventPreview {
     event: Event;
@@ -54,6 +53,7 @@ export interface DayColumnPreview {
     hoursInterval: typeof DEFAULT_HOURS_INTERVAL;
     renderEvent: (event: Event | EventWithIntersection) => JSX.Element;
     width?: number;
+    showCurrentTime?: boolean;
     onSizeChanged?(day: string, size: number | undefined): void;
 }
 export declare type EventWithIntersection = Event & {

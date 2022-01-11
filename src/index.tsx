@@ -28,14 +28,7 @@ export const TimeTableJSX = ({
   }, [hoursInterval]);
 
   return (
-    <div style={{ position: "relative" }}>
-      {showCurrentTime && (
-        <fromComponents.CurrentTime
-          hoursInterval={hoursInterval}
-          rowHeight={rowHeight}
-        />
-      )}
-
+    <>
       <div className={classNames.time_table_wrapper}>
         <div className={classNames.time}>
           <div className={classNames.time_label} style={{ height: `85px` }}>
@@ -63,10 +56,11 @@ export const TimeTableJSX = ({
             renderEvent={renderEvent}
             width={dayColumnSizes ? dayColumnSizes[day] : undefined}
             onSizeChanged={onDayComunSizeChanged}
+            showCurrentTime={showCurrentTime}
           />
         ))}
       </div>
-    </div>
+    </>
   );
 };
 

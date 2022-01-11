@@ -40,6 +40,7 @@ export interface TimeTable {
   renderEvent?: (event: Event | EventWithIntersection) => JSX.Element;
   dayColumnSizes?: { [key: string]: number };
   onDayComunSizeChanged?(day: string, size: number | undefined): void;
+  showCurrentTime?: boolean;
 }
 
 export interface HoursList {

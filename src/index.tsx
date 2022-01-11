@@ -19,6 +19,7 @@ export const TimeTableJSX = ({
   renderEvent = fromComponents.DefaultEventLayout,
   dayColumnSizes,
   onDayComunSizeChanged,
+  showCurrentTime,
 }: TimeTable) => {
   const [rowHeight, setRowHeight] = React.useState<number>(0);
 
@@ -28,10 +29,12 @@ export const TimeTableJSX = ({
 
   return (
     <div style={{ position: "relative" }}>
-      <fromComponents.CurrentTime
-        hoursInterval={hoursInterval}
-        rowHeight={rowHeight}
-      />
+      {showCurrentTime && (
+        <fromComponents.CurrentTime
+          hoursInterval={hoursInterval}
+          rowHeight={rowHeight}
+        />
+      )}
 
       <div className={classNames.time_table_wrapper}>
         <div className={classNames.time}>

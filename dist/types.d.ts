@@ -38,6 +38,7 @@ export interface TimeTable {
         [key: string]: number;
     };
     onDayComunSizeChanged?(day: string, size: number | undefined): void;
+    showCurrentTime?: boolean;
 }
 export interface HoursList {
     hoursInterval: typeof DEFAULT_HOURS_INTERVAL;

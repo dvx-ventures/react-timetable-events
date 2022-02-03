@@ -5,7 +5,7 @@ import resolve from "rollup-plugin-node-resolve";
 import external from "rollup-plugin-peer-deps-external";
 import postcss from "rollup-plugin-postcss";
 import pkg from "./package.json";
-import replace from '@rollup/plugin-replace'
+import replace from "@rollup/plugin-replace";
 
 export default {
   input: "src/index.tsx",
@@ -19,16 +19,16 @@ export default {
       format: "es",
     },
   ],
-  format: "iife",
   plugins: [
     babel({
       exclude: "node_modules/**",
     }),
     resolve({
-      browser: true
+      browser: true,
     }),
     replace({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      preventAssignment: true,
+      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
     }),
     external(),
     commonjs(),

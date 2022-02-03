@@ -3762,34 +3762,22 @@ var css_248z = ".styles-module_time_table_wrapper__2TIh0 {\n  color: #efefef;\n 
 var classNames = {"time_table_wrapper":"styles-module_time_table_wrapper__2TIh0","time_current":"styles-module_time_current__1-rIY","day":"styles-module_day__1I8NX","time":"styles-module_time__28Vv1","day_title":"styles-module_day_title__AI7EC","resize_handler":"styles-module_resize_handler__3ie7h","time_label":"styles-module_time_label__2Ooxg","hour":"styles-module_hour__1T19H","event":"styles-module_event__1VBTJ","event_small":"styles-module_event_small__2MS_i","event_info":"styles-module_event_info__1g0pV"};
 styleInject(css_248z);
 
-var getBackgroundColorByEventType = function (type) {
-    return type === "ATTACH_REPAIR_ORDER"
-        ? "#DC2127"
-        : type === "ORDER_PARTS"
-            ? "#FBD75B"
-            : type === "RECEIVE_PARTS"
-                ? "#FF887C"
-                : type === "LOADS_PARTS"
-                    ? "#A4BDFC"
-                    : type === "READY"
-                        ? "#7AE7BF"
-                        : type === "EN_ROUTE"
-                            ? "#46D6DB"
-                            : type === "IN_PROGRESS"
-                                ? "white"
-                                : type === "READY_FOR_BILLING"
-                                    ? "#51B749"
-                                    : type === "BILLING_ISSUE"
-                                        ? "#FFB878"
-                                        : type === "COMPLETE"
-                                            ? "#5484ED"
-                                            : type === "CANCELLED"
-                                                ? "#616161"
-                                                : type === "NO_SHOW"
-                                                    ? "#FF8303"
-                                                    : "#B74ED4";
+var COLORS = {
+    ATTACH_REPAIR_ORDER: "#DC2127",
+    ORDER_PARTS: "#FBD75B",
+    RECEIVE_PARTS: "#FF887C",
+    LOADS_PART: "#A4BDFC",
+    READY: "#7AE7BF",
+    EN_ROUTE: "#46D6DB",
+    IN_PROGRESS: "#fff",
+    READY_FOR_BILLING: "#51B749",
+    BILLING_ISSUE: "#FFB878",
+    COMPLETE: "#5484ED",
+    CANCELLED: "#616161",
+    NO_SHOW: "#FF8303",
 };
 var EventsListItem = function (_a) {
+    var _b;
     var events = _a.events, event = _a.event, hoursInterval = _a.hoursInterval, rowHeight = _a.rowHeight, index = _a.index, onEventClick = _a.onEventClick, renderEvent = _a.renderEvent;
     var style = React__default['default'].useMemo(function () {
         var _a = getEventPositionStyles({
@@ -3804,7 +3792,7 @@ var EventsListItem = function (_a) {
         }
         return _style;
     }, [rowHeight]);
-    return (jsxRuntime.jsx("div", __assign({ style: __assign(__assign({}, style), { zIndex: 1, borderLeft: "6px solid #458ebb", borderBottom: "2px solid black", background: getBackgroundColorByEventType(event.type) }), className: classNames.event + " " + classNames.type, title: event.name, "data-starttime": format(event.startTime, "hh:mm"), "data-endtime": format(event.endTime, "hh:mm"), onClick: function () { return onEventClick(event); } }, { children: renderEvent(event) }), void 0));
+    return (jsxRuntime.jsx("div", __assign({ style: __assign(__assign({}, style), { zIndex: 1, borderLeft: "6px solid #458ebb", borderBottom: "2px solid black", background: (_b = COLORS[event.type]) !== null && _b !== void 0 ? _b : "#B74ED4" }), className: classNames.event + " " + classNames.type, title: event.name, "data-starttime": format(event.startTime, "hh:mm"), "data-endtime": format(event.endTime, "hh:mm"), onClick: function () { return onEventClick(event); } }, { children: renderEvent(event) }), void 0));
 };
 
 // This file replaces `index.js` in bundlers like webpack or Rollup,

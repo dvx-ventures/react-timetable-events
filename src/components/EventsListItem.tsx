@@ -35,6 +35,8 @@ const getBackgroundColorByEventType = (type: string | undefined) =>
     ? "#5484ED"
     : type === "CANCELLED"
     ? "#616161"
+    : type === "NO_SHOW"
+    ? "#FF8303"
     : "#B74ED4";
 
 export const EventsListItem: React.FC<EventsListItem> = ({

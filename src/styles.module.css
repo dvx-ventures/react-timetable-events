@@ -31,7 +31,7 @@
 
 .day::after {
   background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);
-  background-position-y: 57px;
+  background-position-y: 85px;
   background-size: var(--day-col-size);
   bottom: 0;
   content: '';

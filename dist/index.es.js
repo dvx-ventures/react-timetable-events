@@ -43,20 +43,14 @@ function __rest(s, e) {
 /** Detect free variable `global` from Node.js. */
 var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
 
-var freeGlobal$1 = freeGlobal;
-
 /** Detect free variable `self`. */
 var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
 
 /** Used as a reference to the global object. */
-var root = freeGlobal$1 || freeSelf || Function('return this')();
-
-var root$1 = root;
+var root = freeGlobal || freeSelf || Function('return this')();
 
 /** Built-in value references. */
-var Symbol = root$1.Symbol;
-
-var Symbol$1 = Symbol;
+var Symbol = root.Symbol;
 
 /** Used for built-in method references. */
 var objectProto$1 = Object.prototype;
@@ -72,7 +66,7 @@ var hasOwnProperty = objectProto$1.hasOwnProperty;
 var nativeObjectToString$1 = objectProto$1.toString;
 
 /** Built-in value references. */
-var symToStringTag$1 = Symbol$1 ? Symbol$1.toStringTag : undefined;
+var symToStringTag$1 = Symbol ? Symbol.toStringTag : undefined;
 
 /**
  * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
@@ -127,7 +121,7 @@ var nullTag = '[object Null]',
     undefinedTag = '[object Undefined]';
 
 /** Built-in value references. */
-var symToStringTag = Symbol$1 ? Symbol$1.toStringTag : undefined;
+var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
 
 /**
  * The base implementation of `getTag` without fallbacks for buggy environments.
@@ -243,13 +237,11 @@ function arrayMap(array, iteratee) {
  */
 var isArray = Array.isArray;
 
-var isArray$1 = isArray;
-
 /** Used as references for various `Number` constants. */
 var INFINITY$1 = 1 / 0;
 
 /** Used to convert symbols to primitives and strings. */
-var symbolProto = Symbol$1 ? Symbol$1.prototype : undefined,
+var symbolProto = Symbol ? Symbol.prototype : undefined,
     symbolToString = symbolProto ? symbolProto.toString : undefined;
 
 /**
@@ -265,7 +257,7 @@ function baseToString(value) {
   if (typeof value == 'string') {
     return value;
   }
-  if (isArray$1(value)) {
+  if (isArray(value)) {
     // Recursively convert values (susceptible to call stack limits).
     return arrayMap(value, baseToString) + '';
   }
@@ -782,8 +774,6 @@ var deburredLetters = {
  */
 var deburrLetter = basePropertyOf(deburredLetters);
 
-var deburrLetter$1 = deburrLetter;
-
 /** Used to match Latin Unicode letters (excluding mathematical operators). */
 var reLatin = /[\xc0-\xd6\xd8-\xf6\xf8-\xff\u0100-\u017f]/g;
 
@@ -822,7 +812,7 @@ var reComboMark = RegExp(rsCombo$1, 'g');
  */
 function deburr(string) {
   string = toString(string);
-  return string && string.replace(reLatin, deburrLetter$1).replace(reComboMark, '');
+  return string && string.replace(reLatin, deburrLetter).replace(reComboMark, '');
 }
 
 /** Used to match words composed of alphanumeric characters. */
@@ -970,7 +960,7 @@ function createCompounder(callback) {
 }
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeIsFinite = root$1.isFinite,
+var nativeIsFinite = root.isFinite,
     nativeMin = Math.min;
 
 /**
@@ -1093,8 +1083,6 @@ function createRange(fromRight) {
  */
 var range = createRange();
 
-var range$1 = range;
-
 /**
  * Computes `number` rounded to `precision`.
  *
@@ -1117,8 +1105,6 @@ var range$1 = range;
  * // => 4100
  */
 var round = createRound('round');
-
-var round$1 = round;
 
 /**
  * Converts `string`, as space separated words, to upper case.
@@ -1143,8 +1129,6 @@ var round$1 = round;
 var upperCase = createCompounder(function(result, word, index) {
   return result + (index ? ' ' : '') + word.toUpperCase();
 });
-
-var upperCase$1 = upperCase;
 
 function toInteger(dirtyNumber) {
   if (dirtyNumber === null || dirtyNumber === true || dirtyNumber === false) {
@@ -1266,67 +1250,6 @@ function getTimezoneOffsetInMilliseconds(date) {
 }
 
 /**
- * Days in 1 week.
- *
- * @name daysInWeek
- * @constant
- * @type {number}
- * @default
- */
-/**
- * Milliseconds in 1 minute
- *
- * @name millisecondsInMinute
- * @constant
- * @type {number}
- * @default
- */
-
-var millisecondsInMinute = 60000;
-
-/**
- * @name isDate
- * @category Common Helpers
- * @summary Is the given value a date?
- *
- * @description
- * Returns true if the given value is an instance of Date. The function works for dates transferred across iframes.
- *
- * ### v2.0.0 breaking changes:
- *
- * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
- *
- * @param {*} value - the value to check
- * @returns {boolean} true if the given value is a date
- * @throws {TypeError} 1 arguments required
- *
- * @example
- * // For a valid date:
- * const result = isDate(new Date())
- * //=> true
- *
- * @example
- * // For an invalid date:
- * const result = isDate(new Date(NaN))
- * //=> true
- *
- * @example
- * // For some value:
- * const result = isDate('2014-02-31')
- * //=> false
- *
- * @example
- * // For an object:
- * const result = isDate({})
- * //=> false
- */
-
-function isDate(value) {
-  requiredArgs(1, arguments);
-  return value instanceof Date || typeof value === 'object' && Object.prototype.toString.call(value) === '[object Date]';
-}
-
-/**
  * @name isValid
  * @category Common Helpers
  * @summary Is the given date valid?
@@ -1370,29 +1293,24 @@ function isDate(value) {
  *
  * @example
  * // For the valid date:
- * const result = isValid(new Date(2014, 1, 31))
+ * var result = isValid(new Date(2014, 1, 31))
  * //=> true
  *
  * @example
  * // For the value, convertable into a date:
- * const result = isValid(1393804800000)
+ * var result = isValid(1393804800000)
  * //=> true
  *
  * @example
  * // For the invalid date:
- * const result = isValid(new Date(''))
+ * var result = isValid(new Date(''))
  * //=> false
  */
 
 function isValid(dirtyDate) {
   requiredArgs(1, arguments);
-
-  if (!isDate(dirtyDate) && typeof dirtyDate !== 'number') {
-    return false;
-  }
-
   var date = toDate(dirtyDate);
-  return !isNaN(Number(date));
+  return !isNaN(date);
 }
 
 /**
@@ -1422,25 +1340,14 @@ function isValid(dirtyDate) {
  * //=> 1100
  */
 
-function differenceInMilliseconds(dateLeft, dateRight) {
+function differenceInMilliseconds(dirtyDateLeft, dirtyDateRight) {
   requiredArgs(2, arguments);
-  return toDate(dateLeft).getTime() - toDate(dateRight).getTime();
+  var dateLeft = toDate(dirtyDateLeft);
+  var dateRight = toDate(dirtyDateRight);
+  return dateLeft.getTime() - dateRight.getTime();
 }
 
-var roundingMap = {
-  ceil: Math.ceil,
-  round: Math.round,
-  floor: Math.floor,
-  trunc: function (value) {
-    return value < 0 ? Math.ceil(value) : Math.floor(value);
-  } // Math.trunc is not supported by IE
-
-};
-var defaultRoundingMethod = 'trunc';
-function getRoundingMethod(method) {
-  return method ? roundingMap[method] : roundingMap[defaultRoundingMethod];
-}
-
+var MILLISECONDS_IN_MINUTE = 60000;
 /**
  * @name differenceInMinutes
  * @category Minute Helpers
@@ -1455,32 +1362,30 @@ function getRoundingMethod(method) {
  *
  * @param {Date|Number} dateLeft - the later date
  * @param {Date|Number} dateRight - the earlier date
- * @param {Object} [options] - an object with options.
- * @param {String} [options.roundingMethod='trunc'] - a rounding method (`ceil`, `floor`, `round` or `trunc`)
  * @returns {Number} the number of minutes
  * @throws {TypeError} 2 arguments required
  *
  * @example
  * // How many minutes are between 2 July 2014 12:07:59 and 2 July 2014 12:20:00?
- * const result = differenceInMinutes(
+ * var result = differenceInMinutes(
  *   new Date(2014, 6, 2, 12, 20, 0),
  *   new Date(2014, 6, 2, 12, 7, 59)
  * )
  * //=> 12
  *
  * @example
- * // How many minutes are between 10:01:59 and 10:00:00
- * const result = differenceInMinutes(
+ * // How many minutes are from 10:01:59 to 10:00:00
+ * var result = differenceInMinutes(
  *   new Date(2000, 0, 1, 10, 0, 0),
  *   new Date(2000, 0, 1, 10, 1, 59)
  * )
  * //=> -1
  */
 
-function differenceInMinutes(dateLeft, dateRight, options) {
+function differenceInMinutes(dirtyDateLeft, dirtyDateRight) {
   requiredArgs(2, arguments);
-  var diff = differenceInMilliseconds(dateLeft, dateRight) / millisecondsInMinute;
-  return getRoundingMethod(options === null || options === void 0 ? void 0 : options.roundingMethod)(diff);
+  var diff = differenceInMilliseconds(dirtyDateLeft, dirtyDateRight) / MILLISECONDS_IN_MINUTE;
+  return diff > 0 ? Math.floor(diff) : Math.ceil(diff);
 }
 
 var formatDistanceLocale = {
@@ -1546,21 +1451,20 @@ var formatDistanceLocale = {
     other: 'almost {{count}} years'
   }
 };
-
-var formatDistance = function (token, count, options) {
+function formatDistance(token, count, options) {
+  options = options || {};
   var result;
-  var tokenValue = formatDistanceLocale[token];
 
-  if (typeof tokenValue === 'string') {
-    result = tokenValue;
+  if (typeof formatDistanceLocale[token] === 'string') {
+    result = formatDistanceLocale[token];
   } else if (count === 1) {
-    result = tokenValue.one;
+    result = formatDistanceLocale[token].one;
   } else {
-    result = tokenValue.other.replace('{{count}}', count.toString());
+    result = formatDistanceLocale[token].other.replace('{{count}}', count);
   }
 
-  if (options !== null && options !== void 0 && options.addSuffix) {
-    if (options.comparison && options.comparison > 0) {
+  if (options.addSuffix) {
+    if (options.comparison > 0) {
       return 'in ' + result;
     } else {
       return result + ' ago';
@@ -1568,9 +1472,7 @@ var formatDistance = function (token, count, options) {
   }
 
   return result;
-};
-
-var formatDistance$1 = formatDistance;
+}
 
 function buildFormatLongFn(args) {
   return function () {
@@ -1614,7 +1516,6 @@ var formatLong = {
     defaultWidth: 'full'
   })
 };
-var formatLong$1 = formatLong;
 
 var formatRelativeLocale = {
   lastWeek: "'last' eeee 'at' p",
@@ -1624,12 +1525,9 @@ var formatRelativeLocale = {
   nextWeek: "eeee 'at' p",
   other: 'P'
 };
-
-var formatRelative = function (token, _date, _baseDate, _options) {
+function formatRelative(token, _date, _baseDate, _options) {
   return formatRelativeLocale[token];
-};
-
-var formatRelative$1 = formatRelative;
+}
 
 function buildLocalizeFn(args) {
   return function (dirtyIndex, dirtyOptions) {
@@ -1649,7 +1547,7 @@ function buildLocalizeFn(args) {
       valuesArray = args.values[_width] || args.values[_defaultWidth];
     }
 
-    var index = args.argumentCallback ? args.argumentCallback(dirtyIndex) : dirtyIndex; // @ts-ignore: For some reason TypeScript just don't want to match it, no matter how hard we try. I challenge you to try to remove it!
+    var index = args.argumentCallback ? args.argumentCallback(dirtyIndex) : dirtyIndex; // @ts-ignore: For some reason TypeScript just don't want to match it, no matter how hard we try. I challange you to try to remove it!
 
     return valuesArray[index];
   };
@@ -1745,13 +1643,16 @@ var formattingDayPeriodValues = {
   }
 };
 
-var ordinalNumber = function (dirtyNumber, _options) {
+function ordinalNumber(dirtyNumber, _dirtyOptions) {
   var number = Number(dirtyNumber); // If ordinal numbers depend on context, for example,
   // if they are different for different grammatical genders,
-  // use `options.unit`.
+  // use `options.unit`:
   //
-  // `unit` can be 'year', 'quarter', 'month', 'week', 'date', 'dayOfYear',
-  // 'day', 'hour', 'minute', 'second'.
+  //   var options = dirtyOptions || {}
+  //   var unit = String(options.unit)
+  //
+  // where `unit` can be 'year', 'quarter', 'month', 'week', 'date', 'dayOfYear',
+  // 'day', 'hour', 'minute', 'second'
 
   var rem100 = number % 100;
 
@@ -1769,7 +1670,7 @@ var ordinalNumber = function (dirtyNumber, _options) {
   }
 
   return number + 'th';
-};
+}
 
 var localize = {
   ordinalNumber: ordinalNumber,
@@ -1781,7 +1682,7 @@ var localize = {
     values: quarterValues,
     defaultWidth: 'wide',
     argumentCallback: function (quarter) {
-      return quarter - 1;
+      return Number(quarter) - 1;
     }
   }),
   month: buildLocalizeFn({
@@ -1799,7 +1700,24 @@ var localize = {
     defaultFormattingWidth: 'wide'
   })
 };
-var localize$1 = localize;
+
+function buildMatchPatternFn(args) {
+  return function (string) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var matchResult = string.match(args.matchPattern);
+    if (!matchResult) return null;
+    var matchedString = matchResult[0];
+    var parseResult = string.match(args.parsePattern);
+    if (!parseResult) return null;
+    var value = args.valueCallback ? args.valueCallback(parseResult[0]) : parseResult[0];
+    value = options.valueCallback ? options.valueCallback(value) : value;
+    var rest = string.slice(matchedString.length);
+    return {
+      value: value,
+      rest: rest
+    };
+  };
+}
 
 function buildMatchFn(args) {
   return function (string) {
@@ -1848,24 +1766,6 @@ function findIndex(array, predicate) {
   }
 
   return undefined;
-}
-
-function buildMatchPatternFn(args) {
-  return function (string) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var matchResult = string.match(args.matchPattern);
-    if (!matchResult) return null;
-    var matchedString = matchResult[0];
-    var parseResult = string.match(args.parsePattern);
-    if (!parseResult) return null;
-    var value = args.valueCallback ? args.valueCallback(parseResult[0]) : parseResult[0];
-    value = options.valueCallback ? options.valueCallback(value) : value;
-    var rest = string.slice(matchedString.length);
-    return {
-      value: value,
-      rest: rest
-    };
-  };
 }
 
 var matchOrdinalNumberPattern = /^(\d+)(th|st|nd|rd)?/i;
@@ -1963,7 +1863,6 @@ var match = {
     defaultParseWidth: 'any'
   })
 };
-var match$1 = match;
 
 /**
  * @type {Locale}
@@ -1974,13 +1873,14 @@ var match$1 = match;
  * @author Sasha Koss [@kossnocorp]{@link https://github.com/kossnocorp}
  * @author Lesha Koss [@leshakoss]{@link https://github.com/leshakoss}
  */
+
 var locale = {
   code: 'en-US',
-  formatDistance: formatDistance$1,
-  formatLong: formatLong$1,
-  formatRelative: formatRelative$1,
-  localize: localize$1,
-  match: match$1,
+  formatDistance: formatDistance,
+  formatLong: formatLong,
+  formatRelative: formatRelative,
+  localize: localize,
+  match: match,
   options: {
     weekStartsOn: 0
     /* Sunday */
@@ -1988,7 +1888,6 @@ var locale = {
     firstWeekContainsDate: 1
   }
 };
-var defaultLocale = locale;
 
 /**
  * @name subMilliseconds
@@ -2043,7 +1942,7 @@ function addLeadingZeros(number, targetLength) {
  * Letters marked by * are not implemented but reserved by Unicode standard.
  */
 
-var formatters$2 = {
+var formatters$1 = {
   // Year
   y: function (date, token) {
     // From http://www.unicode.org/reports/tr35/tr35-31/tr35-dates.html#Date_Format_tokens
@@ -2112,7 +2011,6 @@ var formatters$2 = {
     return addLeadingZeros(fractionalSeconds, token.length);
   }
 };
-var formatters$3 = formatters$2;
 
 var MILLISECONDS_IN_DAY = 86400000; // This function will be a part of public API when UTC function will be implemented.
 // See issue: https://github.com/date-fns/date-fns/issues/376
@@ -2216,7 +2114,7 @@ function startOfUTCWeek(dirtyDate, dirtyOptions) {
 
 function getUTCWeekYear(dirtyDate, dirtyOptions) {
   requiredArgs(1, arguments);
-  var date = toDate(dirtyDate);
+  var date = toDate(dirtyDate, dirtyOptions);
   var year = date.getUTCFullYear();
   var options = dirtyOptions || {};
   var locale = options.locale;
@@ -2372,7 +2270,7 @@ var formatters = {
       });
     }
 
-    return formatters$3.y(date, token);
+    return formatters$1.y(date, token);
   },
   // Local week-numbering year
   Y: function (date, token, localize, options) {
@@ -2505,7 +2403,7 @@ var formatters = {
     switch (token) {
       case 'M':
       case 'MM':
-        return formatters$3.M(date, token);
+        return formatters$1.M(date, token);
       // 1st, 2nd, ..., 12th
 
       case 'Mo':
@@ -2610,7 +2508,7 @@ var formatters = {
       });
     }
 
-    return formatters$3.d(date, token);
+    return formatters$1.d(date, token);
   },
   // Day of year
   D: function (date, token, localize) {
@@ -2931,7 +2829,7 @@ var formatters = {
       });
     }
 
-    return formatters$3.h(date, token);
+    return formatters$1.h(date, token);
   },
   // Hour [0-23]
   H: function (date, token, localize) {
@@ -2941,7 +2839,7 @@ var formatters = {
       });
     }
 
-    return formatters$3.H(date, token);
+    return formatters$1.H(date, token);
   },
   // Hour [0-11]
   K: function (date, token, localize) {
@@ -2976,7 +2874,7 @@ var formatters = {
       });
     }
 
-    return formatters$3.m(date, token);
+    return formatters$1.m(date, token);
   },
   // Second
   s: function (date, token, localize) {
@@ -2986,11 +2884,11 @@ var formatters = {
       });
     }
 
-    return formatters$3.s(date, token);
+    return formatters$1.s(date, token);
   },
   // Fraction of second
   S: function (date, token) {
-    return formatters$3.S(date, token);
+    return formatters$1.S(date, token);
   },
   // Timezone (ISO-8601. If offset is 0, output is always `'Z'`)
   X: function (date, token, _localize, options) {
@@ -3102,7 +3000,7 @@ var formatters = {
   }
 };
 
-function formatTimezoneShort(offset, delimiter) {
+function formatTimezoneShort(offset, dirtyDelimiter) {
   var sign = offset > 0 ? '-' : '+';
   var absOffset = Math.abs(offset);
   var hours = Math.floor(absOffset / 60);
@@ -3112,6 +3010,7 @@ function formatTimezoneShort(offset, delimiter) {
     return sign + String(hours);
   }
 
+  var delimiter = dirtyDelimiter || '';
   return sign + String(hours) + delimiter + addLeadingZeros(minutes, 2);
 }
 
@@ -3132,8 +3031,6 @@ function formatTimezone(offset, dirtyDelimiter) {
   var minutes = addLeadingZeros(absOffset % 60, 2);
   return sign + hours + delimiter + minutes;
 }
-
-var formatters$1 = formatters;
 
 function dateLongFormatter(pattern, formatLong) {
   switch (pattern) {
@@ -3186,7 +3083,7 @@ function timeLongFormatter(pattern, formatLong) {
 }
 
 function dateTimeLongFormatter(pattern, formatLong) {
-  var matchResult = pattern.match(/(P+)(p+)?/) || [];
+  var matchResult = pattern.match(/(P+)(p+)?/);
   var datePattern = matchResult[1];
   var timePattern = matchResult[2];
 
@@ -3230,7 +3127,6 @@ var longFormatters = {
   p: timeLongFormatter,
   P: dateTimeLongFormatter
 };
-var longFormatters$1 = longFormatters;
 
 var protectedDayOfYearTokens = ['D', 'DD'];
 var protectedWeekYearTokens = ['YY', 'YYYY'];
@@ -3358,28 +3254,28 @@ var unescapedLatinCharacterRegExp = /[a-zA-Z]/;
  * | Day of week (formatting)        | E..EEE  | Mon, Tue, Wed, ..., Sun           |       |
  * |                                 | EEEE    | Monday, Tuesday, ..., Sunday      | 2     |
  * |                                 | EEEEE   | M, T, W, T, F, S, S               |       |
- * |                                 | EEEEEE  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
+ * |                                 | EEEEEE  | Mo, Tu, We, Th, Fr, Su, Sa        |       |
  * | ISO day of week (formatting)    | i       | 1, 2, 3, ..., 7                   | 7     |
  * |                                 | io      | 1st, 2nd, ..., 7th                | 7     |
  * |                                 | ii      | 01, 02, ..., 07                   | 7     |
  * |                                 | iii     | Mon, Tue, Wed, ..., Sun           | 7     |
  * |                                 | iiii    | Monday, Tuesday, ..., Sunday      | 2,7   |
  * |                                 | iiiii   | M, T, W, T, F, S, S               | 7     |
- * |                                 | iiiiii  | Mo, Tu, We, Th, Fr, Sa, Su        | 7     |
+ * |                                 | iiiiii  | Mo, Tu, We, Th, Fr, Su, Sa        | 7     |
  * | Local day of week (formatting)  | e       | 2, 3, 4, ..., 1                   |       |
  * |                                 | eo      | 2nd, 3rd, ..., 1st                | 7     |
  * |                                 | ee      | 02, 03, ..., 01                   |       |
  * |                                 | eee     | Mon, Tue, Wed, ..., Sun           |       |
  * |                                 | eeee    | Monday, Tuesday, ..., Sunday      | 2     |
  * |                                 | eeeee   | M, T, W, T, F, S, S               |       |
- * |                                 | eeeeee  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
+ * |                                 | eeeeee  | Mo, Tu, We, Th, Fr, Su, Sa        |       |
  * | Local day of week (stand-alone) | c       | 2, 3, 4, ..., 1                   |       |
  * |                                 | co      | 2nd, 3rd, ..., 1st                | 7     |
  * |                                 | cc      | 02, 03, ..., 01                   |       |
  * |                                 | ccc     | Mon, Tue, Wed, ..., Sun           |       |
  * |                                 | cccc    | Monday, Tuesday, ..., Sunday      | 2     |
  * |                                 | ccccc   | M, T, W, T, F, S, S               |       |
- * |                                 | cccccc  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
+ * |                                 | cccccc  | Mo, Tu, We, Th, Fr, Su, Sa        |       |
  * | AM, PM                          | a..aa   | AM, PM                            |       |
  * |                                 | aaa     | am, pm                            |       |
  * |                                 | aaaa    | a.m., p.m.                        | 2     |
@@ -3586,8 +3482,8 @@ function format(dirtyDate, dirtyFormatStr, dirtyOptions) {
   requiredArgs(2, arguments);
   var formatStr = String(dirtyFormatStr);
   var options = dirtyOptions || {};
-  var locale = options.locale || defaultLocale;
-  var localeFirstWeekContainsDate = locale.options && locale.options.firstWeekContainsDate;
+  var locale$1 = options.locale || locale;
+  var localeFirstWeekContainsDate = locale$1.options && locale$1.options.firstWeekContainsDate;
   var defaultFirstWeekContainsDate = localeFirstWeekContainsDate == null ? 1 : toInteger(localeFirstWeekContainsDate);
   var firstWeekContainsDate = options.firstWeekContainsDate == null ? defaultFirstWeekContainsDate : toInteger(options.firstWeekContainsDate); // Test if weekStartsOn is between 1 and 7 _and_ is not NaN
 
@@ -3595,7 +3491,7 @@ function format(dirtyDate, dirtyFormatStr, dirtyOptions) {
     throw new RangeError('firstWeekContainsDate must be between 1 and 7 inclusively');
   }
 
-  var localeWeekStartsOn = locale.options && locale.options.weekStartsOn;
+  var localeWeekStartsOn = locale$1.options && locale$1.options.weekStartsOn;
   var defaultWeekStartsOn = localeWeekStartsOn == null ? 0 : toInteger(localeWeekStartsOn);
   var weekStartsOn = options.weekStartsOn == null ? defaultWeekStartsOn : toInteger(options.weekStartsOn); // Test if weekStartsOn is between 0 and 6 _and_ is not NaN
 
@@ -3603,11 +3499,11 @@ function format(dirtyDate, dirtyFormatStr, dirtyOptions) {
     throw new RangeError('weekStartsOn must be between 0 and 6 inclusively');
   }
 
-  if (!locale.localize) {
+  if (!locale$1.localize) {
     throw new RangeError('locale must contain localize property');
   }
 
-  if (!locale.formatLong) {
+  if (!locale$1.formatLong) {
     throw new RangeError('locale must contain formatLong property');
   }
 
@@ -3625,15 +3521,15 @@ function format(dirtyDate, dirtyFormatStr, dirtyOptions) {
   var formatterOptions = {
     firstWeekContainsDate: firstWeekContainsDate,
     weekStartsOn: weekStartsOn,
-    locale: locale,
+    locale: locale$1,
     _originalDate: originalDate
   };
   var result = formatStr.match(longFormattingTokensRegExp).map(function (substring) {
     var firstCharacter = substring[0];
 
     if (firstCharacter === 'p' || firstCharacter === 'P') {
-      var longFormatter = longFormatters$1[firstCharacter];
-      return longFormatter(substring, locale.formatLong, formatterOptions);
+      var longFormatter = longFormatters[firstCharacter];
+      return longFormatter(substring, locale$1.formatLong, formatterOptions);
     }
 
     return substring;
@@ -3649,7 +3545,7 @@ function format(dirtyDate, dirtyFormatStr, dirtyOptions) {
       return cleanEscapedString(substring);
     }
 
-    var formatter = formatters$1[firstCharacter];
+    var formatter = formatters[firstCharacter];
 
     if (formatter) {
       if (!options.useAdditionalWeekYearTokens && isProtectedWeekYearToken(substring)) {
@@ -3660,7 +3556,7 @@ function format(dirtyDate, dirtyFormatStr, dirtyOptions) {
         throwProtectedError(substring, dirtyFormatStr, dirtyDate);
       }
 
-      return formatter(utcDate, substring, locale.localize, formatterOptions);
+      return formatter(utcDate, substring, locale$1.localize, formatterOptions);
     }
 
     if (firstCharacter.match(unescapedLatinCharacterRegExp)) {
@@ -3783,14 +3679,14 @@ var getUnassignedEventStyles = function (events, i) { return ({
 }); };
 var getRowHeight = function (from, to) {
     var numberOfRows = to - from + 1;
-    return round$1(100 / numberOfRows, 5);
+    return round(100 / numberOfRows, 5);
 };
-var getDefaultDayLabel = function (day) { return upperCase$1(day); };
+var getDefaultDayLabel = function (day) { return upperCase(day); };
 var getEventPositionStyles = function (_a) {
     var event = _a.event, hoursInterval = _a.hoursInterval, rowHeight = _a.rowHeight;
     var startOfDay = setMinutes(setHours(event.startTime, hoursInterval.from), 0);
-    var minutesFromStartOfDay = round$1(differenceInMinutes(event.startTime, startOfDay));
-    var minutes = round$1(differenceInMinutes(event.endTime, event.startTime));
+    var minutesFromStartOfDay = round(differenceInMinutes(event.startTime, startOfDay));
+    var minutes = round(differenceInMinutes(event.endTime, event.startTime));
     return {
         height: (minutes * rowHeight) / 60 + "%",
         marginTop: ((minutesFromStartOfDay * rowHeight) / 60 / 100) * 1500 + "px",
@@ -3803,7 +3699,7 @@ var getCurrentTimePosition = function (_a) {
         currentDate.getHours() < hoursInterval.from)
         return;
     var startOfDay = setMinutes(setHours(currentDate, hoursInterval.from), 0);
-    var minutesFromStartOfDay = round$1(differenceInMinutes(currentDate, startOfDay));
+    var minutesFromStartOfDay = round(differenceInMinutes(currentDate, startOfDay));
     return ((minutesFromStartOfDay * rowHeight) / 60 / 100) * 1500;
 };
 
@@ -3834,7 +3730,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = ".styles-module_time_table_wrapper__2TIh0 {\n  color: #efefef;\n  display: flex;\n  font-family: \"Open Sans\", sans-serif;\n  height: 1500px;\n  margin: 0;\n  position: relative;\n  box-sizing: border-box;\n}\n\n.styles-module_time_table_wrapper__2TIh0 > *, *::before, *::after  {\n  box-sizing: border-box;\n}\n\n.styles-module_time_current__1-rIY {\n  position: absolute;\n  width: calc(100% + 15px);\n  background-color: red;\n  height: 2px;\n  z-index: 10;\n  margin-top: 85px;\n}\n\n.styles-module_day__1I8NX {\n  background-color: #fff;\n  border-right: 1px solid #eaeaea;\n  float: left;\n  height: 100%;\n  position: relative;\n}\n\n.styles-module_day__1I8NX::after {\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\n  background-position-y: 57px;\n  background-size: var(--day-col-size);\n  bottom: 0;\n  content: '';\n  left: 0;\n  position: absolute;\n  right: 0;\n  top: 0;\n  width: calc(100% + 24px);\n}\n\n.styles-module_time__28Vv1 {\n  background-color: #fff;\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\n  left: 0;\n  position: sticky;\n  z-index: 1000;\n}\n\n.styles-module_day_title__AI7EC {\n  background: white;\n  color: black;\n  display: flex;\n  flex-direction: column;\n  font-size: 1rem;\n  font-weight: 600;\n  justify-content: center;\n  position: relative;\n  text-align: center;\n  text-transform: uppercase;\n  z-index: 2;\n}\n\n.styles-module_day_title__AI7EC::after {\n  content: '';\n  bottom: 0;\n  left: 0;\n  position: absolute;\n  height: 1px;\n  width: calc(100% + 13px);\n  background: #c7c7c7;\n}\n\n.styles-module_day_title__AI7EC::before {\n  content: '';\n  top: 0;\n  left: 0;\n  position: absolute;\n  height: 1px;\n  width: calc(100% + 13px);\n  background: #c7c7c7;\n}\n\n.styles-module_resize_handler__3ie7h {\n  position: absolute;\n  width: 10px;\n  height: 100%;\n  top: 0;\n  left: 100%;\n  z-index: 1;\n  background: rgba(128, 128, 128, 0.1);\n  cursor: col-resize;\n}\n\n.styles-module_time_label__2Ooxg {\n  font-size: 0.7rem;\n  font-weight: 600;\n  text-transform: uppercase;\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  text-align: center;\n  z-index: 2;\n  color: black;\n  background: white;\n  border-right: 1px solid #ccc;\n}\n\n.styles-module_hour__1T19H {\n  background-color: #ffffff;\n  font-size: 12px;\n  text-align: center;\n  width: 5rem;\n  border-right: 1px solid #ccc;\n  color: black;\n}\n\n.styles-module_event__1VBTJ {\n  align-items: start;\n  color: black;\n  cursor: pointer;\n  display: flex;\n  display: flex;\n  flex-direction: column;\n  font-size: 0.7em;\n  font-weight: bolder;\n  height: 15vh;\n  justify-content: center;\n  overflow: hidden;\n  padding: 2px 0 0 4px;\n  position: absolute;\n  width: 100%;\n}\n\n.styles-module_event_small__2MS_i {\n  position: absolute;\n  width: 100%;\n  height: 15vh;\n  line-height: 15vh;\n  background-color: rgb(18, 205, 177);\n  font-size: 0.7em;\n  font-weight: bolder;\n  justify-content: center;\n  display: flex;\n  flex-direction: column;\n  overflow: hidden;\n  color: black;\n  border-radius: 7px;\n  align-items: top;\n  border: 1px solid black;\n}\n\n.styles-module_event_info__1g0pV {\n  line-height: initial;\n  text-align: center;\n  white-space: nowrap;\n  font-size: 10px;\n  padding: 2px 0;\n}\n";
+var css_248z = ".styles-module_time_table_wrapper__2TIh0 {\n  color: #efefef;\n  display: flex;\n  font-family: \"Open Sans\", sans-serif;\n  height: 1500px;\n  margin: 0;\n  position: relative;\n  box-sizing: border-box;\n}\n\n.styles-module_time_table_wrapper__2TIh0 > *, *::before, *::after  {\n  box-sizing: border-box;\n}\n\n.styles-module_time_current__1-rIY {\n  position: absolute;\n  width: calc(100% + 15px);\n  background-color: red;\n  height: 2px;\n  z-index: 10;\n  margin-top: 85px;\n}\n\n.styles-module_day__1I8NX {\n  background-color: #fff;\n  border-right: 1px solid #eaeaea;\n  float: left;\n  height: 100%;\n  position: relative;\n}\n\n.styles-module_day__1I8NX::after {\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\n  background-position-y: 85px;\n  background-size: var(--day-col-size);\n  bottom: 0;\n  content: '';\n  left: 0;\n  position: absolute;\n  right: 0;\n  top: 0;\n  width: calc(100% + 24px);\n}\n\n.styles-module_time__28Vv1 {\n  background-color: #fff;\n  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 50%, transparent 50%);\n  left: 0;\n  position: sticky;\n  z-index: 1000;\n}\n\n.styles-module_day_title__AI7EC {\n  background: white;\n  color: black;\n  display: flex;\n  flex-direction: column;\n  font-size: 1rem;\n  font-weight: 600;\n  justify-content: center;\n  position: relative;\n  text-align: center;\n  text-transform: uppercase;\n  z-index: 2;\n}\n\n.styles-module_day_title__AI7EC::after {\n  content: '';\n  bottom: 0;\n  left: 0;\n  position: absolute;\n  height: 1px;\n  width: calc(100% + 13px);\n  background: #c7c7c7;\n}\n\n.styles-module_day_title__AI7EC::before {\n  content: '';\n  top: 0;\n  left: 0;\n  position: absolute;\n  height: 1px;\n  width: calc(100% + 13px);\n  background: #c7c7c7;\n}\n\n.styles-module_resize_handler__3ie7h {\n  position: absolute;\n  width: 10px;\n  height: 100%;\n  top: 0;\n  left: 100%;\n  z-index: 1;\n  background: rgba(128, 128, 128, 0.1);\n  cursor: col-resize;\n}\n\n.styles-module_time_label__2Ooxg {\n  font-size: 0.7rem;\n  font-weight: 600;\n  text-transform: uppercase;\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  text-align: center;\n  z-index: 2;\n  color: black;\n  background: white;\n  border-right: 1px solid #ccc;\n}\n\n.styles-module_hour__1T19H {\n  background-color: #ffffff;\n  font-size: 12px;\n  text-align: center;\n  width: 5rem;\n  border-right: 1px solid #ccc;\n  color: black;\n}\n\n.styles-module_event__1VBTJ {\n  align-items: start;\n  color: black;\n  cursor: pointer;\n  display: flex;\n  display: flex;\n  flex-direction: column;\n  font-size: 0.7em;\n  font-weight: bolder;\n  height: 15vh;\n  justify-content: center;\n  overflow: hidden;\n  padding: 2px 0 0 4px;\n  position: absolute;\n  width: 100%;\n}\n\n.styles-module_event_small__2MS_i {\n  position: absolute;\n  width: 100%;\n  height: 15vh;\n  line-height: 15vh;\n  background-color: rgb(18, 205, 177);\n  font-size: 0.7em;\n  font-weight: bolder;\n  justify-content: center;\n  display: flex;\n  flex-direction: column;\n  overflow: hidden;\n  color: black;\n  border-radius: 7px;\n  align-items: top;\n  border: 1px solid black;\n}\n\n.styles-module_event_info__1g0pV {\n  line-height: initial;\n  text-align: center;\n  white-space: nowrap;\n  font-size: 10px;\n  padding: 2px 0;\n}\n";
 var classNames = {"time_table_wrapper":"styles-module_time_table_wrapper__2TIh0","time_current":"styles-module_time_current__1-rIY","day":"styles-module_day__1I8NX","time":"styles-module_time__28Vv1","day_title":"styles-module_day_title__AI7EC","resize_handler":"styles-module_resize_handler__3ie7h","time_label":"styles-module_time_label__2Ooxg","hour":"styles-module_hour__1T19H","event":"styles-module_event__1VBTJ","event_small":"styles-module_event_small__2MS_i","event_info":"styles-module_event_info__1g0pV"};
 styleInject(css_248z);
 
@@ -4151,7 +4047,8 @@ var TimeTableJSX = function (_a) {
     React.useEffect(function () {
         setRowHeight(getRowHeight(hoursInterval.from, hoursInterval.to));
     }, [hoursInterval]);
-    return (jsx(Fragment, { children: jsxs("div", __assign({ className: classNames.time_table_wrapper }, { children: [jsxs("div", __assign({ className: classNames.time }, { children: [jsx("div", __assign({ className: classNames.time_label, style: { height: "85px" } }, { children: timeLabel }), void 0), range$1(hoursInterval.from, hoursInterval.to).map(function (hour) { return (jsx(Hour, { hour: hour, style: { height: rowHeight + "%" } }, hour + "-" + nanoid())); })] }), void 0), Object.keys(events).map(function (day, index) { return (jsx(DayColumn, { onEventClick: onEventClick, events: events, day: day, index: index, rowHeight: rowHeight, getDayLabel: getDayLabel, hoursInterval: hoursInterval, renderEvent: renderEvent, width: dayColumnSizes ? dayColumnSizes[day] : undefined, onSizeChanged: onDayComunSizeChanged, showCurrentTime: showCurrentTime }, day + nanoid())); })] }), void 0) }, void 0));
+    return (jsx(Fragment, { children: jsxs("div", __assign({ className: classNames.time_table_wrapper }, { children: [jsxs("div", __assign({ className: classNames.time }, { children: [jsx("div", __assign({ className: classNames.time_label, style: { height: "85px" } }, { children: timeLabel }), void 0), range(hoursInterval.from, hoursInterval.to).map(function (hour) { return (jsx(Hour, { hour: hour, style: { height: rowHeight + "%" } }, hour + "-" + nanoid())); })] }), void 0), Object.keys(events).map(function (day, index) { return (jsx(DayColumn, { onEventClick: onEventClick, events: events, day: day, index: index, rowHeight: rowHeight, getDayLabel: getDayLabel, hoursInterval: hoursInterval, renderEvent: renderEvent, width: dayColumnSizes ? dayColumnSizes[day] : undefined, onSizeChanged: onDayComunSizeChanged, showCurrentTime: showCurrentTime }, day + nanoid())); })] }), void 0) }, void 0));
 };
 
-export { TimeTableJSX, TimeTableJSX as default };
+export default TimeTableJSX;
+export { TimeTableJSX };

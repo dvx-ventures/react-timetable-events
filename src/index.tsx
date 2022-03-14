@@ -31,16 +31,19 @@ export const TimeTableJSX = ({
     <>
       <div className={classNames.time_table_wrapper}>
         <div className={classNames.time}>
-          <div className={classNames.time_label} style={{ height: `85px` }}>
-            {timeLabel}
-          </div>
-          {range(hoursInterval.from, hoursInterval.to).map((hour: number) => (
-            <fromComponents.Hour
-              hour={hour}
-              key={`${hour}-${nanoid()}`}
-              style={{ height: `${rowHeight}%` }}
-            />
-          ))}
+          <div className={classNames.time_label}>{timeLabel}</div>
+          {range(hoursInterval.from, hoursInterval.to).map(
+            (hour: number, index: number) => (
+              <fromComponents.Hour
+                hour={hour}
+                key={`${hour}-${nanoid()}`}
+                style={{
+                  height: `${rowHeight}%`,
+                  marginTop: index === 0 ? "85px" : 0,
+                }}
+              />
+            )
+          )}
         </div>
 
         {Object.keys(events).map((day, index) => (

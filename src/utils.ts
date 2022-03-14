@@ -101,7 +101,8 @@ export const getEventPositionStyles = ({
   const minutes = round(differenceInMinutes(event.endTime, event.startTime));
   return {
     height: (minutes * rowHeight) / 60 + "%",
-    marginTop: ((minutesFromStartOfDay * rowHeight) / 60 / 100) * 1500 + "px",
+    marginTop:
+      ((minutesFromStartOfDay * rowHeight) / 60 / 100) * 1500 + 85 + "px",
   };
 };
 

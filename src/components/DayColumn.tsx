@@ -38,7 +38,7 @@ export const DayColumn: React.FC<DayColumnPreview> = ({
 
   return (
     <div className={`${classNames.day} ${day}`} style={style}>
-      <div className={classNames.day_title} style={{ height: `85px` }}>
+      <div className={classNames.day_title} style={{ width: size }}>
         {getDayLabel(day)}
       </div>
       {showCurrentTime && (

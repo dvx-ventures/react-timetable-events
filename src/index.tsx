@@ -18,6 +18,7 @@ export const TimeTableJSX = ({
   getDayLabel = fromUtils.getDefaultDayLabel,
   renderEvent = fromComponents.DefaultEventLayout,
   dayColumnSizes,
+  dayColumnsDisabled,
   onDayComunSizeChanged,
   showCurrentTime,
 }: TimeTable) => {
@@ -60,6 +61,7 @@ export const TimeTableJSX = ({
             width={dayColumnSizes ? dayColumnSizes[day] : undefined}
             onSizeChanged={onDayComunSizeChanged}
             showCurrentTime={showCurrentTime}
+            disabled={dayColumnsDisabled ? dayColumnsDisabled[day] : false}
           />
         ))}
       </div>

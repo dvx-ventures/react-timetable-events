@@ -39,6 +39,7 @@ export interface TimeTable {
   onEventClick(event: Event | EventWithIntersection): void;
   renderEvent?: (event: Event | EventWithIntersection) => JSX.Element;
   dayColumnSizes?: { [key: string]: number };
+  dayColumnsDisabled?: { [key: string]: boolean };
   onDayComunSizeChanged?(day: string, size: number | undefined): void;
   showCurrentTime?: boolean;
 }
@@ -60,6 +61,7 @@ export interface DayColumnPreview {
   width?: number;
   showCurrentTime?: boolean;
   onSizeChanged?(day: string, size: number | undefined): void;
+  disabled: boolean;
 }
 
 export type EventWithIntersection = Event & {

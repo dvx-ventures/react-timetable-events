@@ -16,6 +16,7 @@ export const DayColumn: React.FC<DayColumnPreview> = ({
   width,
   onSizeChanged,
   showCurrentTime,
+  disabled,
 }: DayColumnPreview) => {
   const { isMove, size, handler } = useResizable({
     minSize: 100,
@@ -37,8 +38,13 @@ export const DayColumn: React.FC<DayColumnPreview> = ({
   } as React.CSSProperties;
 
   return (
-    <div className={`${classNames.day} ${day}`} style={style}>
-      <div className={classNames.day_title} style={{ width: size }}>
+    <div className={`${classNames.day}`} style={style}>
+      <div
+        className={`${classNames.day_title}  ${
+          disabled ? classNames.day_title__disalbed : ""
+        }`}
+        style={{ width: size }}
+      >
         {getDayLabel(day)}
       </div>
       {showCurrentTime && (
